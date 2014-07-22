@@ -1,10 +1,19 @@
 TwitterApp::Application.routes.draw do
+  resources :tweets
+
+  get "friends/show"
+  get "friends/show_all"
+  get "friends/follow"
+  get "friends/unfollow"
+  get "friends/profile"
   get "main/home"
   get "main/timeline"
   get "main/friends"
+  get "main/profile",:as => 'main_profile'
   get "main/test"
   get "main/xtra"
-  devise_for :users
+
+  devise_for :users,:controllers => {registrations: 'registrations'}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

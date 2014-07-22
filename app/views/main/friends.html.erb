@@ -1,2 +1,41 @@
-<h1>Main#friends</h1>
-<p>Find me in app/views/main/friends.html.erb</p>
+<h1>Friends <small>Check out your buddies and Make some more !</small></h1>
+<p></p>
+
+
+<%# User.find(1).follow!(User.find(4)).inspect%>
+
+<h2>Followers</h2>
+<table class="table table-stripped col-md-4">
+	<tr>
+		<th>Sr.No.</th>
+		<th>Name</th>
+		<th>ID</th>
+	</tr>
+<% i = 0 %>
+<% @followers.each do |f| %>
+	<tr>
+		<td><%= i=i+1 %></td>
+		<td><%= f.email %> <%= f.last_name %>(<%= f.user_name %>)</td>
+		<td><%= f.id %></td>
+	</tr>
+<% end %>
+</table>
+
+
+
+<h2>Followed by</h2>
+<table class="table table-stripped col-md-4">
+	<tr>
+		<th>Sr.No.</th>
+		<th>Name</th>
+		<th>ID</th>
+	</tr>
+<% i = 0 %>
+<% @following.each do |f| %>
+	<tr>
+		<td><%= i=i+1 %></td>
+		<td><%= f.email %> <%= f.last_name %>(<%= f.user_name %>)</td>
+		<td><%= f.id %></td>
+	</tr>
+<% end %>
+</table>

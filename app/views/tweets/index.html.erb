@@ -1,0 +1,45 @@
+<h1>Listing tweets</h1>
+
+<div class="row-fluid">
+  <div class="col-md-offset-9 ">
+    <%= will_paginate @tweets%>
+  </div>
+</div>
+<% if @tweets %>
+<% @tweets.each do |tweet| %>
+     
+<div class="panel panel-info container-fluid">
+  <div class="panel-heading row">
+    <h3 class="panel-title col-md-4"><%=@users.find_by_id(tweet.user_id).email%></h3>
+    <div class = 'col-md-8 text-right'>
+     <div class="col-md-11">
+      <%=distance_of_time_in_words_to_now(tweet.created_at)%> ago
+     </div>
+     <div class="col-md-1">
+        <%if @users.find_by_id(tweet.user_id).id==current_user.id %>
+         <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
+              </span>'.html_safe, tweet_path(tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
+        <%end%>
+     </div>
+    </div>
+
+    <!-- </div> -->
+  </div>
+
+  <div class="panel-body">
+    <%=tweet.content %>
+  </div>
+</div>
+
+    <% end %> 
+    <% end %> 
+<br>
+
+<!-- <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close
+</span></button> -->
+<!-- <div class = 'well row'>
+        <div class = 'col-md-4'>
+        <h4 class = 'text-primary'></h4>
+        </div>
+        <div class = 'col-md-6 col-md-offset-2 lead '></div>
+      </div>  -->

@@ -1,5 +1,8 @@
 class MainController < ApplicationController
   def home
+    @total_users = User.all.count
+    @total_tweets = Tweet.all.count
+    
   end
 
   def timeline
@@ -8,7 +11,8 @@ class MainController < ApplicationController
   def friends
   end
 
-  def test
+  def profile
+    
   end
 
   def xtra
