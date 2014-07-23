@@ -12,7 +12,6 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'devise-i18n'
-<<<<<<< HEAD
 gem 'jquery-datatables-rails', '~> 2.1.10.0.3',git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
 gem 'ajax-datatables-rails'
 gem 'daemons'
