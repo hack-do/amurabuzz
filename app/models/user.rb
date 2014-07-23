@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
 
-  validates_presence_of :first_name, :last_name,:user_name
+  validates_presence_of :first_name, :last_name,:user_name,:dob
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
 
@@ -30,8 +30,7 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(followed).destroy
   end
 
-  def timeline_tweets
-      #puts "------self-id: #{self.id}   current_user-id: #{current_user.id}----------"
+  def timeline_tweets                 
       Tweet.where(user_id: [self.id,self.following_ids].flatten)
   end 
 
