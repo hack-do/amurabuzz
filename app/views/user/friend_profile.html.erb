@@ -1,0 +1,35 @@
+<div class="jumbotron">
+  <div class="container-fluid">
+    <div class="row col-md-12 col-md-offset-1">
+      <h2><%= @user.user_name%></h2>
+      <p><strong>Name: </strong> <%= @user.first_name + " " + @user.last_name%></p>
+      <p><strong>DOB: </strong><%= @user.dob%></p>
+      <p><strong>Email: </strong><%= @user.email%></p>
+      <p><strong>Bio: </strong><%= word_wrap(@user.bio, :line_width => 20) %></p>
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+   <%= will_paginate @tweets%>
+    <% @tweets.each do |tweet| %>
+      <div class="panel panel-info container-fluid">
+        <div class="panel-heading row">
+              <h3 class="panel-title col-md-4"><%=@user.email%></h3>
+                  <div class = 'col-md-8 text-right'>
+                            <div class="col-md-11">
+                                  <%= distance_of_time_in_words_to_now(tweet.created_at)%> ago
+                            </div>
+                  </div>
+        </div>
+              <div class="panel-body">
+                <%=tweet.content %>
+              </div>
+      </div>
+    <%end%>
+  </div>
+</div>
+                          
+   

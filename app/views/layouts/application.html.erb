@@ -25,9 +25,15 @@
             <li class="active"><%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,main_home_path %></li>
             <!-- <li><%# link_to "Timeline",main_timeline_path %></li> -->
             <!-- <li><%# link_to "Notifications","#" %></li> -->
+<<<<<<< HEAD
             <li><%= link_to "Friends",friends_show_path %></li>
             <li><%= link_to '<span class="glyphicon glyphicon-group"></span> Me'.html_safe,main_profile_path %></li>
             <li><%= link_to '<span class="glyphicon glyphicon-wifi_alt"></span> Timeline'.html_safe,tweets_path %></li>
+=======
+            <li><%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,user_friends_path %></li>
+            <li><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,user_profile_path %></li>
+            <li><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,tweets_path %></li>
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
             <% if current_user %>
               <li>
                 <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet">
@@ -144,7 +150,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<<<<<<< HEAD
         <%= f.submit :class=>"btn btn-primary actions",:id => 'post_tweet' %>
+=======
+        <%= f.submit 'Post',:class=>"btn btn-primary actions",:id => 'post_tweet' %>
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
         
       </div>

@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140722101453) do
 
   create_table "delayed_jobs", force: true do |t|
@@ -28,6 +29,9 @@ ActiveRecord::Schema.define(version: 20140722101453) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+=======
+ActiveRecord::Schema.define(version: 20140721071925) do
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
@@ -47,6 +51,7 @@ ActiveRecord::Schema.define(version: 20140722101453) do
   end
 
   add_index "tweets", ["user_id"], name: "index_tweets_on_user_id", using: :btree
+<<<<<<< HEAD
 
   create_table "user_profiles", force: true do |t|
     t.string   "fname"
@@ -58,12 +63,18 @@ ActiveRecord::Schema.define(version: 20140722101453) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+=======
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
 
   create_table "users", force: true do |t|
     t.string   "user_name",              limit: 40,                         null: false
     t.string   "first_name",             limit: 40,                         null: false
     t.string   "last_name",              limit: 40,                         null: false
+<<<<<<< HEAD
     t.date     "dob",                                default: '2014-07-22', null: false
+=======
+    t.date     "dob",                                default: '2014-07-21', null: false
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
     t.text     "bio",                    limit: 255
     t.string   "email",                                                     null: false
     t.string   "encrypted_password",                                        null: false

@@ -13,9 +13,15 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 gem 'will_paginate'
+<<<<<<< HEAD
 gem 'delayed_job_active_record'
 # gem 'resque'
 # gem 'resque_mailer', '>=1.25.2'
+=======
+gem 'resque'
+gem 'resque_mailer', '>=1.25.2'
+gem "font-awesome-rails"
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

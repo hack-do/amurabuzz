@@ -79,6 +79,7 @@ $(document).on('page:change', function() {
 
 
 $(document).on('page:fetch', function() {
+<<<<<<< HEAD
   console.log("Page Fetch Turbolinks");
   $('#main_body').css("opacity","0.3");
   $('#spinner').css("opacity","1");
@@ -92,12 +93,27 @@ $(document).on('page:fetch', function() {
 });
 
 $(document).on('page:receive', function() {
+=======
+
+  console.log("Page Fetch Turbolinks");
+  $('#main_body').css("opacity","0.3");
+  $('#main_body').css("z-index","-5");
+  $('#spinner').css("z-index","10");
+  $('#spinner').show();
+});
+
+$(document).on('page:receive', function() {
+
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
   console.log("Page receive Turbolinks");
    $('#main_body').css("opacity","1");
    $('#main_body').css("z-index","10");
    $('#spinner').css("z-index","-5");
    $('#spinner').hide();
+<<<<<<< HEAD
    //$('#main_body').show();
+=======
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
 });
 
 // $(document).on('page:update', function() {

@@ -1,4 +1,4 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
+  <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container-fluid">
      <% if user_signed_in? %>
@@ -39,7 +39,11 @@
                   <h1>Amura Buzz <small>Enterprise social network </small></h1>
                   <br><br>
                   <p>
+<<<<<<< HEAD
                   <%= link_to "Browze Tweets»",tweets_path,class: "btn btn-success btn-lg", role: "button" %>
+=======
+                  <%# link_to "Browse Tweets»",user_tweets_path(current_user),class: "btn btn-success btn-lg", role: "button" %>
+>>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
                   &nbsp;&nbsp;
                   <%= link_to "Sign Up »",new_user_registration_path,class: "btn btn-primary btn-lg", role: "button" %>
                   </p>
