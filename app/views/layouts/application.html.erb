@@ -23,12 +23,20 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,main_home_path %></li>
+<<<<<<< HEAD
 
             <li><%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,user_friends_path %></li>
             <li><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,user_profile_path %></li>
             <li><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,tweets_path %></li>
 
             <% if current_user %>
+=======
+            <% if user_signed_in? %>
+              <li><%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,user_friends_path %></li>
+              <li><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,user_profile_path %></li>
+              <li><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,user_tweets_path(current_user) %></li>
+              
+>>>>>>> d5fbe7f57bb57332090110f8c840a1bcc89be280
               <li>
                 <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet">
                  <span class="glyphicon glyphicon-pencil"></span> Tweet
@@ -107,7 +115,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="create_tweet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<%= form_for(@tweet) do |f| %>
+<%= form_for(@tweet,url: url_for([current_user,@tweet])) do |f| %>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -115,31 +123,17 @@
         <h4 class="modal-title" id="myModalLabel">Post a Tweet</h4>
       </div>
       <div class="modal-body">
-
-        <br>
-
-        
-        <!--   <%# if @tweet.errors.any? %>
-            <div id="error_explanation">
-              <h2><%# pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
-
-              <ul>
-              <%# @tweet.errors.full_messages.each do |msg| %>
-                <li><%# msg %></li>
-              <%# end %>
-              </ul>
-            </div>
-          <%# end %> -->
-
+          <br>
+          
           <div class="row-fluid">
             <div class="input-group col-md-6 col-md-offset-3">
               <!-- <input type="text" class="form-control"> -->
-                  <%= f.text_area :content,:class => 'form-control',size: '15x7', :placeholder => "Tweet message ...",:id => 'tweet_msg' %>
+                  <%= f.text_area :content,class: 'form-control',size: '15x7', :placeholder => "Tweet message ...",:id => 'tweet_msg',:maxlength => '160' %>
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
 
           <p class="pull-right" id="tweet_len">160</p>
-        <br>
+          <br>
 
       </div>
       <div class="modal-footer">
