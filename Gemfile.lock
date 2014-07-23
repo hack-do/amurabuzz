@@ -39,11 +39,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
-    delayed_job (4.0.2)
-      activesupport (>= 3.0, < 4.2)
-    delayed_job_active_record (4.0.1)
-      activerecord (>= 3.0, < 4.2)
-      delayed_job (>= 3.0, < 4.1)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -161,13 +156,9 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
   coffee-rails (~> 4.0.0)
-  delayed_job_active_record
   devise
   devise-i18n
-<<<<<<< HEAD
-=======
   font-awesome-rails
->>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
   jbuilder (~> 1.2)
   jquery-datatables-rails (~> 2.1.10.0.3)
   jquery-rails
