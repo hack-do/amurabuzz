@@ -12,19 +12,15 @@
   <% end %>
 
 <div class="container-fluid"> 
-<div class="row">
-  <!-- <div class="col-lg-6 col-lg-offset-4"> -->
+  <div class="row">
     <div class="input-group col-lg-6 col-lg-offset-4">
-      <!-- <input type="text" class="form-control"> -->
-          <%= f.text_field :content,:class => 'form-control' %>
+        <%= f.text_field :content,:class => 'form-control' %>
       <span class="input-group-btn">
-        <!-- <button  type="button">  -->
-            <%= f.submit  :class=>"btn btn-primary actions"%>
-        <!-- </button> -->
+          <%= f.submit  :class=>"btn btn-primary actions"%>
       </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
+    </div>
+  </div>
+</div>
 
 
 <% end %>
