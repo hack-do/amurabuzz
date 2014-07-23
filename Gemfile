@@ -11,8 +11,10 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 # gem 'will_paginate'
-gem 'resque'
-gem 'resque_mailer', '>=1.25.2'
+# gem 'resque'
+# gem 'resque_mailer', '>=1.25.2'
+gem 'daemons'
+gem "delayed_job_active_record"
 gem "font-awesome-rails"
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'

@@ -28,8 +28,8 @@ class FriendsController < ApplicationController
         current_user.follow!(params[:followed_id])
         # x = User.find(params[:followed_id])
         # puts x.email
-        UserMailerFollow.new_follower(User.find(params[:followed_id]).email,current_user).deliver
-        @msg = "Successfull"
+        UserMailerFollow.new_follower(User.find(params[:followed_id]).email,current_user)
+        @msg = "Successful"
         format.html { redirect_to :back, alert: 'User Followed Succesfully !'}
         format.js
       else
@@ -37,7 +37,7 @@ class FriendsController < ApplicationController
         format.js
     end
     else
-      @msg = "UnSuccessfull"
+      @msg = "UnSuccessful"
       format.html { redirect_to :back, alert: 'Cant follow self'}
       format.json
       format.js

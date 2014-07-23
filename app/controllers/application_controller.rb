@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :instance_new_tweet,:gen_currents
-  before_action :check_login,only: [:tweets,:friends]
+  before_action :check_login,only: [:tweets,:index,:edit,:friends,:profile]
   def instance_new_tweet
   		@tweet = Tweet.new
   end

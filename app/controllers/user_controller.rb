@@ -1,9 +1,8 @@
 class UserController < ApplicationController
   def friend_profile
   @user=User.find(params[:id])
-  @tweets=@user.tweets.paginate(:per_page => 10,:page => params[:page])
-end
-
+  @tweets=@user.tweets.page(params[:page]).per(10)
+  end
 
   def profile
   end
@@ -14,7 +13,7 @@ end
   end
 
   def all_users
-    @users = User.find(:all, :conditions => ["id != ?", current_user.id])
+    @users = User.all(:conditions => ["id != ?", current_user.id])
   end
 
   def follow
