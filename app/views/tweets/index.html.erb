@@ -10,15 +10,17 @@
      
 <div class="panel panel-info container-fluid">
   <div class="panel-heading row">
-    <h3 class="panel-title col-md-4"><%= tweet.user.email%></h3>
+    <h3 class="panel-title col-md-4"><%= tweet.user.email %></h3>
     <div class = 'col-md-8 text-right'>
      <div class="col-md-11">
+     <%# link_to user_tweet_path(current_user,tweet) %>
+     <%= link_to 'Show',controller: 'tweets', action: 'show', id: tweet.id %>
       <%=distance_of_time_in_words_to_now(tweet.created_at)%> ago
      </div>
      <div class="col-md-1">
-        <%if tweet.user_id == current_user.id %>
+        <%if tweet.user_id == @current_user.id %>
          <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
-              </span>'.html_safe, tweet_path(tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
+              </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
         <%end%>
      </div>
     </div>

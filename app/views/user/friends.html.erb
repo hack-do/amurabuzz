@@ -1,8 +1,9 @@
 <h1>Friends <small>Check out your buddies and Make some more !</small></h1>
 <p></p>
 
-<br>
-
+<br><br>
+<%= link_to "Make friends",{:action => 'all_users'},class: "btn btn-primary" %>
+<br><br><br>
 <div class="container-fluid">
 <h3>Followers</h3>
 <div class="row">
@@ -51,7 +52,3 @@
 </table>
 </div>
 </div>
-
-
-<br><br><br>
-<%= link_to "Make friends",{:action => 'all_users'},class: "btn btn-primary" %>
