@@ -10,6 +10,12 @@ gem 'mysql2'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'devise'
+gem 'devise-i18n'
+gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
+gem 'will_paginate'
+gem 'resque'
+gem 'resque_mailer', '>=1.25.2'
+gem "font-awesome-rails"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

@@ -1,0 +1,9 @@
+console.log("message <%= @msg %>");
+
+$('#create_tweet').modal('hide');
+$('.notice').text("Tweet Posted !");
+$('#tweet_msg').val("");
+$('#tweet_len').text("160");
+$('#post_tweet').attr('disabled','disabled');
+$('#ajax_notice').css('display','block');
+//$('#ajax_notice').text("Tweet <%= @msg %>");

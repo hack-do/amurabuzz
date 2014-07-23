@@ -22,58 +22,139 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><%= link_to "Home",main_home_path %></li>
+            <li class="active"><%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,main_home_path %></li>
             <!-- <li><%# link_to "Timeline",main_timeline_path %></li> -->
-             <li><%= link_to "Notifications","#" %></li>
-            <li><%= link_to "Me",main_test_path %></li>
-            <li class="dropdown">
+            <!-- <li><%# link_to "Notifications","#" %></li> -->
+            <li><%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,user_friends_path %></li>
+            <li><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,user_profile_path %></li>
+            <li><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,tweets_path %></li>
+            <% if current_user %>
+              <li>
+                <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet">
+                 <span class="glyphicon glyphicon-pencil"></span> Tweet
+                </a>
+              </li> 
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Welcome, 
-			  <% if user_signed_in? %>
-			    <%= current_user.email %>
-			  <% else %>
-			  	Guest
-			  <% end %>
+              <span class="glyphicon glyphicon-user"></span> Welcome, 
+              <% if user_signed_in? %>
+                <%= current_user.email %>
+              <% else %>
+                Guest
+              <% end %>
               <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-              <!--   <li class="dropdown-header">Register</li> -->
-                <%= render 'users/menu/registration_items' %>
-                <%= render 'users/menu/login_items' %>
+                <!--   <li class="dropdown-header">Register</li> -->
+                <%= render 'devise/menu/registration_items' %>
+                <%= render 'devise/menu/login_items' %>
               </ul>
-            </li>
-            <li id="user_nav">
-			  <% if user_signed_in? %>
-			    <%# link_to "Sign out", destroy_user_session_path, :method => :delete %>
-			  <% else %>
-			    <%# link_to "Sign up", new_user_registration_path %>  <%# link_to "sign in", new_user_session_path %>
-			  <% end %>
             </li>
           </ul>
 
-		<form class="navbar-form navbar-right" role="search">
+		<!-- <form class="navbar-form navbar-right" role="search">
 			<div class="form-group">
 			  <input type="text" class="form-control" placeholder="Search">
 			</div>
 			<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
 		</form>
-
+ -->
         </div><!--/.nav-collapse -->
       </div>
     </div>
-<p class="notice bg-info"><%= notice %></p>
-<p class="alert bg-warning"><%= alert %></p>
 
-<div class="col-md-10 col-md-offset-1">
-<%= yield %>
+<div class="notice_alert">
+	<% if notice %>
+		<p class="notice bg-info text-info"><%= notice %></p>
+	<% end %>
+	<% if alert %>
+		<p class="alert bg-danger text-danger"><%= alert %></p>
+	<% end %>
+  <p id="ajax_notice" class="notice bg-info text-info"></p>
 </div>
 
- <hr>
+<div class="main-yield col-md-10 col-md-offset-1">
+  <div id="main_body">
+    <%= yield %>
+  </div>
+  <div id="spinner">
+    <%= image_tag 'spinner.gif' %>
+  </div>
+
+
+ <!--  <div id="spinner">
+    <div class="container-fluid">
+      <div class="row">
+      <br><br><br><br><br><br><br><br><br><br><br>
+        <center>
+          <%# image_tag 'spinner.gif' %>
+        </center>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+ 
 
 <div class="footer">
-  <div class="container">
+  <div class="container-fluid">
     <p> <span class="text-muted">Freshers</span>&nbsp;|&nbsp;© Amura 2014</p>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="create_tweet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%= form_for(@tweet) do |f| %>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Post a Tweet</h4>
+      </div>
+      <div class="modal-body">
+
+        <br>
+
+        
+        <!--   <%# if @tweet.errors.any? %>
+            <div id="error_explanation">
+              <h2><%# pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+              <ul>
+              <%# @tweet.errors.full_messages.each do |msg| %>
+                <li><%# msg %></li>
+              <%# end %>
+              </ul>
+            </div>
+          <%# end %> -->
+
+          <div class="row-fluid">
+            <div class="input-group col-md-6 col-md-offset-3">
+              <!-- <input type="text" class="form-control"> -->
+                  <%= f.text_area :content,:class => 'form-control',size: '15x7', :placeholder => "Tweet message ...",:id => 'tweet_msg' %>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+
+          <p class="pull-right" id="tweet_len">160</p>
+        <br>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit 'Post',:class=>"btn btn-primary actions",:id => 'post_tweet' %>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+</div>
+
+
 
 </body>
 </html>

@@ -1,0 +1,42 @@
+<h1>All Users <small>Make new buddies</small></h1>
+<br><br>
+
+<div class="container-fluid">
+	<div class="row">
+		<table class="table table-stripped col-md-4 all_users_datatable" >
+		<thead>
+			<tr>
+				<th>Sr.No.</th>
+				<th>Name</th>
+				<th>Username</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		<% i = 0 %>
+		<% @users.each do |f| %>
+
+			<tr>
+				<td><%= i=i+1 %></td>
+				<td><%= link_to f.email ,{:action => "friend_profile", :id => f.id}  %></td>
+				<td><%= f.user_name %></td>
+				<td>
+				
+				
+					<% if current_user.following?(f) %>
+						<%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id},class: "btn btn-sm btn-warning",id: f.id.to_s + "uf" %>
+					<% else %>
+						<%= link_to "Follow",{:action => "follow",:followed_id => f.id}, class: "btn btn-sm btn-success",id: f.id.to_s + "f" %>
+					<% end %>
+				</td>
+			</tr>
+
+		<% end %>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+
+<br><br><br>
+<%= link_to "My friends",{:action => 'friends'},class: "btn btn-primary" %>

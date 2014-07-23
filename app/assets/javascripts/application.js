@@ -14,4 +14,107 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require_tree.
+
+
+function initialize(){
+
+	//$('#main_body').hide();
+	$('#spinner').hide();
+
+	if(!$.fn.DataTable.fnIsDataTable($('.all_users_datatable')))
+	{
+		$('.all_users_datatable').dataTable({
+		  "sPaginationType": "bootstrap"
+		});
+	}
+
+	//console.log("Datatable: "+$.fn.DataTable.fnIsDataTable($('.all_users_datatable')));
+
+	// $('a,button').click(function(){
+	// 	//$(this).hide();
+	// 	$(this).attr('disabled','disabled');
+	// 	$(this).trigger( "click" );
+	// 	console.log("link disabled after click");
+	// });
+
+
+	 $('#post_tweet').attr('disabled','disabled');	
+
+	 $('#tweet_msg').keydown(function(e){
+	 	var msg_len = $(this).val().length;
+	 	$('#tweet_len').text(160 - msg_len);
+	 	if ( msg_len > 0)
+	 	{
+	 			$('#post_tweet').removeAttr('disabled');
+	 	}
+	 	else
+	 	{
+	 		$('#post_tweet').attr('disabled','disabled');	
+	 	}
+	 });
+
+};
+
+
+// $(document).load(function() {	
+// 	alert("Page Loaded");
+// });
+
+$(document).ready(function() {	
+	console.log("Page Reloaded(Ready Event JS)");
+	initialize();
+});
+
+$(document).on('page:change', function() {
+  initialize();
+});
+
+// $(document).on('page:load', function() {
+//   console.log("Page load Turbolinks");
+// });
+
+
+
+$(document).on('page:fetch', function() {
+
+  console.log("Page Fetch Turbolinks");
+  $('#main_body').css("opacity","0.3");
+  $('#main_body').css("z-index","-5");
+  $('#spinner').css("z-index","10");
+  $('#spinner').show();
+});
+
+$(document).on('page:receive', function() {
+
+  console.log("Page receive Turbolinks");
+   $('#main_body').css("opacity","1");
+   $('#main_body').css("z-index","10");
+   $('#spinner').css("z-index","-5");
+   $('#spinner').hide();
+});
+
+// $(document).on('page:update', function() {
+//   console.log("Page update Turbolinks");
+// });
+// $(document).on('page:before-change', function() {
+//   console.log("Page before change Turbolinks");
+// });
+
+
+function isDataTable ( nTable )
+{
+    var settings = $.fn.dataTableSettings;
+    for ( var i=0, iLen=settings.length ; i<iLen ; i++ )
+    {
+        if ( settings[i].nTable == nTable )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
