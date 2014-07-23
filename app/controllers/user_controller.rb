@@ -29,7 +29,7 @@ end
         # x = User.find(params[:followed_id])
         # puts x.email
         UserMailerFollow.new_follower(User.find(params[:followed_id]).email,current_user).deliver
-        @msg = "Successfull"
+        @msg = "Successful"
         format.html { redirect_to :back, alert: 'User Followed Succesfully !'}
         format.js
       else
@@ -37,7 +37,7 @@ end
         format.js
     end
     else
-      @msg = "UnSuccessfull"
+      @msg = "UnSuccessful"
       format.html { redirect_to :back, alert: 'Cant follow self'}
       format.json
       format.js

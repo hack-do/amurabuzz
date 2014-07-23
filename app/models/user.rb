@@ -2,11 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-<<<<<<< HEAD
+
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :confirmable
-=======
-         :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable#, :confirmable
->>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
 
   has_many :tweets,:dependent => :destroy   
 
@@ -25,8 +22,6 @@ class User < ActiveRecord::Base
 	   relationships.find_by_followed_id(followed)
   end
 
-#current_user.relationships << Relationships.create(:followed_id => followed.id)
-
   def follow!(followed_id)
 	   relationships.create!(:followed_id => followed_id)
   end
@@ -35,10 +30,9 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(followed).destroy
   end
 
-  def timeline_tweets(tweets)
-  following.each do |t|
-        tweets = tweets + t.tweets 
-      end
-  end
+  def timeline_tweets
+      #puts "------self-id: #{self.id}   current_user-id: #{current_user.id}----------"
+      Tweet.where(user_id: [self.id,self.following_ids].flatten)
+  end 
 
 end

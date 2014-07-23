@@ -1,6 +1,5 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-<<<<<<< HEAD
  #before_action :check_login,only: [:new,:create,:index]
 
  def check_login
@@ -12,49 +11,14 @@ class TweetsController < ApplicationController
  end
   # GET /tweets
   # GET /tweets.json
-=======
- # before_action :check_login,only: [:new,:create,:index]
-
- # def check_login
- #  puts"\n\n\n------------Check Login------------\n\n\n"
- #  if !current_user
-
- #    redirect_to new_user_session_path,notice: "Please Sign-in Before Continuing"
- #  end 
- # end
  
- 
->>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
-  def index
-    puts "\n\nINDEX action\n\n"
+  def index  
 
-   u = []
-   u << current_user.id 
-
-<<<<<<< HEAD
-   current_user.following.each do |x| 
-       u << x.id
-   end
-
-   @users = User.where(:id => u)
-   @tweets = Tweet.where(:user_id => u).paginate(:per_page => 10,:page => params[:page])
-
-    puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
-
-
-
-   
-    #@tweets = @tweets.order("created_at ASC")
-
-=======
-   u << current_user.following_ids
-   u.compact!
-
-   @tweets = Tweet.where(:user_id => u).paginate(:per_page => 10,:page => params[:page])
+   @tweets = current_user.timeline_tweets.paginate(:per_page => 10,:page => params[:page])
 
     puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
     #@tweets = @tweets.order("created_at ASC")
->>>>>>> 25a213bf745824af8a35ea8ccd8a92cff48c8f2e
+
   end
 
   # GET /tweets/1
