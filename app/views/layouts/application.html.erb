@@ -106,6 +106,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="create_tweet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <% if user_signed_in? %>
 <%= form_for(@tweet,url: url_for([current_user,@tweet])) do |f| %>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -136,6 +137,7 @@
 
     </div>
   </div>
+  <% end %>
   <% end %>
 </div>
 

@@ -18,7 +18,8 @@ gem 'resque'
 gem 'resque_mailer', '>=1.25.2'
 gem "font-awesome-rails"
 gem 'invoker'
-
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

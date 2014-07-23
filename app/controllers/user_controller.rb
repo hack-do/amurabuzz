@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   def friend_profile
   @user=User.find(params[:id])
-  @tweets=@user.tweets.paginate(:per_page => 10,:page => params[:page])
+   @tweets=@user.tweets.page(params[:page])#.per(10)
 end
 
 
@@ -14,7 +14,11 @@ end
   end
 
   def all_users
-    @users = User.all(:conditions => ["id != ?", current_user.id])
+    @users = User.all(:conditions => ["id != ?", current_user.id])#.paginate(:per_page => 10,:page => params[:page])
+      respond_to do |format|
+        format.html
+        #format.json { render json: UserDatatable.new(view_context) }
+      end
   end
 
   def follow

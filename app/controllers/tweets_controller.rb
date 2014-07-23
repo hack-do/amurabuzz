@@ -1,11 +1,9 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+def index  
 
-  def index
-    @tweets = current_user.timeline_tweets.paginate(:per_page => 10,:page => params[:page])
-
+    @tweets = current_user.timeline_tweets.page(params[:page])#.per(10)
     puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
-    #@tweets = @tweets.order("created_at ASC")
   end
 
 

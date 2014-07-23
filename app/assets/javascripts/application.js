@@ -24,12 +24,20 @@ function initialize(){
 	//$('#main_body').hide();
 	$('#spinner').hide();
 
-	if(!$.fn.DataTable.fnIsDataTable($('.all_users_datatable')))
+	if(!$.fn.DataTable.fnIsDataTable($('#all_users_datatable')))
 	{
-		$('.all_users_datatable').dataTable({
-		  "sPaginationType": "bootstrap"
+		$('#all_users_datatable').dataTable({
+		  	"sPaginationType": "bootstrap",
+		   	"processing": true,
+    		"serverSide": true,
+    		"ajax": $('#all_users_datatable').data('source'),
+    		"pagingType": 'full_numbers'
 		});
 	}
+
+
+	$.fn.dataTable.ext.errMode = 'throw';
+
 
 	//console.log("Datatable: "+$.fn.DataTable.fnIsDataTable($('.all_users_datatable')));
 
