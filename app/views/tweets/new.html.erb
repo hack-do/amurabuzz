@@ -1,3 +1,36 @@
 <h1 class = 'col-lg-6 col-lg-offset-4'>New tweet</h1>
 <br><br><br>
-<%= render 'form' %>
+
+
+<%= form_for(@tweet,url: url_for([current_user,@tweet])) do |f| %>
+  <% if @tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+      <ul>
+      <% @tweet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="container-fluid"> 
+<div class="row">
+  <!-- <div class="col-lg-6 col-lg-offset-4"> -->
+    <div class="input-group col-lg-6 col-lg-offset-4">
+      <!-- <input type="text" class="form-control"> -->
+          <%= f.text_field :content,:class => 'form-control' %>
+      <span class="input-group-btn">
+        <!-- <button  type="button">  -->
+            <%= f.submit  :class=>"btn btn-primary actions"%>
+        <!-- </button> -->
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+<% end %>
+
+

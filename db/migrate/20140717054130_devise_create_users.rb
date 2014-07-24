@@ -6,7 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name,         :null => false, :limit => 40
       t.string :last_name,          :null => false, :limit => 40
       
-      t.date :dob, :null => false, :default => Date.today
+      t.date :dob, :null => false
       t.text :bio, :limit => 160
 
 

@@ -1,9 +1,14 @@
 <h1>All Users <small>Make new buddies</small></h1>
 <br><br>
+<%= link_to "My friends",{:action => 'friends'},class: "btn btn-primary" %>
+
+<br><br><br>
+  <%# will_paginate @users %>
+<!-- , data-source="<%# user_all_users_path(format: :json) %>" -->
 
 <div class="container-fluid">
 	<div class="row">
-		<table class="table table-stripped col-md-4 all_users_datatable" >
+		<table id="all_users_datatable" class="table table-stripped col-md-4" >
 		<thead>
 			<tr>
 				<th>Sr.No.</th>
@@ -31,12 +36,9 @@
 				</td>
 			</tr>
 
-		<% end %>
+		<% end %> 
 		</tbody>
 		</table>
 	</div>
 </div>
 
-
-<br><br><br>
-<%= link_to "My friends",{:action => 'friends'},class: "btn btn-primary" %>

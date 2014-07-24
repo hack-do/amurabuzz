@@ -41,7 +41,11 @@
                   <p>
                   <%# link_to "Browse Tweets»",user_tweets_path(current_user),class: "btn btn-success btn-lg", role: "button" %>
                   &nbsp;&nbsp;
-                  <%= link_to "Sign Up »",new_user_registration_path,class: "btn btn-primary btn-lg", role: "button" %>
+                  <%= link_to "Sign Up »",new_user_registration_path,class: "btn btn-primary", role: "button" %>
+                  &nbsp;&nbsp;
+                  <small class="grey">Already a user?</small>
+                  &nbsp;&nbsp;
+                  <%= link_to "Sign In »",new_user_session_path,class: "btn btn-success", role: "button" %>
                   </p>
                   <br><br>
               <div class="container-fluid">

@@ -1,14 +1,9 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-  def check_login
-    puts"\n\n\n------------Check Login------------\n\n\n"
-    if !current_user
-      redirect_to new_user_session_path,notice: "Please Sign-in Before Continuing"
-    end  
-  end
- 
-  def index  
-    @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
+
+def index  
+
+    @tweets = current_user.timeline_tweets.page(params[:page])#.per(10)
     puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
   end
 
@@ -26,41 +21,50 @@ class TweetsController < ApplicationController
   def create
     puts "\n\nCREATE action\n\n"
     @tweet = Tweet.new(tweet_params)
-    respond_to do |format|
+
+    # respond_to do |format|
       if @tweet.save
         @msg = "Successfull"
         current_user.tweets << @tweet
         current_user.save
-        format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
-        format.json { render action: 'index', status: :created, location: @tweet }
-        format.js
+        redirect_to user_tweets_path, notice: 'Tweet was successfully created.'
+        # format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
+        # format.json { render action: 'index', status: :created, location: @tweet }
+        # format.js
       else
         @msg = "Unsuccessfull"
-        format.html { render action: 'new' }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-        format.js
+        render action: 'new'
+        # format.html { render action: 'new' }
+        # format.json { render json: @tweet.errors, status: :unprocessable_entity }
+        # format.js
       end
-    end
+    # end
   end
 
   def update
+    puts "\n\nUPDATE action\n\n"
+    puts "#{@tweet.inspect}\n\n\n"
+    puts "#{tweet_params[:tweet]}\n\n\n"
     respond_to do |format|
       if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to user_tweet_path(current_user,@tweet), notice: 'Tweet was successfully updated.' }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @tweet.destroy
-    respond_to do |format|
-      format.html { redirect_to tweets_url }
-      format.json { head :no_content }
+    puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
+    if @tweet.user == current_user
+      @tweet.destroy
+      msg = 'Tweet deleted successfully'
+    else
+      msg = 'Permission denied !'
     end
+
+   
+   redirect_to user_tweets_url(current_user),:notice => msg
   end
 
   private
@@ -69,6 +73,6 @@ class TweetsController < ApplicationController
     end
 
     def tweet_params
-      params.require(:tweet).permit(:content)
+      params.require(:tweet).permit(:content,:tweet)
     end
 end

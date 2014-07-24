@@ -22,16 +22,42 @@ class User < ActiveRecord::Base
 	   relationships.find_by_followed_id(followed)
   end
 
-  def follow!(followed_id)
-	   relationships.create!(:followed_id => followed_id)
+#current_user.relationships << Relationships.create(:followed_id => followed.id)
+
+  def follow!(current_user,followed_id)
+    if current_user.id.to_i != followed_id.to_i 
+      if !current_user.following?(followed_id)
+        relationships.create!(:followed_id => followed_id)
+        #UserMailerFollow.delay({run_at: 1.minute.from_now}).new_follower(User.find(params[:followed_id]).email,current_user)
+        msg = 'User Followed !'
+      else
+        msg = 'Cant follow same User twice'
+      end
+    else
+      msg = 'Cant follow self'
+    end
+    msg
   end
 
-  def unfollow!(followed)
-    relationships.find_by_followed_id(followed).destroy
+  def unfollow!(current_user,unfollowed_id)
+    if current_user.id != unfollowed_id 
+      if current_user.following?(unfollowed_id)
+        relationships.find_by_followed_id(unfollowed_id).destroy
+        msg = 'User Unfollowed !'
+      else
+        msg = 'User already unfollowed'
+      end
+    else
+      msg = 'Cant follow self'
+    end
   end
 
-  def timeline_tweets                 
-      Tweet.where(user_id: [self.id,self.following_ids].flatten)
-  end 
+  def timeline_tweets
+    u = []
+    u << self.id
+    u << self.following_ids
+    Tweet.where(user_id: u.flatten)
+  end
+
 
 end

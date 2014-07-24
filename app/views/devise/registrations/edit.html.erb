@@ -54,14 +54,18 @@
 <div class="form-group">
     <%= f.label :dob, class: "col-sm-5 col-md-pull-3 control-label" %>
     <div class="col-sm-6 col-md-pull-3">
-        <%= f.date_field :dob, class: "form-control" %>
+        <%= f.date_field :dob, class: "form-control", order: [:day, :month, :year] %>
     </div>
 </div>
 
 <div class="form-group">
     <%= f.label :bio, class: "col-sm-5 col-md-pull-3 control-label" %>
     <div class="col-sm-6 col-md-pull-3">
-        <%= f.text_area :bio, class: "form-control" %>
+    <% if resource.bio == '-' %>
+        <%= f.text_area :bio, class: "form-control",:placeholder => "max 160 characters", maxlength: 160, value: "" %>
+    <% else %>
+        <%= f.text_area :bio, class: "form-control",:placeholder => "max 160 characters", maxlength: 160 %>
+    <% end %>
     </div>
 </div>
 
