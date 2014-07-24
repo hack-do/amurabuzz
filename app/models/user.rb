@@ -22,10 +22,6 @@ class User < ActiveRecord::Base
 	   relationships.find_by_followed_id(followed)
   end
 
-<<<<<<< HEAD
-  def follow!(followed_id)
-	   relationships.create!(:followed_id => followed_id)
-=======
 #current_user.relationships << Relationships.create(:followed_id => followed.id)
 
   def follow!(current_user,followed_id)
@@ -41,7 +37,6 @@ class User < ActiveRecord::Base
       msg = 'Cant follow self'
     end
     msg
->>>>>>> d5fbe7f57bb57332090110f8c840a1bcc89be280
   end
 
   def unfollow!(current_user,unfollowed_id)
@@ -57,17 +52,10 @@ class User < ActiveRecord::Base
     end
   end
 
-<<<<<<< HEAD
+
   def timeline_tweets                 
       Tweet.where(user_id: [self.id,self.following_ids].flatten)
   end 
-=======
-  def timeline_tweets
-    u = []
-    u << self.id
-    u << self.following_ids
-    Tweet.where(user_id: u.flatten)
-  end
->>>>>>> d5fbe7f57bb57332090110f8c840a1bcc89be280
+
 
 end

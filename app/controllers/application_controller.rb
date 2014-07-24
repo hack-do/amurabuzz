@@ -3,13 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-<<<<<<< HEAD
-  before_action :instance_new_tweet,:gen_currents
-  before_action :check_login,only: [:tweets,:index,:edit,:friends,:profile]
-=======
   before_action :gen_currents,:instance_new_tweet
   before_action :check_login,only: [:friends,:profile,:index,:edit]
->>>>>>> d5fbe7f57bb57332090110f8c840a1bcc89be280
+
   def instance_new_tweet
   		@tweet = Tweet.new
   end
