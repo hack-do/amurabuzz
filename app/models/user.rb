@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name,:user_name,:dob
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
-
+    paginates_per 10
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
   end
