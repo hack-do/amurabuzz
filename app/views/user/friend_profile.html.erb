@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row col-md-10 col-md-offset-1">
       <h4><%= @user.user_name%></h4>
-      <%= if @user.name %>
+      <% if @user.name %>
         <p><strong>Name: </strong> <%= @user.name%></p>
         <% end %>
       <% if @user.dob %>

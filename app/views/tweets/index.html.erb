@@ -13,7 +13,7 @@
      
 <div class="panel panel-info container-fluid">
   <div class="panel-heading row">
-    <h3 class="panel-title col-md-4"><%= tweet.user.email %></h3>
+    <h3 class="panel-title col-md-4"><%= link_to tweet.user.email,user_friend_profile_path(:id=> tweet.user) %></h3>
     <div class = 'col-md-8 text-right'>
      <div class="col-md-11">
      <%= link_to 'Show',my_tweet_path('me',tweet.id) %>
