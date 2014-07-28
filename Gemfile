@@ -15,7 +15,7 @@ gem 'devise-i18n'
 #gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
 gem 'ajax-datatables-rails'
-gem 'will_paginate'
+#gem 'will_paginate'
 gem 'resque'
 gem 'resque_mailer', '>=1.25.2'
 gem "font-awesome-rails"
