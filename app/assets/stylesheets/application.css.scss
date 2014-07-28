@@ -17,8 +17,14 @@
 
 /*@navbar-brand-color: WHITE;*/
 
+$navbar-brand: WHITE;
 @import "bootstrap-sprockets";
 @import "bootstrap";
+$navbar-brand-color: WHITE;
+
+.navbar-default .navbar-brand {
+    color: WHITE;
+}
 
 
 html {

@@ -11,8 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20140722101453) do
 
-ActiveRecord::Schema.define(version: 20140721071925) do
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
@@ -33,14 +48,11 @@ ActiveRecord::Schema.define(version: 20140721071925) do
 
   add_index "tweets", ["user_id"], name: "index_tweets_on_user_id", using: :btree
 
-
-
   create_table "users", force: true do |t|
     t.string   "user_name",              limit: 40,                         null: false
     t.string   "first_name",             limit: 40,                         null: false
     t.string   "last_name",              limit: 40,                         null: false
-
-    t.date     "dob",                                default: '0000-00-00', null: false
+    t.date     "dob",                                default: '2014-07-22', null: false
     t.text     "bio",                    limit: 255
     t.string   "email",                                                     null: false
     t.string   "encrypted_password",                                        null: false

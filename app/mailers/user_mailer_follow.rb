@@ -5,5 +5,7 @@ class UserMailerFollow < ActionMailer::Base
   	@follower = follower
   	mail(:to => "#{usermail}", :subject => "New Follower #{follower.user_name}")
   end
-  handle_asynchronously :new_follower
+  #handle_asynchronously :new_follower
 end
+
+

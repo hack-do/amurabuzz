@@ -13,8 +13,10 @@
 
 <div class="container-fluid">
   <div class="row">
-   <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
-        :pagination_class => "pagination-small pagination-centered"%>
+    <div class = "col-md-offset-9"> 
+  <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
+         :pagination_class => "pagination-small pagination-centered"%>
+    </div>
     <% @tweets.each do |tweet| %>
       <div class="panel panel-info container-fluid">
         <div class="panel-heading row">

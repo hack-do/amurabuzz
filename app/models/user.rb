@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name,:user_name,:dob
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
-
+    paginates_per 10
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
   end
@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     if current_user.id.to_i != followed_id.to_i 
       if !current_user.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
-        UserMailerFollow.new_follower(User.find(followed_id).email,current_user).deliver
+        #UserMailerFollow.delay({run_at: 1.minute.from_now}).new_follower(User.find(params[:followed_id]).email,current_user)
         msg = 'User Followed !'
       else
         msg = 'Cant follow same User twice'
@@ -52,10 +52,12 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  def timeline_tweets                 
-      Tweet.where(user_id: [self.id,self.following_ids].flatten)
-  end 
+  def timeline_tweets
+    u = []
+    u << self.id
+    u << self.following_ids
+    Tweet.where(user_id: u.flatten)
+  end
 
 
 end

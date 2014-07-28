@@ -27,6 +27,7 @@
               <li><%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,user_friends_path %></li>
               <li><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,user_profile_path %></li>
               <li><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,user_tweets_path(current_user) %></li>
+              
               <li>
                 <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet">
                  <span class="glyphicon glyphicon-pencil"></span> Tweet
@@ -105,6 +106,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="create_tweet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <% if user_signed_in? %>
 <%= form_for(@tweet,url: url_for([current_user,@tweet])) do |f| %>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -137,6 +139,7 @@
 
     </div>
   </div>
+  <% end %>
   <% end %>
 </div>
 
