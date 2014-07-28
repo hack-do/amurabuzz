@@ -28,10 +28,10 @@ function initialize(){
 	{
 		$('#all_users_datatable').dataTable({
 		  	"sPaginationType": "bootstrap",
-		   	"processing": true,
-    		"serverSide": true,
-    		"ajax": $('#all_users_datatable').data('source'),
-    		"pagingType": 'full_numbers'
+		   	// "processing": true,
+    		// "serverSide": true,
+    		// "ajax": $('#all_users_datatable').data('source'),
+    		// "pagingType": 'full_numbers'
 		});
 	}
 
@@ -88,7 +88,6 @@ $(document).on('page:change', function() {
 
 $(document).on('page:fetch', function() {
 
-
   console.log("Page Fetch Turbolinks");
   $('#main_body').css("opacity","0.3");
   $('#main_body').css("z-index","-5");
@@ -98,13 +97,11 @@ $(document).on('page:fetch', function() {
 
 $(document).on('page:receive', function() {
 
-	console.log("Page receive Turbolinks");
+  console.log("Page receive Turbolinks");
    $('#main_body').css("opacity","1");
    $('#main_body').css("z-index","10");
    $('#spinner').css("z-index","-5");
    $('#spinner').hide();
-
-
 });
 
 // $(document).on('page:update', function() {

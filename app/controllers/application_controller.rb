@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   before_action :gen_currents,:instance_new_tweet
   before_action :check_login,only: [:friends,:profile,:index,:edit]
-
   def instance_new_tweet
   		@tweet = Tweet.new
   end

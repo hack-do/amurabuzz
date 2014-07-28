@@ -2,28 +2,25 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
+
 # Use mysql as the database for Active Record
 gem 'mysql2'
+#gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'devise-i18n'
-
-# gem 'will_paginate'
-# gem 'resque'
-# gem 'resque_mailer', '>=1.25.2'
 #gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
-gem 'ajax-datatables-rails'
+# gem 'ajax-datatables-rails'
 #gem 'will_paginate'
-gem 'resque'
-gem 'resque_mailer', '>=1.25.2'
+gem 'daemons'
+gem 'delayed_job_active_record'
 gem "font-awesome-rails"
 gem 'invoker'
-gem 'daemons'
-gem "delayed_job_active_record"
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem 'paperclip','~>3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

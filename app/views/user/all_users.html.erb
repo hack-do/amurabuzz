@@ -1,6 +1,6 @@
 <h1>All Users <small>Make new buddies</small></h1>
 <br><br>
-<%= link_to "My friends",{:action => 'friends'},class: "btn btn-primary" %>
+<%= link_to "My friends",my_friends_path('me'),class: "btn btn-primary" %>
 
 <br><br><br>
   <%# will_paginate @users %>

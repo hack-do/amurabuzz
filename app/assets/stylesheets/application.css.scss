@@ -17,14 +17,8 @@
 
 /*@navbar-brand-color: WHITE;*/
 
-$navbar-brand: WHITE;
 @import "bootstrap-sprockets";
 @import "bootstrap";
-$navbar-brand-color: WHITE;
-
-.navbar-default .navbar-brand {
-    color: WHITE;
-}
 
 
 html {
@@ -90,4 +84,15 @@ body {
 
 .center{
   text-align:center;
+}
+
+.overflow-x{
+  overflow-x:hidden;
+}
+
+.wrap_all{
+  word-wrap:break-all;
+}
+.wrap_word{
+   word-wrap:break-word;
 }

@@ -11,10 +11,10 @@ end
 private
  
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :dob , :user_name,:bio)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :dob , :user_name,:bio)
   end
  
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :dob , :user_name,:bio)
+    params.require(:user).permit(:avatar_file_name, :avatar_content_type , :avatar_file_size, :avatar_updated_at, :avatar,:name, :email, :password, :password_confirmation, :current_password, :dob , :user_name,:bio)
   end
 end

@@ -1,72 +1,36 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container-fluid">
-     <% if user_signed_in? %>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                           
-               <div class="col-md-12">
-                    <div class="col-md-12">
-                        <p><strong>User Name: </strong><%= current_user.user_name%></p>
-                        <p><strong>Name: </strong> <%= current_user.first_name + " " + current_user.last_name%></p>
-                        <p><strong>DOB: </strong><%= current_user.dob%></p>
-                        <p><strong>Email: </strong><%= current_user.email%></p>
-                        <p><strong>Bio: </strong><%= current_user.bio%></p>
-                    </div>             
-                </div> 
-
-                <div class="col-xs-12 divider text-center">
-                          <div class="col-xs-12 col-sm-4 emphasis">
-                              <h2><strong><%= current_user.followers.count%></strong></h2>                    
-                              <p><small>Followers</small></p>
-                          </div>
-                          <div class="col-xs-12 col-sm-4 emphasis">
-                              <h2><strong><%= current_user.following.count%></strong></h2>                    
-                              <p><small>Following</small></p>
-                          </div>
-                           <div class="col-xs-12 col-sm-4 emphasis">
-                             <h2><strong><%= current_user.tweets.count%></strong></h2>                    
-                             <p><small>Tweets</small></p>
-                         </div>           
-                </div>  
-
-
-                  </div>
-            </div>
-          </div>
-       <%else%>
-                  <h1>Amura Buzz <small>Enterprise social network </small></h1>
-                  <br><br>
-                  <p>
-                  <%# link_to "Browse Tweets»",user_tweets_path(current_user),class: "btn btn-success btn-lg", role: "button" %>
-                  &nbsp;&nbsp;
-                  <%= link_to "Sign Up »",new_user_registration_path,class: "btn btn-primary", role: "button" %>
-                  &nbsp;&nbsp;
-                  <small class="grey">Already a user?</small>
-                  &nbsp;&nbsp;
-                  <%= link_to "Sign In »",new_user_session_path,class: "btn btn-success", role: "button" %>
-                  </p>
-                  <br><br>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-4">
-                    <!-- <h2>Make Friends</h2> -->
-                    <p>Total Users</p>
-                    <p><%= @total_users %></p>
-                  </div>
-                  <div class="col-md-4">
-                    <!-- <h2>Make Friends</h2> -->
-                    <p>Total Tweets</p>
-                    <p><%= @total_tweets %></p>
-                  </div>
-                  <div class="col-md-4">
-                  <!--   <h2>View Tweets</h2> -->
-                  <br><br>
-                   <p>And counting...</p>
-                  </div>
-                </div>  
-              </div>   
-      <% end %>
+        <h1>Amura Buzz <small>Enterprise social network </small></h1>
+        <br><br>
+        <p>
+        <%# link_to "Browse Tweets»",user_tweets_path(current_user),class: "btn btn-success btn-lg", role: "button" %>
+        &nbsp;&nbsp;
+        <%= link_to "Sign Up »",new_user_registration_path,class: "btn btn-primary", role: "button" %>
+        &nbsp;&nbsp;
+        <small class="grey">Already a user?</small>
+        &nbsp;&nbsp;
+        <%= link_to "Sign In »",new_user_session_path,class: "btn btn-success", role: "button" %>
+        </p>
+        <br><br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <!-- <h2>Make Friends</h2> -->
+          <p>Total Users</p>
+          <p><%= @total_users %></p>
+        </div>
+        <div class="col-md-4">
+          <!-- <h2>Make Friends</h2> -->
+          <p>Total Tweets</p>
+          <p><%= @total_tweets %></p>
+        </div>
+        <div class="col-md-4">
+        <!--   <h2>View Tweets</h2> -->
+        <br><br>
+         <p>And counting...</p>
+        </div>
+      </div>  
+    </div>   
   </div>
 </div>

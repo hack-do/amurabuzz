@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722101453) do
+ActiveRecord::Schema.define(version: 20140724121021) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -49,17 +49,20 @@ ActiveRecord::Schema.define(version: 20140722101453) do
   add_index "tweets", ["user_id"], name: "index_tweets_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "user_name",              limit: 40,                         null: false
-    t.string   "first_name",             limit: 40,                         null: false
-    t.string   "last_name",              limit: 40,                         null: false
-    t.date     "dob",                                default: '2014-07-22', null: false
+    t.string   "user_name",              limit: 40,              null: false
+    t.string   "name",                   limit: 60
+    t.date     "dob"
     t.text     "bio",                    limit: 255
-    t.string   "email",                                                     null: false
-    t.string   "encrypted_password",                                        null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "email",                  limit: 64,              null: false
+    t.string   "encrypted_password",                             null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,            null: false
+    t.integer  "sign_in_count",                      default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140722101453) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",                    default: 0,            null: false
+    t.integer  "failed_attempts",                    default: 0, null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "created_at"

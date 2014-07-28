@@ -1,11 +1,24 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
+  #include ActionController::Live
 def index  
 
-    @tweets = current_user.timeline_tweets.page(params[:page])#.per(10)
+    @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
     puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
+
+    # begin
+    #   response.headers['Content-Type'] = 'text/event-stream'
+    #   100.times {
+    #     response.stream.write "hello world\n"
+    #   }
+    # rescue IOError
+
+    # ensure 
+    # response.stream.close
+    # end
   end
+
 
   def show
     puts "\n\nSHOW action\n\n"
@@ -13,13 +26,14 @@ def index
 
   def new
     @tweet = Tweet.new
+
   end
 
   def edit
   end
 
   def create
-    puts "\n\nCREATE action\n\n"
+     puts "\n\nCREATE action\n\n"
     @tweet = Tweet.new(tweet_params)
 
     # respond_to do |format|
@@ -27,7 +41,7 @@ def index
         @msg = "Successfull"
         current_user.tweets << @tweet
         current_user.save
-        redirect_to user_tweets_path, notice: 'Tweet was successfully created.'
+        redirect_to my_tweets_path('me'), notice: 'Tweet was successfully created.'
         # format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
         # format.json { render action: 'index', status: :created, location: @tweet }
         # format.js
@@ -68,10 +82,12 @@ def index
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
     def set_tweet
       @tweet = Tweet.find(params[:id])
     end
 
+    # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
       params.require(:tweet).permit(:content,:tweet)
     end

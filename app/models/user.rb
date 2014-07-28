@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-
-         :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable#, :confirmable
 
   has_many :tweets,:dependent => :destroy   
 
@@ -14,10 +13,11 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
 
-  validates_presence_of :first_name, :last_name,:user_name,:dob
+  has_attached_file :avatar ,:default_url => "amura.png"
+  validates_presence_of :user_name
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
-    paginates_per 10
+
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
   end
@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
     if current_user.id.to_i != followed_id.to_i 
       if !current_user.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
-        #UserMailerFollow.delay({run_at: 1.minute.from_now}).new_follower(User.find(params[:followed_id]).email,current_user)
         msg = 'User Followed !'
       else
         msg = 'Cant follow same User twice'
@@ -58,6 +57,5 @@ class User < ActiveRecord::Base
     u << self.following_ids
     Tweet.where(user_id: u.flatten)
   end
-
 
 end

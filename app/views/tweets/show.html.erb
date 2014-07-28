@@ -23,5 +23,9 @@
 </div>
 
 
-<%= link_to 'Edit', edit_user_tweet_path(current_user,@tweet) %> |
-<%= link_to 'Back', user_tweets_path %>
+<%= link_to 'Edit', edit_my_tweet_path('me',@tweet) %> |
+
+<%= link_to 'Back', my_tweets_path('me')%>
+
+<%# link_to 'Edit', edit_user_tweet_path(current_user,@tweet) %> |
+<%# link_to 'Back', user_tweets_path %>

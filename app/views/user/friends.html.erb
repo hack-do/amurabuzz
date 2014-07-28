@@ -2,35 +2,34 @@
 <p></p>
 
 <br><br>
-<%= link_to "Make friends",{:action => 'all_users'},class: "btn btn-primary" %>
+<%= link_to "Make friends",all_users_path('me'),class: "btn btn-primary" %>
 <br><br><br>
 <div class="container-fluid">
-	<h3>Followers</h3>
-	<div class="row">
-		<table class="table table-stripped col-md-4">
-			<tr>
-				<th>Sr.No.</th>
-				<th>Email</th>
-				<th>User Name</th>
-				<th></th>
-			</tr>
-				<% i = 0 %>
-				<% @followers.each do |f| %>
-			<tr>
-				<td><%= i=i+1 %></td>
-				<td><%= link_to f.email ,{:action => "friend_profile", :id => f.id}  %> </td>
-				<td><%= f.user_name %></td>
-				</td>
-			</tr>
-		<% end %>
-		</table>
-	</div>
+<h3>Followers</h3>
+<div class="row">
+<table class="table table-stripped col-md-4">
+	<tr>
+		<th>Sr.No.</th>
+		<th>Email</th>
+		<th>User Name</th>
+		<th></th>
+	</tr>
+<% i = 0 %>
+<% @followers.each do |f| %>
+	<tr>
+		<td><%= i=i+1 %></td>
+		<td><%= link_to f.email ,{:action => "friend_profile", :id => f.id}  %> </td>
+		<td><%= f.user_name %></td>
+		</td>
+	</tr>
+<% end %>
+</table>
+</div>
 </div>
 
 <br/><br>
 
 <div class="container-fluid">
-
 <h3>Following</h3>
 <div class="row">
 <table class="table table-stripped col-md-4">
@@ -53,4 +52,3 @@
 </table>
 </div>
 </div>
-
