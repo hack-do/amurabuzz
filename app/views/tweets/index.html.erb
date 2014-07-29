@@ -1,3 +1,5 @@
+<%= subscribe_to "/tweets/new" %>
+
 <h1>Listing tweets</h1>
 
 <div class="row-fluid">
@@ -13,18 +15,26 @@
      
 <div class="panel panel-info container-fluid">
   <div class="panel-heading row">
-    <h3 class="panel-title col-md-4"><%= tweet.user.email %></h3>
+    <h3 class="panel-title col-md-4"><%= link_to tweet.user.email,user_friend_profile_path(id: tweet.user.id) %></h3>
     <div class = 'col-md-8 text-right'>
-     <div class="col-md-11">
-     <%= link_to 'Show',my_tweet_path('me',tweet.id) %>
-     <%# link_to 'Show',controller: 'tweets', action: 'show', id: tweet.id %>
-      <%=distance_of_time_in_words_to_now(tweet.created_at)%> ago
+     <div class="col-md-5 col-md-offset-4">
+       <small><em><%=distance_of_time_in_words_to_now(tweet.created_at)%> ago</em></small>
+       
+       
      </div>
+      <div class="col-md-1">
+        <%= link_to '<i class="fa fa-eye"></i>'.html_safe,my_tweet_path('me',tweet.id) %>
+      </div>
+      <div class="col-md-1">
+      <%if tweet.user_id == @current_user.id %>
+        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe,edit_my_tweet_path('me',tweet.id) %>
+      <% end %>
+      </div>
      <div class="col-md-1">
-        <%if tweet.user_id == @current_user.id %>
+        <% if tweet.user_id == @current_user.id %>
          <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
               </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
-        <%end%>
+        <% end %>
      </div>
     </div>
 

@@ -1,22 +1,15 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
-  #include ActionController::Live
-def index  
+  def private_pub
+    @tweets_new = Tweet.first
+  end
+
+  def index  
 
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
     puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
 
-    # begin
-    #   response.headers['Content-Type'] = 'text/event-stream'
-    #   100.times {
-    #     response.stream.write "hello world\n"
-    #   }
-    # rescue IOError
-
-    # ensure 
-    # response.stream.close
-    # end
   end
 
 

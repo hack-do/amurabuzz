@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require private_pub
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
@@ -36,18 +37,7 @@ function initialize(){
 	}
 
 
-	$.fn.dataTable.ext.errMode = 'throw';
-
-
-	//console.log("Datatable: "+$.fn.DataTable.fnIsDataTable($('.all_users_datatable')));
-
-	// $('a,button').click(function(){
-	// 	//$(this).hide();
-	// 	$(this).attr('disabled','disabled');
-	// 	$(this).trigger( "click" );
-	// 	console.log("link disabled after click");
-	// });
-
+	//$.fn.dataTable.ext.errMode = 'throw';
 
 	 $('#post_tweet').attr('disabled','disabled');	
 
@@ -63,17 +53,15 @@ function initialize(){
 	 		$('#post_tweet').attr('disabled','disabled');	
 	 	}
 	 });
-
+	
+	//-----------add ACTIVE class to navbar li
+	$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
 };
 
 
-// $(document).load(function() {	
-// 	alert("Page Loaded");
-// });
-
 $(document).ready(function() {	
 	console.log("Page Reloaded(Ready Event JS)");
-	initialize();
+	//initialize();
 });
 
 $(document).on('page:change', function() {
@@ -88,7 +76,7 @@ $(document).on('page:change', function() {
 
 $(document).on('page:fetch', function() {
 
-  console.log("Page Fetch Turbolinks");
+  //console.log("Page Fetch Turbolinks");
   $('#main_body').css("opacity","0.3");
   $('#main_body').css("z-index","-5");
   $('#spinner').css("z-index","10");
@@ -97,7 +85,7 @@ $(document).on('page:fetch', function() {
 
 $(document).on('page:receive', function() {
 
-  console.log("Page receive Turbolinks");
+  //console.log("Page receive Turbolinks");
    $('#main_body').css("opacity","1");
    $('#main_body').css("z-index","10");
    $('#spinner').css("z-index","-5");

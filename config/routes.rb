@@ -6,6 +6,8 @@ TwitterApp::Application.routes.draw do
   get "user/follow"
   get "user/unfollow"
   get "user/create"
+
+  get "tweets/private_pub"
   
 
   get "main/home"
@@ -29,8 +31,9 @@ TwitterApp::Application.routes.draw do
   #match ':id/profile' => 'user#friend_profile', :via => :get
 
  
+  #match 'users/auth/:provider/callback' => 'omniauthcallbacks#facebook' ,via: :get
   
-  devise_for :users,:controllers => {registrations: 'registrations'}
+  devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks"}
 
   resources :users do
      resources :tweets

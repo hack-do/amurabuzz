@@ -31,7 +31,7 @@
 					<% if current_user.following?(f) %>
 						<%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id},class: "btn btn-sm btn-warning",id: f.id.to_s + "uf" %>
 					<% else %>
-						<%= link_to "Follow",{:action => "follow",:followed_id => f.id}, class: "btn btn-sm btn-success",id: f.id.to_s + "f" %>
+						<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,{:action => "follow",:followed_id => f.id}, class: "btn btn-sm btn-success",id: f.id.to_s + "f" %>
 					<% end %>
 				</td>
 			</tr>

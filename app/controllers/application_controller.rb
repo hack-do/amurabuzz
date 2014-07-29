@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
 	def gen_currents
-	    @current_action = action_name
-	    @current_controller = controller_name
+	    @ca = action_name
+	    @cc = controller_name
 	end
 
   def check_login

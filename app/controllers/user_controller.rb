@@ -3,25 +3,7 @@ class UserController < ApplicationController
     @user=User.find(params[:id])
     @tweets=@user.tweets.page(params[:page]).per(10)
   end
-  
-  def index
-   @users = User.all
- end
 
- # GET /users/new
- def new
-   @user = User.new
- end
-
- def create
-   @user = User.create( user_params )
- if @user.save
-     redirect_to action: 'index', notice: 'User was successfully created.'
-   else
-     render action: 'new', alert: 'User could not be created' 
-   end
- end
- 
   def home
   end
 
