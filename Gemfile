@@ -22,6 +22,7 @@ gem 'invoker'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'paperclip','~>3.0'
+gem "paranoia", "~> 2.0"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

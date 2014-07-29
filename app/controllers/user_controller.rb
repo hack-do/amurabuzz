@@ -3,27 +3,6 @@ class UserController < ApplicationController
     @user=User.find(params[:id])
     @tweets=@user.tweets.page(params[:page]).per(10)
   end
-  
-  def index
-   @users = User.all
- end
-
- # GET /users/new
- def new
-   @user = User.new
- end
-
- def create
-   @user = User.create( user_params )
- if @user.save
-     redirect_to action: 'index', notice: 'User was successfully created.'
-   else
-     render action: 'new', alert: 'User could not be created' 
-   end
- end
- 
-  def home
-  end
 
   def profile
   end
@@ -35,10 +14,7 @@ class UserController < ApplicationController
 
   def all_users
     @users = User.all(:conditions => ["id != ?", current_user.id])#.paginate(:per_page => 10,:page => params[:page])
-      # respond_to do |format|
-      #   format.html
-        #format.json { render json: UserDatatable.new(view_context) }
-      # end
+   
   end
 
   def follow
@@ -50,10 +26,7 @@ class UserController < ApplicationController
     end
   end
 
-  def unfollow
-    # puts "\n\nUnfollowed ID - #{params[:unfollowed_id]}----------\n\n"
-    # puts "\n\nCurrent User ID - #{current_user.id}----------\n\n"
-    
+  def unfollow 
     msg = current_user.unfollow!(current_user,params[:unfollowed_id])
     
     respond_to do |format|

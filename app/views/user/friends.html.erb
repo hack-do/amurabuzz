@@ -45,8 +45,7 @@
 		<td><%= i=i+1 %></td>
 		<td><%= link_to f.email ,{:action => "friend_profile", :id => f.id}  %> </td>
 		<td><%= f.user_name%></td>
-		<!-- <td><%# f.id %></td> -->	
-		<td><%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id}, class: "btn btn-sm btn-warning"%></td>
+				<td><%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id}, class: "btn btn-sm btn-warning"%></td>
 	</tr>
 <% end %>
 </table>

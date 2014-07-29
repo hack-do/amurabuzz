@@ -1,12 +1,12 @@
 <h1>Listing tweets</h1>
 
 <div class="row-fluid">
- <!--  <div class="col-md-offset-8 "> -->
+
  <center>
    <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
         :pagination_class => "pagination-small pagination-centered"%>
   </center>
-  <!-- </div> -->
+
 </div>
 <% if @tweets %>
 <% @tweets.each do |tweet| %>
@@ -17,7 +17,7 @@
     <div class = 'col-md-8 text-right'>
      <div class="col-md-11">
      <%= link_to 'Show',my_tweet_path('me',tweet.id) %>
-     <%# link_to 'Show',controller: 'tweets', action: 'show', id: tweet.id %>
+  
       <%=distance_of_time_in_words_to_now(tweet.created_at)%> ago
      </div>
      <div class="col-md-1">
@@ -28,7 +28,7 @@
      </div>
     </div>
 
-    <!-- </div> -->
+    
   </div>
 
   <div class="panel-body wrap_word">
@@ -39,12 +39,3 @@
     <% end %> 
     <% end %> 
 <br>
-
-<!-- <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close
-</span></button> -->
-<!-- <div class = 'well row'>
-        <div class = 'col-md-4'>
-        <h4 class = 'text-primary'></h4>
-        </div>
-        <div class = 'col-md-6 col-md-offset-2 lead '></div>
-      </div>  -->

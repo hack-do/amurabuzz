@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  acts_as_paranoid
   devise :database_authenticatable,:async, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable#, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable#,:confirmable
 
   has_many :tweets,:dependent => :destroy   
 
@@ -22,8 +23,6 @@ class User < ActiveRecord::Base
 	   relationships.find_by_followed_id(followed)
   end
 
-#current_user.relationships << Relationships.create(:followed_id => followed.id)
-
   def follow!(current_user,followed_id)
     if current_user.id.to_i != followed_id.to_i 
       if !current_user.following?(followed_id)
@@ -41,7 +40,7 @@ class User < ActiveRecord::Base
   def unfollow!(current_user,unfollowed_id)
     if current_user.id != unfollowed_id 
       if current_user.following?(unfollowed_id)
-        relationships.find_by_followed_id(unfollowed_id).destroy
+        relationships.find_by_followed_id(unfollowed_id).really_destroy!
         msg = 'User Unfollowed !'
       else
         msg = 'User already unfollowed'

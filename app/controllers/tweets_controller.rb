@@ -1,27 +1,15 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-
-  #include ActionController::Live
 def index  
 
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
-    puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
+   # puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
 
-    # begin
-    #   response.headers['Content-Type'] = 'text/event-stream'
-    #   100.times {
-    #     response.stream.write "hello world\n"
-    #   }
-    # rescue IOError
-
-    # ensure 
-    # response.stream.close
-    # end
   end
 
 
   def show
-    puts "\n\nSHOW action\n\n"
+  #  puts "\n\nSHOW action\n\n"
   end
 
   def new
@@ -36,29 +24,24 @@ def index
      puts "\n\nCREATE action\n\n"
     @tweet = Tweet.new(tweet_params)
 
-    # respond_to do |format|
       if @tweet.save
         @msg = "Successfull"
         current_user.tweets << @tweet
         current_user.save
         redirect_to my_tweets_path('me'), notice: 'Tweet was successfully created.'
-        # format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
-        # format.json { render action: 'index', status: :created, location: @tweet }
-        # format.js
+    
       else
         @msg = "Unsuccessfull"
         render action: 'new'
-        # format.html { render action: 'new' }
-        # format.json { render json: @tweet.errors, status: :unprocessable_entity }
-        # format.js
+     
       end
-    # end
+ 
   end
 
   def update
-    puts "\n\nUPDATE action\n\n"
-    puts "#{@tweet.inspect}\n\n\n"
-    puts "#{tweet_params[:tweet]}\n\n\n"
+    #puts "\n\nUPDATE action\n\n"
+    #puts "#{@tweet.inspect}\n\n\n"
+    #puts "#{tweet_params[:tweet]}\n\n\n"
     respond_to do |format|
       if @tweet.update(tweet_params)
         format.html { redirect_to user_tweet_path(current_user,@tweet), notice: 'Tweet was successfully updated.' }

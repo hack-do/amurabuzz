@@ -1,8 +1,5 @@
 <h1>Editing tweet</h1>
 
-<%# render 'form' %>
-
-<%# form_for([current_user,@tweet],url: url_for(controller: 'tweets',action: 'update')) do |f| %>
 <%= form_for([current_user,@tweet],url: url_for(controller: 'tweets',action: 'update')) do |f| %>
   <% if @tweet.errors.any? %>
     <div id="error_explanation">
