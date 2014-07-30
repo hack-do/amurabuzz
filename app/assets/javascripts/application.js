@@ -125,4 +125,3 @@ function isDataTable ( nTable )
     return false;
 }
 
-

@@ -1,1 +1,1 @@
-You have a New Follower : <%= @follower.user_name%>
+You have a New Follower : <%= link_to @follower.user_name,user_friend_profile_url(:id =>@follower.id)%>

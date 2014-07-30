@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :check_login
 def index  
 
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
@@ -25,14 +26,12 @@ def index
     @tweet = Tweet.new(tweet_params)
 
       if @tweet.save
-        @msg = "Successfull"
         current_user.tweets << @tweet
         current_user.save
         redirect_to my_tweets_path('me'), notice: 'Tweet was successfully created.'
     
       else
-        @msg = "Unsuccessfull"
-        render action: 'new'
+        redirect_to :back,notice: "Tweet Unsuccessful"
      
       end
  
@@ -54,7 +53,7 @@ def index
   def destroy
     puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
     if @tweet.user == current_user
-      @tweet.destroy
+      @tweet.really_destroy!
       msg = 'Tweet deleted successfully'
     else
       msg = 'Permission denied !'

@@ -51,10 +51,7 @@ class User < ActiveRecord::Base
   end
 
   def timeline_tweets
-    u = []
-    u << self.id
-    u << self.following_ids
-    Tweet.where(user_id: u.flatten)
+    Tweet.where(user_id: [self.id,self.following_ids].flatten.compact)
   end
 
 end

@@ -1,3 +1,4 @@
+<div class = 'wrapper'>
 <h1>Listing tweets</h1>
 
 <div class="row-fluid">
@@ -17,8 +18,12 @@
     <div class = 'col-md-8 text-right'>
      <div class="col-md-11">
      <%= link_to 'Show',my_tweet_path('me',tweet.id) %>
-  
-      <%=distance_of_time_in_words_to_now(tweet.created_at)%> ago
+        <%if tweet.created_at != (tweet.updated_at - 1.second)%>
+          <em>edited </em>
+          <%=distance_of_time_in_words_to_now(tweet.updated_at)%> ago
+        <%else%>
+          <%=distance_of_time_in_words_to_now(tweet.updated_at)%> ago
+          <%end%>
      </div>
      <div class="col-md-1">
         <%if tweet.user_id == @current_user.id %>
@@ -39,3 +44,4 @@
     <% end %> 
     <% end %> 
 <br>
+</div>
