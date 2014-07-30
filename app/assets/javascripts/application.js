@@ -13,11 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require private_pub
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require_tree.
+//= require_tree .
 
 
 function initialize(){
@@ -54,8 +53,18 @@ function initialize(){
 	 	}
 	 });
 	
+
+	$('#tweet_msg').keydown(function() {
+	    if (event.keyCode == 13 && $(this).val()!= "") {
+	        this.form.submit();
+	        return false;
+	     }
+	});
+
+
+	
 	//-----------add ACTIVE class to navbar li
-	$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
+	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
 };
 
 

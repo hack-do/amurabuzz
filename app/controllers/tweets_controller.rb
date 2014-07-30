@@ -1,9 +1,6 @@
 class TweetsController < ApplicationController
+  before_action :check_login #,only: [:friends,:profile,:index,:edit]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-
-  def private_pub
-    @tweets_new = Tweet.first
-  end
 
   def index  
 
@@ -39,8 +36,8 @@ class TweetsController < ApplicationController
         # format.json { render action: 'index', status: :created, location: @tweet }
         # format.js
       else
-        @msg = "Unsuccessfull"
-        render action: 'new'
+        @msg = "Tweet unsuccessfull"
+        redirect_to :back, notice: @msg
         # format.html { render action: 'new' }
         # format.json { render json: @tweet.errors, status: :unprocessable_entity }
         # format.js
@@ -73,6 +70,20 @@ class TweetsController < ApplicationController
    
    redirect_to user_tweets_url(current_user),:notice => msg
   end
+
+    def vote
+      value = params[:type] == "Like" ? 1 : 0
+      @tweet = Tweet.find(params[:id])
+      @tweet.add_or_update_evaluation(:votes, value, current_user)
+      redirect_to :back
+    end
+
+    def likes
+      tid = params[:tweet_id]
+      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
+      tweet = Tweet.find(tid)
+      @likers = tweet.evaluators_for(:votes)
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.

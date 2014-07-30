@@ -1,14 +1,12 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable,:omniauthable, :omniauth_providers => [:facebook]#, :confirmable
+  acts_as_paranoid
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :tweets,:dependent => :destroy   
-
+  has_many :evaluations, class_name: "RsEvaluation", as: :source
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
-
 
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
@@ -17,6 +15,7 @@ class User < ActiveRecord::Base
   validates_presence_of :user_name
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
+
 
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
@@ -41,7 +40,7 @@ class User < ActiveRecord::Base
   def unfollow!(current_user,unfollowed_id)
     if current_user.id != unfollowed_id 
       if current_user.following?(unfollowed_id)
-        relationships.find_by_followed_id(unfollowed_id).destroy
+        relationships.find_by_followed_id(unfollowed_id).really_destroy!
         msg = 'User Unfollowed !'
       else
         msg = 'User already unfollowed'
@@ -57,6 +56,10 @@ class User < ActiveRecord::Base
     u << self.following_ids
     Tweet.where(user_id: u.flatten)
   end
+
+  def voted_for?(tweet)
+   evaluations.where(target_type: tweet.class,target_id: tweet.id,value: "1.0").present?
+ end
 
   def self.from_omniauth(auth)
     require 'open-uri'
@@ -86,4 +89,7 @@ class User < ActiveRecord::Base
     end
   end
 
+ def to_param
+    "#{email}".parameterize
+  end
 end

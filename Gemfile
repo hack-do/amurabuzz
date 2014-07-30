@@ -6,16 +6,17 @@ gem 'rails'#, '4.0.2'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 gem 'omniauth-facebook'
-gem "private_pub"
 gem "thin"
 gem 'open_uri_redirections'
 gem "authbuttons-rails"
+gem "paranoia", "~> 2.0"
 
 #gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'devise'
-gem 'devise-i18n'
+gem 'devise-async'
+#gem 'devise-i18n'
 #gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
 # gem 'ajax-datatables-rails'
@@ -27,6 +28,10 @@ gem 'invoker'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'paperclip','~>3.0'
+gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4'
+#gem 'acts_as_votable', '~> 0.10.0'
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

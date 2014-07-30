@@ -8,7 +8,9 @@
 		</div>
 		<div class="panel-body container-fluid">
 			<div class="row">
-		    <div class="col-md-3 col-lg-3 " align="center"> <%= image_tag current_user.avatar.url,size:"70x70"%> </div>
+		    <div class="col-md-3 col-lg-3 " align="center"> 
+		    <%= profile_pic_tag current_user.avatar.url %> 
+		    </div>
 			<div class=" col-md-9 col-lg-9 "> 
 				<table class="table table-user-information wrap_all">
 		            <tbody>

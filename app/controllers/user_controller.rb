@@ -1,4 +1,7 @@
 class UserController < ApplicationController
+
+  before_action :check_login
+  
   def friend_profile
     @user=User.find(params[:id])
     @tweets=@user.tweets.page(params[:page]).per(10)
@@ -27,7 +30,7 @@ class UserController < ApplicationController
     msg = current_user.follow!(current_user,params[:followed_id])
     UserMailerFollow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user)
     respond_to do |format|
-      format.html { redirect_to :back, alert: msg }
+      format.html { redirect_to :back, notice: msg }
       format.js
     end
   end
