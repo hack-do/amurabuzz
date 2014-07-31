@@ -1,7 +1,13 @@
 class UserController < ApplicationController
+
+  before_action :check_login
+  
   def friend_profile
-  @user=User.find(params[:id])
-  @tweets=@user.tweets.page(params[:page]).per(10)
+    @user=User.find(params[:id])
+    @tweets=@user.tweets.page(params[:page]).per(10)
+  end
+
+  def home
   end
 
   def profile
@@ -13,51 +19,36 @@ class UserController < ApplicationController
   end
 
   def all_users
-    @users = User.all(:conditions => ["id != ?", current_user.id])
+    @users = User.all(:conditions => ["id != ?", current_user.id])#.paginate(:per_page => 10,:page => params[:page])
+      # respond_to do |format|
+      #   format.html
+        #format.json { render json: UserDatatable.new(view_context) }
+      # end
   end
 
   def follow
-    puts "\n\nFollowed ID - #{params[:followed_id]}----------\n\n"
-    puts "\n\nCurrent User ID - #{current_user.id}----------\n\n"
-    #current_user.follow!(params[:followed_id])
-    @followed_id = params[:followed_id] 
+    msg = current_user.follow!(current_user,params[:followed_id])
+    UserMailerFollow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user)
     respond_to do |format|
-    if current_user.id.to_i != params[:followed_id].to_i 
-      if !current_user.following?(params[:followed_id])
-        current_user.follow!(params[:followed_id])
-        # x = User.find(params[:followed_id])
-        # puts x.email
-        UserMailerFollow.new_follower(User.find(params[:followed_id]).email,current_user).deliver
-        @msg = "Successful"
-        format.html { redirect_to :back, alert: 'User Followed Succesfully !'}
-        format.js
-      else
-        format.html { redirect_to :back,alert: 'Cant follow same User twice' }
-        format.js
-    end
-    else
-      @msg = "UnSuccessful"
-      format.html { redirect_to :back, alert: 'Cant follow self'}
-      format.json
+      format.html { redirect_to :back, notice: msg }
       format.js
-    end
     end
   end
 
   def unfollow
-    puts "\n\nUnfollowed ID - #{params[:unfollowed_id]}----------\n\n"
-    puts "\n\nCurrent User ID - #{current_user.id}----------\n\n"
+    # puts "\n\nUnfollowed ID - #{params[:unfollowed_id]}----------\n\n"
+    # puts "\n\nCurrent User ID - #{current_user.id}----------\n\n"
     
-
-    if current_user.id != params[:unfollowed_id] 
-      if current_user.following?(params[:unfollowed_id])
-        current_user.unfollow!(params[:unfollowed_id])
-        redirect_to :back, alert: 'User Unfollowed Succesfully !'
-      else
-        redirect_to :back, alert: 'Unfollowed User cant be unfollowed again'
-      end
-  else
-    redirect_to :back, alert: 'Cant follow self'
+    msg = current_user.unfollow!(current_user,params[:unfollowed_id])
+    
+    respond_to do |format|
+      format.html { redirect_to :back, alert: msg }
+      format.js
+    end
   end
-end
+  
+    private
+   def user_params
+     params.require(:user).permit(:avatar_file_name , :avatar_content_type , :avatar_file_size, :avatar_updated_at,:avatar)
+   end
 end

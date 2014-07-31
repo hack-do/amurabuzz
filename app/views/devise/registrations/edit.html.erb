@@ -3,7 +3,7 @@
 <h2 class = 'col-md-offset-3'>Edit <%= resource_name.to_s.humanize %></h2>
 <br/>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
 <%= devise_error_messages! %>
 
 <div class="form-group">
@@ -38,30 +38,23 @@
 
 
 <div class="form-group">
-    <%= f.label :first_name, class: "col-sm-5 col-md-pull-3 control-label" %>
+    <%= f.label :name, class: "col-sm-5 col-md-pull-3 control-label" %>
     <div class="col-sm-6 col-md-pull-3">
-        <%= f.text_field :first_name, class: "form-control" %>
-    </div>
-</div>
-
-<div class="form-group">
-    <%= f.label :last_name, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%= f.text_field :last_name, class: "form-control" %>
+        <%= f.text_field :name, class: "form-control" %>
     </div>
 </div>
 
 <div class="form-group">
     <%= f.label :dob, class: "col-sm-5 col-md-pull-3 control-label" %>
     <div class="col-sm-6 col-md-pull-3">
-        <%= f.date_field :dob, class: "form-control" %>
+        <%= f.date_field :dob, class: "form-control", order: [:day, :month, :year] %>
     </div>
 </div>
 
 <div class="form-group">
     <%= f.label :bio, class: "col-sm-5 col-md-pull-3 control-label" %>
     <div class="col-sm-6 col-md-pull-3">
-        <%= f.text_area :bio, class: "form-control" %>
+        <%= f.text_area :bio, class: "form-control",:placeholder => "max 160 characters", maxlength: 160 %>
     </div>
 </div>
 
@@ -71,6 +64,13 @@
         <%= f.text_field :user_name, class: "form-control" %>
     </div>
 </div>
+
+<div class="form-group">
+   <div class="col-sm-offset-2 col-sm-6">
+           <%= f.file_field :avatar %>    
+   </div>
+</div>
+
 <br/>
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-6">

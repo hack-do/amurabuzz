@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'amurabuzz@gmail.com'
+  config.mailer_sender = 'vineet@amuratech.com'
   config.allow_unconfirmed_access_for = 30.days
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -230,6 +230,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :facebook, "1517787655101225", "ddc37c789f5807637b4e8f7253a0394d"#, :display => 'popup'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -254,3 +255,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 end
+
+
+Devise::Async.backend = :delayed_job
+Devise::Async.enabled = true

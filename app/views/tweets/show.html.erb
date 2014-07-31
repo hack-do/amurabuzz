@@ -1,14 +1,32 @@
-<p id="notice"><%= notice %></p>
+<br><br><br><br><br>
+<div class="panel panel-info container-fluid">
+  <div class="panel-heading row">
+    <h3 class="panel-title col-md-4"><%= @tweet.user.email %></h3>
+    <div class = 'col-md-8 text-right'>
+     <div class="col-md-11">
+      <%=distance_of_time_in_words_to_now(@tweet.created_at)%> ago
+     </div>
+     <div class="col-md-1">
+        <%if @tweet.user_id == current_user.id %>
+         <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
+              </span>'.html_safe, user_tweet_path(current_user,@tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
+        <%end%>
+     </div>
+    </div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @tweet.content %>
-</p>
+    <!-- </div> -->
+  </div>
 
-<p>
-  <strong>User:</strong>
-  <%= @tweet.user %>
-</p>
+  <div class="panel-body">
+    <%=@tweet.content %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
-<%= link_to 'Back', tweets_path %>
+<% if @tweet.user_id == current_user.id %>
+  <%= link_to 'Edit', edit_my_tweet_path('me',@tweet) %> |
+<% end %>
+
+<%= link_to 'Back', my_tweets_path('me')%>
+
+<%# link_to 'Edit', edit_user_tweet_path(current_user,@tweet) %> 
+<%# link_to 'Back', user_tweets_path %>

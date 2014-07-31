@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require_tree.
+//= require_tree .
 
 
 function initialize(){
@@ -24,22 +24,19 @@ function initialize(){
 	//$('#main_body').hide();
 	$('#spinner').hide();
 
-	if(!$.fn.DataTable.fnIsDataTable($('.all_users_datatable')))
+	if(!$.fn.DataTable.fnIsDataTable($('#all_users_datatable')))
 	{
-		$('.all_users_datatable').dataTable({
-		  "sPaginationType": "bootstrap"
+		$('#all_users_datatable').dataTable({
+		  	"sPaginationType": "bootstrap",
+		   	// "processing": true,
+    		// "serverSide": true,
+    		// "ajax": $('#all_users_datatable').data('source'),
+    		// "pagingType": 'full_numbers'
 		});
 	}
 
-	//console.log("Datatable: "+$.fn.DataTable.fnIsDataTable($('.all_users_datatable')));
 
-	// $('a,button').click(function(){
-	// 	//$(this).hide();
-	// 	$(this).attr('disabled','disabled');
-	// 	$(this).trigger( "click" );
-	// 	console.log("link disabled after click");
-	// });
-
+	//$.fn.dataTable.ext.errMode = 'throw';
 
 	 $('#post_tweet').attr('disabled','disabled');	
 
@@ -55,17 +52,25 @@ function initialize(){
 	 		$('#post_tweet').attr('disabled','disabled');	
 	 	}
 	 });
+	
 
+	$('#tweet_msg').keydown(function() {
+	    if (event.keyCode == 13 && $(this).val()!= "") {
+	        this.form.submit();
+	        return false;
+	     }
+	});
+
+
+	
+	//-----------add ACTIVE class to navbar li
+	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
 };
 
 
-// $(document).load(function() {	
-// 	alert("Page Loaded");
-// });
-
 $(document).ready(function() {	
 	console.log("Page Reloaded(Ready Event JS)");
-	initialize();
+	//initialize();
 });
 
 $(document).on('page:change', function() {
@@ -80,8 +85,7 @@ $(document).on('page:change', function() {
 
 $(document).on('page:fetch', function() {
 
-
-  console.log("Page Fetch Turbolinks");
+  //console.log("Page Fetch Turbolinks");
   $('#main_body').css("opacity","0.3");
   $('#main_body').css("z-index","-5");
   $('#spinner').css("z-index","10");
@@ -90,13 +94,11 @@ $(document).on('page:fetch', function() {
 
 $(document).on('page:receive', function() {
 
-	console.log("Page receive Turbolinks");
+  //console.log("Page receive Turbolinks");
    $('#main_body').css("opacity","1");
    $('#main_body').css("z-index","10");
    $('#spinner').css("z-index","-5");
    $('#spinner').hide();
-
-
 });
 
 // $(document).on('page:update', function() {

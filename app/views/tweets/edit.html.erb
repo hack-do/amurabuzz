@@ -1,6 +1,42 @@
-<h1>Editing tweet</h1>
+<h1>Edit tweet</h1>
 
-<%= render 'form' %>
+<%# render 'form' %>
 
-<%= link_to 'Show', @tweet %> |
-<%= link_to 'Back', tweets_path %>
+<%# form_for([current_user,@tweet],url: url_for(controller: 'tweets',action: 'update')) do |f| %>
+<%= form_for([current_user,@tweet],url: url_for(controller: 'tweets',action: 'update')) do |f| %>
+  <% if @tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+      <ul>
+      <% @tweet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="container-fluid"> 
+<div class="row">
+    <p class="center"><small>max 160 characters</small></p>
+	<div class="col-lg-6 col-lg-offset-4">
+	  <%= f.text_area :content,:class => 'form-control',maxlength: 160 %>
+	  <span class="input-group-btn">
+	  </span>
+	</div><!-- /input-group -->
+	
+	<div class="col-lg-6 col-lg-offset-8">
+	<br><br>
+		<%= f.submit  :class=>"btn btn-primary actions"%>
+	</div>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+<% end %>
+
+
+
+
+<%= link_to 'Show', user_tweet_path(current_user,@tweet) %> |
+<%= link_to 'Back', user_tweets_path(current_user) %>

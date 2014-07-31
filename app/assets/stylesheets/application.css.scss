@@ -20,7 +20,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
 html {
   position: relative;
   min-height: 100%;
@@ -76,4 +75,31 @@ body {
 
 #ajax_notice{
   display:none;
+}
+
+.grey{
+  color:GREY;
+}
+
+.center{
+  text-align:center;
+}
+
+.overflow-x{
+  overflow-x:hidden;
+}
+
+.wrap_all{
+  word-wrap:break-all;
+}
+
+.wrap_word{
+   word-wrap:break-word;
+}
+
+.likes{
+  opacity:0.7;
+}
+.tweet:hover .likes{
+  opacity:1.0;
 }

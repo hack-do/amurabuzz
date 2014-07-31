@@ -1,19 +1,13 @@
 class MainController < ApplicationController
-  before_action :check_login,only: [:timeline,:friends,:profile]
+
   def home
-    @total_users = User.all.count
-    @total_tweets = Tweet.all.count
+    @total_users = User.count
+    @total_tweets = Tweet.count
     
-  end
+    if user_signed_in?
+    	redirect_to my_home_path('me')
+    end
 
-  def timeline
-  end
-
-  def friends
-  end
-
-  def profile
-    
   end
 
   def xtra

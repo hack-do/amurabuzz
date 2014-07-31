@@ -2,11 +2,32 @@
 <p>Find me in app/views/main/xtra.html.erb</p>
 
 
-<%= @current_action  %>
-
-<%= @current_controller %>
+Current Action : <%= @current_action  %>
+<br>
+Current Controller : <%= @current_controller %>
 
 
 <span class="glyphicon glyphicon-wifi"></span>
 
 <%= '<span class="glyphicon glyphicon-log-in"></span> Me'.html_safe %>
+
+
+	<form class="navbar-form navbar-right" role="search">
+			<div class="form-group">
+			  <input type="text" class="form-control" placeholder="Search">
+			</div>
+			<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+	</form>
+
+<br><br>
+<button id="btn_test" class="btn btn-primary">Heya</button>
+
+
+<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+
+<button type="button" rel="popover" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on left
+</button>
+
+<br><br><br><br>
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
