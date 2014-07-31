@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# <<<<<<< HEAD
-# ActiveRecord::Schema.define(version: 20140729071016) do
-# =======
 ActiveRecord::Schema.define(version: 20140730141348) do
-# >>>>>>> vinzee-vineet_dev
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -130,9 +126,9 @@ ActiveRecord::Schema.define(version: 20140730141348) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "deleted_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

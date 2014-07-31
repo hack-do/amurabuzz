@@ -279,7 +279,7 @@ DEPENDENCIES
   open_uri_redirections
   paperclip (~> 3.0)
   paranoia (~> 2.0)
-  rails (= 4.0.2)
+  rails
   sass-rails (~> 4.0.0)
   sdoc
   therubyracer

@@ -4,10 +4,14 @@
   <title>Amura Buzz</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery.transit.min.js"%>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'amura.png' %>
 </head>
 <body data-cc="<%= @cc %>" data-ca="<%= @ca %>">
+<div class = 'wrapper1'>
+  <style> body{ background: url(<%= asset_path 'bg2.jpg' %>); }</style>
+</div>
  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">

@@ -33,7 +33,7 @@ def index
     
       else
         redirect_to :back,notice: "Tweet Unsuccessful"
-
+      end
   end
 
   def update
@@ -73,9 +73,13 @@ def index
       tid = params[:tweet_id]
       logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
       tweet = Tweet.find(tid)
+      @likers_a = []
       @likers = tweet.evaluators_for(:votes)
+      @likers.each do |l|
+        puts "\n\n#{l.user_name}\n"
+        @likers_a << l.user_name
+      end
     end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet

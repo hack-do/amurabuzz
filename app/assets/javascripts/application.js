@@ -37,7 +37,10 @@ function initialize(){
 
 
 	//$.fn.dataTable.ext.errMode = 'throw';
+	
 
+
+	
 	 $('#post_tweet').attr('disabled','disabled');	
 
 	 $('#tweet_msg').keydown(function(e){
@@ -70,11 +73,13 @@ function initialize(){
 
 $(document).ready(function() {	
 	console.log("Page Reloaded(Ready Event JS)");
+	//$('.test1').hover(function(){$(this).transition({ scale: 2.2 });});
 	//initialize();
 });
 
 $(document).on('page:change', function() {
   initialize();
+ //$('.test1').hover(function(){$(this).transition({ scale: 2.2 });});
 });
 
 // $(document).on('page:load', function() {
@@ -91,6 +96,9 @@ $(document).on('page:fetch', function() {
   $('#spinner').css("z-index","10");
   $('#spinner').show();
 });
+
+
+
 
 $(document).on('page:receive', function() {
 
