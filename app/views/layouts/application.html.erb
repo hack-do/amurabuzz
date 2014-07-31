@@ -7,8 +7,7 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'amura.png' %>
 </head>
-<body>
-
+<body data-cc="<%= @cc %>" data-ca="<%= @ca %>">
  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -24,21 +23,27 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
           <% if user_signed_in? %>
-            <li class="<%= is_active?(my_home_path('me')) %>"><%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,my_home_path('me') %></li>     
-
-              <li class="<%= is_active?(my_friends_path('me')) %>"><%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,my_friends_path('me') %></li>
-
-              <li class="<%= is_active?(my_profile_path('me')) %>"><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,my_profile_path('me') %></li>
-              
-              <li class="<%= is_active?(my_tweets_path('me')) %>"><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,my_tweets_path('me') %></li>
+            <li class="<%= is_active?(my_home_path('me')) %>">
+              <%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,my_home_path('me'),accesskey: "h" %>
+            </li>            
+            <li class="<%= is_active?(my_friends_path('me')) %>">
+              <%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,my_friends_path('me'),accesskey: "j" %>
+              </li>
+            <li class="<%= is_active?(my_profile_path('me')) %>"><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,my_profile_path('me'),accesskey: "p" %>
+            </li>
+            <li class="<%= is_active?(my_tweets_path('me')) %>"><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,my_tweets_path('me'),accesskey: "t" %>
+            </li>
               
               <li>
-                <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" title = "Compose Tweet">
+                <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static">
+
                  <span class="glyphicon glyphicon-pencil"></span> Tweet
                 </a>
               </li> 
             <%else%>
-               <li class="active"><%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,root_path %></li>
+               <li class="<%= is_active?(root_path('me')) %>">
+                <%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,root_path,accesskey: "h" %>
+                </li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">

@@ -1,4 +1,4 @@
-<h1>Editing tweet</h1>
+<h1>Edit tweet</h1>
 
 <%= form_for([current_user,@tweet],url: url_for(controller: 'tweets',action: 'update')) do |f| %>
   <% if @tweet.errors.any? %>

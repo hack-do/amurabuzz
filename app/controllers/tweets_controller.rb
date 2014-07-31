@@ -1,11 +1,12 @@
 class TweetsController < ApplicationController
+  before_action :check_login #,only: [:friends,:profile,:index,:edit]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+
   before_action :check_login
 def index  
 
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
-   # puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
-
+ 
   end
 
 
@@ -32,9 +33,7 @@ def index
     
       else
         redirect_to :back,notice: "Tweet Unsuccessful"
-     
-      end
- 
+
   end
 
   def update
@@ -62,6 +61,20 @@ def index
    
    redirect_to user_tweets_url(current_user),:notice => msg
   end
+
+    def vote
+      value = params[:type] == "Like" ? 1 : 0
+      @tweet = Tweet.find(params[:id])
+      @tweet.add_or_update_evaluation(:votes, value, current_user)
+      redirect_to :back
+    end
+
+    def likes
+      tid = params[:tweet_id]
+      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
+      tweet = Tweet.find(tid)
+      @likers = tweet.evaluators_for(:votes)
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.

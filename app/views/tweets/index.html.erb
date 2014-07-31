@@ -9,10 +9,11 @@
   </center>
 
 </div>
+
 <% if @tweets %>
 <% @tweets.each do |tweet| %>
      
-<div class="panel panel-info container-fluid">
+<div class="panel panel-info container-fluid tweet">
   <div class="panel-heading row">
     <h3 class="panel-title col-md-4"><%= link_to tweet.user.email,user_friend_profile_path(:id=> tweet.user) %></h3>
     <div class = 'col-md-8 text-right'>
@@ -25,11 +26,19 @@
           <%=distance_of_time_in_words_to_now(tweet.updated_at)%> ago
           <%end%>
      </div>
+      <div class="col-md-1">
+        <%= link_to '<i class="fa fa-eye"></i>'.html_safe,my_tweet_path('me',tweet.id),title: "View" %>
+      </div>
+      <div class="col-md-1">
+      <%if tweet.user_id == @current_user.id %>
+        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe,edit_my_tweet_path('me',tweet.id) %>
+      <% end %>
+      </div>
      <div class="col-md-1">
-        <%if tweet.user_id == @current_user.id %>
+        <% if tweet.user_id == @current_user.id %>
          <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
               </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
-        <%end%>
+        <% end %>
      </div>
     </div>
 
@@ -39,9 +48,72 @@
   <div class="panel-body wrap_word">
     <%=tweet.content %>
   </div>
+  <div class='col-md-4 text-left likes'>
+    <small>
+      <div class="col-xs-3">
+          <!-- <span class="likes_popover" data-likes=" 
+          <%# tweet.evaluators_for(:votes).each do |e| %>
+            <%# e.user_name%>,
+          <%# end %>"><%# pluralize tweet.reputation_for(:votes).to_i,"Like" %></span> -->
+          <button id="<%= tweet.id  %>" class="btn btn-link btn-sm tweet_likes <%= tweet.id %>" data-toggle="modal" data-target="#myModal">
+        <%= pluralize tweet.reputation_for(:votes).to_i,"Like" %>
+          </button>
+      </div>
+      <div class="col-xs-4">
+         <% if current_user.voted_for?(tweet) %>
+            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm" %>
+         <%else%>
+             <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm" %>
+         <%end%>
+       </div>
+      </small>
+
+
+    
+
+      <div class="tweet_likes_hidden_wrapper">
+        <div class="tweet_likes_hidden" id='<%= "t#{tweet.id}" %>'>
+          <table class="table table-hover table-condensed table-bordered center">
+          <% tweet.evaluators_for(:votes).each do |e| %>
+          <tr>
+            <td><%= link_to e.user_name,my_friend_path(id: e.id)%></td>
+          <% end %>
+          </tr>
+          </table>
+        </div>
+      </div>
+
+<%# link_to "Ajax Likes",:controller => "tweets",action: "likes",tweet_id: tweet.id,remote: true %>
+
+  </div>
+
 </div>
 
-    <% end %> 
-    <% end %> 
-<br>
+  <% end %> 
+<% end %> 
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Likes</h4>
+      </div>
+      <div class="modal-body">
+      <div class="container-fluid">
+         <div class="row" >
+          <div class="col-md-8 col-md-offset-2" id="like_modal_body">
+          </div>
+         </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

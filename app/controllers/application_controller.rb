@@ -4,14 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :gen_currents,:instance_new_tweet
-  
   def instance_new_tweet
   		@tweet = Tweet.new
   end
 
 	def gen_currents
-	    @current_action = action_name
-	    @current_controller = controller_name
+	    @ca = action_name
+	    @cc = controller_name
 	end
 
   def check_login

@@ -41,7 +41,7 @@
     <% @tweets.each do |tweet| %>
       <div class="panel panel-info container-fluid">
         <div class="panel-heading row">
-              <h3 class="panel-title col-md-4"><%=@user.email%></h3>
+              <h3 class="panel-title col-md-4"><%= @user.email%></h3>
                   <div class = 'col-md-8 text-right'>
                             <div class="col-md-11">
                                   <%= distance_of_time_in_words_to_now(tweet.created_at)%> ago

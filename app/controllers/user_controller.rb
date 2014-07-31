@@ -1,9 +1,18 @@
 class UserController < ApplicationController
+
+
   before_action :check_login
+  
+
   def friend_profile
     @user=User.find(params[:id])
     @tweets=@user.tweets.page(params[:page]).per(10)
   end
+
+
+  def home
+  end
+
 
   def profile
   end

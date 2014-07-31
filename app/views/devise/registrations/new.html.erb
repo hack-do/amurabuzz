@@ -1,14 +1,20 @@
+<%# fb_s = session["devise.facebook_data"]["extra"]["raw_info"] %>
+
+<%# session["devise.facebook_data"]["info"] %>
+
 <div class = 'container-fluid'>
 <div class = 'col-md-6 col-md-offset-3'>	
 <h2 class = 'col-md-offset-3'>Sign up</h2>
 <br>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'form-horizontal'}) do |f| %>
 <%= devise_error_messages! %>
 
 <div class="form-group">
     <%= f.label :email, class: "col-sm-2 control-label" %>
     <div class="col-sm-6">
-        <%= f.email_field :email, class: "form-control",:placeholder => 'email@example.com'%>
+        <%= f.email_field :email, class: "form-control",:placeholder => 'email@example.com' %>
+        <!-- ,value: fb_s["email"]s -->
     </div>
 </div>
 
@@ -25,43 +31,12 @@
         <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",:placeholder => '8-20 characters' %>
     </div>
 </div>
-<%# f.hidden_field :first_name, class: "form-control",value: "-" %>
-<%# f.hidden_field :last_name, class: "form-control",value: "-" %>
-<%# f.hidden_field :dob, class: "form-control",value: Time.now %>
-<%# f.hidden_field :bio, class: "form-control",:placeholder => 'Max 160 characters',value: "-" %>
 
-<!-- <div class="form-group">
-    <%# f.label :first_name, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%# f.hidden_field :first_name, class: "form-control",value: "-" %>
-    </div>
-</div>
-
-<div class="form-group">
-    <%# f.label :last_name, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%# f.hidden_field :last_name, class: "form-control",value: "-" %>
-    </div>
-</div>
-
-<div class="form-group">
-    <%# f.label 'Date of Birth', class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%# f.hidden_field :dob, class: "form-control",value: Time.now %>
-    </div>
-</div>
-
-<div class="form-group">
-    <%# f.label :bio, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%# f.hidden_field :bio, class: "form-control",:placeholder => 'Max 160 characters',value: "-" %>
-    </div>
-</div>
- -->
 <div class="form-group">
     <%= f.label :user_name, class: "col-sm-5 col-md-pull-3 control-label" %>
     <div class="col-sm-6 col-md-pull-3">
         <%= f.text_field :user_name, class: "form-control" %>
+        <!-- ,value: "#{fb_s['first_name']} #{fb_s['last_name']}"  -->
     </div>
 </div>
 
