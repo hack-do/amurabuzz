@@ -3,12 +3,8 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   def index  
-
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
-    puts "\n\n\n\nTimeline Tweets\n#{@tweets.inspect}\n\n\n\n\n\n"
-
   end
-
 
   def show
     puts "\n\nSHOW action\n\n"
@@ -31,18 +27,12 @@ class TweetsController < ApplicationController
         @msg = "Successfull"
         current_user.tweets << @tweet
         current_user.save
+        @tweet.create_activity :create, owner: current_user
         redirect_to my_tweets_path('me'), notice: 'Tweet was successfully created.'
-        # format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
-        # format.json { render action: 'index', status: :created, location: @tweet }
-        # format.js
       else
         @msg = "Tweet unsuccessfull"
         redirect_to :back, notice: @msg
-        # format.html { render action: 'new' }
-        # format.json { render json: @tweet.errors, status: :unprocessable_entity }
-        # format.js
       end
-    # end
   end
 
   def update
@@ -51,6 +41,7 @@ class TweetsController < ApplicationController
     puts "#{tweet_params[:tweet]}\n\n\n"
     respond_to do |format|
       if @tweet.update(tweet_params)
+        @tweet.create_activity :update, owner: current_user
         format.html { redirect_to user_tweet_path(current_user,@tweet), notice: 'Tweet was successfully updated.' }
       else
         format.html { render action: 'edit' }
@@ -62,6 +53,7 @@ class TweetsController < ApplicationController
     puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
     if @tweet.user == current_user
       @tweet.destroy
+      #@tweet.create_activity :delete, owner: current_user
       msg = 'Tweet deleted successfully'
     else
       msg = 'Permission denied !'
@@ -75,17 +67,21 @@ class TweetsController < ApplicationController
       value = params[:type] == "Like" ? 1 : 0
       @tweet = Tweet.find(params[:id])
       @tweet.add_or_update_evaluation(:votes, value, current_user)
+      if value == 1
+        current_user.create_activity :like, owner: current_user,recipient: @tweet
+      end
+
       redirect_to :back
     end
 
     def likes
       tid = params[:tweet_id]
-      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
+      #logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
       tweet = Tweet.find(tid)
       @likers_a = []
       @likers = tweet.evaluators_for(:votes)
       @likers.each do |l|
-        puts "\n\n#{l.user_name}\n"
+        #puts "\n\n#{l.user_name}\n"
         @likers_a << l.user_name
       end
     end
