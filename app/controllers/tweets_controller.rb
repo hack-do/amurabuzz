@@ -77,7 +77,7 @@ def index
       @likers = tweet.evaluators_for(:votes)
       @likers.each do |l|
         puts "\n\n#{l.user_name}\n"
-        @likers_a << l.user_name
+        @likers_a << l
       end
     end
   private

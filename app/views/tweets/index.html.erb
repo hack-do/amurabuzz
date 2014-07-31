@@ -18,7 +18,7 @@
     <h3 class="panel-title col-md-4"><%= link_to tweet.user.email,my_friend_path(id: tweet.user.id) %></h3>
     <div class = 'col-md-8 text-right'>
      <div class="col-md-5 col-md-offset-4">
-       <small><em><%=distance_of_time_in_words_to_now(tweet.created_at)%> ago</em></small>
+       <small><em><%=distance_of_time_in_words_to_now(tweet.updated_at)%> ago</em></small>
        
        
      </div>
@@ -66,21 +66,7 @@
        </div>
       </small>
 
-<!-- -------------- Javascript Likes --------------------- -->
-    
 
-     <!--  <div class="tweet_likes_hidden_wrapper">
-        <div class="tweet_likes_hidden" id='<%= "t#{tweet.id}" %>'>
-          <table class="table table-hover table-condensed table-bordered center">
-          <% tweet.evaluators_for(:votes).each do |e| %>
-          <tr>
-            <td><%= link_to e.user_name,my_friend_path(id: e.id)%></td>
-          <% end %>
-          </tr>
-          </table>
-        </div>
-      </div> -->
-<!-- ----------------------------------- -->
 
 
 
@@ -113,8 +99,7 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
