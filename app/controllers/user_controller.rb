@@ -46,6 +46,10 @@ class UserController < ApplicationController
       format.js
     end
   end
+
+  def notifications
+      @activities = PublicActivity::Activity.all
+  end
   
     private
    def user_params

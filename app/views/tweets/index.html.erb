@@ -26,13 +26,13 @@
       </div>
       <div class="col-md-1">
       <%if tweet.user_id == @current_user.id %>
-        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe,edit_my_tweet_path('me',tweet.id) %>
+        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe,edit_my_tweet_path('me',tweet.id),title:"Edit" %>
       <% end %>
       </div>
      <div class="col-md-1">
         <% if tweet.user_id == @current_user.id %>
          <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
-              </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close" %> 
+              </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close", title: "Delete" %> 
         <% end %>
      </div>
     </div>
@@ -50,9 +50,11 @@
           <%# tweet.evaluators_for(:votes).each do |e| %>
             <%# e.user_name%>,
           <%# end %>"><%# pluralize tweet.reputation_for(:votes).to_i,"Like" %></span> -->
-          <button id="<%= tweet.id  %>" class="btn btn-link btn-sm tweet_likes <%= tweet.id %>" data-toggle="modal" data-target="#myModal">
-        <%= pluralize tweet.reputation_for(:votes).to_i,"Like" %>
-          </button>
+         <!--  <button id="<%= tweet.id  %>" class="btn btn-link btn-sm tweet_likes <%= tweet.id %>" data-toggle="modal" data-target="#myModal">
+        <%# pluralize tweet.reputation_for(:votes).to_i,"Like" %>
+          </button> -->
+
+          <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm", remote: true %>
       </div>
       <div class="col-xs-4">
          <% if current_user.voted_for?(tweet) %>
@@ -63,10 +65,10 @@
        </div>
       </small>
 
-<!-- ----------------------------------- -->
+<!-- -------------- Javascript Likes --------------------- -->
     
 
-      <div class="tweet_likes_hidden_wrapper">
+     <!--  <div class="tweet_likes_hidden_wrapper">
         <div class="tweet_likes_hidden" id='<%= "t#{tweet.id}" %>'>
           <table class="table table-hover table-condensed table-bordered center">
           <% tweet.evaluators_for(:votes).each do |e| %>
@@ -76,10 +78,10 @@
           </tr>
           </table>
         </div>
-      </div>
+      </div> -->
 <!-- ----------------------------------- -->
 
-<%# link_to "Ajax Likes",:controller => "tweets",action: "likes",tweet_id: tweet.id,remote: true %>
+
 
   </div>
 
@@ -102,6 +104,9 @@
       <div class="container-fluid">
          <div class="row" >
           <div class="col-md-8 col-md-offset-2" id="like_modal_body">
+             <table id="like_modal_body_table" class="table table-hover table-condensed table-bordered center">
+            </tr>
+            </table>
           </div>
          </div>
       </div>

@@ -39,6 +39,8 @@
                  <span class="glyphicon glyphicon-pencil"></span> Tweet
                 </a>
               </li> 
+               <li class="<%= is_active?(my_notifications_path) %>"><%= link_to '<i class="fa fa-bars"></i> Notifications'.html_safe,my_notifications_path,accesskey: "n" %>
+            </li>
             <%else%>
                <li class="<%= is_active?(root_path('me')) %>">
                 <%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,root_path,accesskey: "h" %>

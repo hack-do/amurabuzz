@@ -82,7 +82,12 @@ class TweetsController < ApplicationController
       tid = params[:tweet_id]
       logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
       tweet = Tweet.find(tid)
+      @likers_a = []
       @likers = tweet.evaluators_for(:votes)
+      @likers.each do |l|
+        puts "\n\n#{l.user_name}\n"
+        @likers_a << l.user_name
+      end
     end
 
   private

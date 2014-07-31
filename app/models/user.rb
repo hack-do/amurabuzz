@@ -1,5 +1,9 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
+
+  include PublicActivity::Model
+  tracked
+  
   acts_as_paranoid
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
 

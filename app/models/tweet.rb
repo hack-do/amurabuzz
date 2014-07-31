@@ -1,4 +1,8 @@
 class Tweet < ActiveRecord::Base
+
+	 include PublicActivity::Model
+  	tracked
+  	
 	acts_as_paranoid
   	belongs_to :user
   	has_reputation :votes, source: :user, aggregated_by: :sum
