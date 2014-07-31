@@ -13,7 +13,13 @@
        
   <div class="panel panel-info container-fluid tweet">
     <div class="panel-heading row">
-      <h3 class="panel-title col-md-4"><%= link_to tweet.user.user_name,my_friend_path(id: tweet.user.id) %></h3>
+      <h3 class="panel-title col-md-4">
+      <%if tweet.user.id == current_user.id%>
+        <%= link_to tweet.user.user_name,my_profile_path(id: 'me') %>
+        <%else%>
+        <%= link_to tweet.user.user_name,my_friend_path(id: tweet.user.id) %>
+        <%end%>
+      </h3>
       <div class = 'col-md-8 text-right'>
         <div class="col-md-5 col-md-offset-4">
          <small><em><%=distance_of_time_in_words_to_now(tweet.updated_at)%> ago</em></small>
