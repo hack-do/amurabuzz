@@ -1,0 +1,19 @@
+
+<br><br>
+<% @activities.each do |activity| %>
+  <div class="activity">
+    <%= link_to activity.owner.user_name, activity.owner if activity.owner %>
+    <%= render_activity activity %>
+  </div>
+<% end %>
+
+<br><br>
+------------------------
+
+ <% @my_activities.each do |activity| %>
+  <div class="activity">
+    You
+    <%= render_activity activity %>
+    <%# activity.inspect %>
+  </div>
+<% end %>

@@ -1,1 +1,4 @@
-alert("hey <%= @likers %>");
+$("#like_modal_body_table").text("");
+<% @likers_a.each do |l|%>
+	$("#like_modal_body_table").append("<tr><td><%= l %></td></tr>");
+<% end %>
