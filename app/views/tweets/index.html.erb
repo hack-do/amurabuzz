@@ -40,26 +40,23 @@
 
 
 
-    <div class="panel-body wrap_word">
-      <%=tweet.content %>
-     </div>
-    <div class='col-md-4 text-left likes'>
-      <small>
-        <div class="col-xs-3">
-            <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm", remote: true %>
-        </div>
-      <div class="col-xs-4">
+
+          <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>
+      </div>
+      <div class="col-xs-5" id="<%= tweet.id %>vote_link">
+
          <% if current_user.voted_for?(tweet) %>
-            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm" %>
+            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm",remote: true %>
          <%else%>
-             <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm" %>
+             <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm",remote: true %>
          <%end%>
        </div>
       </small>
-      </div>
-      <br><br>
-    </div>
 
+
+  </div>
+
+</div>
 
 
     <% end %> 

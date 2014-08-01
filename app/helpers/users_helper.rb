@@ -1,6 +1,6 @@
 module UsersHelper
 
-	def profile_pic_tag image,size="7000x70",class1="img-thumbnail"
+	def profile_pic_tag image,size="70x70",class1="img-thumbnail"
 		#puts "\n\n\n\nProfile Pic Size #{size} \n\n\n #{class1}"
 		if image.nil?
             image_tag "amura.png", size: size, class: class1

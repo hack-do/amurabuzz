@@ -1,0 +1,11 @@
+$("#ajax_notice").text("<%= @msg %>");
+if(<%= @value.to_i %> == 1){
+	$("#<%= @tweet.id %>vote_link").html("<%= h j link_to 'Unlike',vote_user_tweet_url(@tweet,@tweet.id,type:'Unlike'),method: 'post',class: 'btn btn-link btn-sm',remote: true %>");
+	$("#<%= @tweet.id %>vote_link a").html("<small><span class='glyphicon glyphicon-thumbs-down'>"+ $("#<%= @tweet.id %>vote_link a").html() +"</span></small>");
+	$("#<%= @tweet.id %>likes").text("<%= j pluralize @tweet.reputation_for(:votes).to_i,'Like' %>");
+}
+else{
+	$("#<%= @tweet.id %>vote_link").html("<%= h j link_to 'Like',vote_user_tweet_url(@tweet,@tweet.id,type:'Like'),method: 'post',class: 'btn btn-link btn-sm',remote: true %>");
+	$("#<%= @tweet.id %>vote_link a").html("<small><span class='glyphicon glyphicon-thumbs-up'>"+ $("#<%= @tweet.id %>vote_link a").html() +"</span></small>");
+	$("#<%= @tweet.id %>likes").text("<%= j pluralize @tweet.reputation_for(:votes).to_i,'Like' %>");
+}

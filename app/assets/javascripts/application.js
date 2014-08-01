@@ -28,10 +28,7 @@ function initialize(){
 	{
 		$('#all_users_datatable').dataTable({
 		  	"sPaginationType": "bootstrap",
-		   	// "processing": true,
-    		// "serverSide": true,
-    		// "ajax": $('#all_users_datatable').data('source'),
-    		// "pagingType": 'full_numbers'
+	
 		});
 	}
 
@@ -65,7 +62,10 @@ function initialize(){
 	});
 
 
-	
+	$("#user_avatar input").addClass("btn btn-success");
+	$("#user_avatar").click(function(){
+		alert("aaa");
+	});
 	//-----------add ACTIVE class to navbar li
 	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
 };
@@ -73,18 +73,13 @@ function initialize(){
 
 $(document).ready(function() {	
 	console.log("Page Reloaded(Ready Event JS)");
-	//$('.test1').hover(function(){$(this).transition({ scale: 2.2 });});
-	//initialize();
+
 });
 
 $(document).on('page:change', function() {
   initialize();
- //$('.test1').hover(function(){$(this).transition({ scale: 2.2 });});
 });
 
-// $(document).on('page:load', function() {
-//   console.log("Page load Turbolinks");
-// });
 
 
 
@@ -102,19 +97,12 @@ $(document).on('page:fetch', function() {
 
 $(document).on('page:receive', function() {
 
-  //console.log("Page receive Turbolinks");
    $('#main_body').css("opacity","1");
    $('#main_body').css("z-index","10");
    $('#spinner').css("z-index","-5");
    $('#spinner').hide();
 });
 
-// $(document).on('page:update', function() {
-//   console.log("Page update Turbolinks");
-// });
-// $(document).on('page:before-change', function() {
-//   console.log("Page before change Turbolinks");
-// });
 
 
 function isDataTable ( nTable )
