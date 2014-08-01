@@ -111,3 +111,9 @@ body {
 #notification_globe{
   color: rgb(100, 143, 255);  
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
