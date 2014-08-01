@@ -1,19 +1,35 @@
 
 <br><br>
-<% @activities.each do |activity| %>
-  <div class="activity">
-    <%= link_to activity.owner.user_name, activity.owner if activity.owner %>
-    <%= render_activity activity %>
-  </div>
-<% end %>
+ 
+<div class="container-fluid">
+	<div class="row">
+	<!-- Nav tabs -->
+		<ul id="activity_tabs" class="nav nav-pills" role="tablist">
+		  <li class="active">
+		  	<a href="#f_act" role="tab" data-toggle="tab">
+		  		Friends Activities <span class="badge"><%= @activities.count %></span>
+	  		</a>
+  		 </li>
+		  <li>
+			  <a href="#my_act" role="tab" data-toggle="tab">
+			  	My Activities <span class="badge"><%= @my_activities.count %></span>
+			  </a>
+		  </li>
+		</ul>
 
-<br><br>
-------------------------
+		<!-- Tab panes -->
+		<div class="tab-content">
 
- <% @my_activities.each do |activity| %>
-  <div class="activity">
-    You
-    <%= render_activity activity %>
-    <%# activity.inspect %>
-  </div>
-<% end %>
+		  <div class="tab-pane fade in active" id="f_act">
+		  	<br><br>
+		  	<%= render "public_activity/activity",:type_of_activity => @activities%>
+		  </div>
+		  	
+		  <div class="tab-pane fade" id="my_act">
+			<br><br>
+		  	<%= render "public_activity/activity",:type_of_activity => @my_activities%>
+		  </div>
+
+		</div>
+	</div>
+</div>
