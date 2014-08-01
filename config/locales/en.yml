@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+   errors:
+    models:
+     user:
+      attributes:
+       dob:
+         before: "is invalid"
+         after: "is invalid"

@@ -49,7 +49,15 @@ class TweetsController < ApplicationController
   def destroy
     puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
     if @tweet.user == current_user
+      PublicActivity::Activity.where(recipient_type: "Tweet",recipient_id: @tweet.id).each do |a|
+        a.destroy
+      end
+
+      PublicActivity::Activity.where(trackable_type: "Tweet",trackable_id: @tweet.id).each do |a|
+        a.destroy
+      end
       @tweet.really_destroy!
+
       msg = 'Tweet deleted successfully'
     else
       msg = 'Permission denied !'
@@ -60,6 +68,7 @@ class TweetsController < ApplicationController
     def vote
       value = params[:type] == "Like" ? 1 : 0
       @tweet = Tweet.find(params[:id])
+      puts "\n\n\n\nTweet ID : #{@tweet.inspect}\n\n\n"
       @tweet.add_or_update_evaluation(:votes, value, current_user)
       if value == 1
         current_user.create_activity :like, owner: current_user,recipient: @tweet

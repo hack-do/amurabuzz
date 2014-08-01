@@ -32,7 +32,7 @@ gem 'bootstrap-kaminari-views'
 gem 'paperclip','~>3.0'
 gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4'
 #gem 'acts_as_votable', '~> 0.10.0'
-
+gem 'date_validator'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

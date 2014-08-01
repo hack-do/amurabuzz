@@ -1,4 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
+
+def destroy
+	puts "\n\nDELETE USER\n\n"
+     PublicActivity::Activity.where(owner_type: "User",owner_id: current_user.id).each do |a|
+       a.destroy
+     end
+    super
+  end 
+
+
 def sign_up_params
   devise_parameter_sanitizer.sanitize(:sign_up)
 end
