@@ -122,7 +122,15 @@ body {
   color: rgb(100, 143, 255);  
 }
 
+
 .border-shadow {
   border-radius: 5px;
 box-shadow: 1px 1px 20px 1px grey;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+

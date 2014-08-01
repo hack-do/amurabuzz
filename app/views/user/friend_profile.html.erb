@@ -23,13 +23,13 @@
       <% if @user.bio %>
         <p><strong>Bio: </strong><%= word_wrap(@user.bio, :line_width => 20) %></p>
         <% end %>
-
+        <div class = "com-md-pull-right-5">
         <% if current_user.following?(@user.id) %>
             <%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => @user.id},class: "btn btn-sm btn-warning",id: @user.id.to_s + "uf" %>
         <% else %>
             <%= link_to "Follow",{:action => "follow",:followed_id => @user.id}, class: "btn btn-sm btn-success",id: @user.id.to_s + "f" %>
         <% end %>
-
+        </div>
     </div>
   </div>
 </div>

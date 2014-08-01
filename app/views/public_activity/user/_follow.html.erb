@@ -1,1 +1,6 @@
-followed <%= link_to activity.recipient.user_name,my_friend_url(activity.trackable.id) %>
+followed 
+<% if activity.recipient.id == @current_user.id %>
+	You
+<% else %>
+	<%= link_to activity.recipient.user_name,my_friend_url(activity.trackable.id) %>
+<% end %>
