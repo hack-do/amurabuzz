@@ -60,10 +60,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development do
+group :test,:development do
   gem 'brakeman', :require => false
+  gem 'rspec-rails', '~> 3.0.0'
 end
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
