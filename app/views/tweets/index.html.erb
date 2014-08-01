@@ -10,7 +10,7 @@
 
   <% if @tweets %>
   <% @tweets.each do |tweet| %>
-  <div class="panel panel-info container-fluid tweet">
+  <div class="panel panel-info container-fluid tweet border-shadow">
     <div class="panel-heading row">
       <h3 class="panel-title col-md-4">
         <%if tweet.user.id == current_user.id%>
@@ -38,34 +38,16 @@
        </div>
       </div>
 
-    </div>
+
 
     <div class="panel-body wrap_word">
       <%=tweet.content %>
-    </div>
+     </div>
     <div class='col-md-4 text-left likes'>
       <small>
         <div class="col-xs-3">
-      
             <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm", remote: true %>
         </div>
-        <div class="col-xs-4">
-           <% if current_user.voted_for?(tweet) %>
-              <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm" %>
-           <%else%>
-               <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm" %>
-           <%end%>
-         </div>
-        </small>
-
-  <div class="panel-body wrap_word">
-    <%=tweet.content %>
-  </div>
-  <div class='col-md-4 text-left likes'>
-    <small>
-      <div class="col-xs-3">
-          <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm", remote: true %>
-      </div>
       <div class="col-xs-4">
          <% if current_user.voted_for?(tweet) %>
             <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm" %>
@@ -74,15 +56,15 @@
          <%end%>
        </div>
       </small>
-
-
+      </div>
+      <br><br>
     </div>
 
-  </div>
+
 
     <% end %> 
   <% end %> 
-
+   
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
