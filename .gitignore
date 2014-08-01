@@ -15,9 +15,5 @@
 /log/*.log
 /tmp
 
-<<<<<<< HEAD
 #Ignore secret token
 /config/initializers/secret_token.rb
-=======
-/config/initializers/secret_token.rb
->>>>>>> vinzee-vineet_dev

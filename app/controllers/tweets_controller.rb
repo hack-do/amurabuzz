@@ -2,13 +2,9 @@ class TweetsController < ApplicationController
   before_action :check_login #,only: [:friends,:profile,:index,:edit]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
-  before_action :check_login
-def index  
-
+  def index  
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
- 
   end
-
 
   def show
   #  puts "\n\nSHOW action\n\n"
@@ -29,8 +25,8 @@ def index
       if @tweet.save
         current_user.tweets << @tweet
         current_user.save
+        @tweet.create_activity :create, owner: current_user
         redirect_to my_tweets_path('me'), notice: 'Tweet was successfully created.'
-    
       else
         redirect_to :back,notice: "Tweet Unsuccessful"
       end
@@ -42,6 +38,7 @@ def index
     #puts "#{tweet_params[:tweet]}\n\n\n"
     respond_to do |format|
       if @tweet.update(tweet_params)
+        @tweet.create_activity :update, owner: current_user
         format.html { redirect_to user_tweet_path(current_user,@tweet), notice: 'Tweet was successfully updated.' }
       else
         format.html { render action: 'edit' }
@@ -57,8 +54,6 @@ def index
     else
       msg = 'Permission denied !'
     end
-
-   
    redirect_to user_tweets_url(current_user),:notice => msg
   end
 
@@ -66,12 +61,16 @@ def index
       value = params[:type] == "Like" ? 1 : 0
       @tweet = Tweet.find(params[:id])
       @tweet.add_or_update_evaluation(:votes, value, current_user)
+      if value == 1
+        current_user.create_activity :like, owner: current_user,recipient: @tweet
+      end
+
       redirect_to :back
     end
 
     def likes
       tid = params[:tweet_id]
-      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
+      #logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
       tweet = Tweet.find(tid)
       @likers_a = []
       @likers = tweet.evaluators_for(:votes)

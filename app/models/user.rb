@@ -1,6 +1,7 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-
+  include PublicActivity::Common
+  #tracked
   acts_as_paranoid
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
   has_many :tweets,:dependent => :destroy   
@@ -25,6 +26,7 @@ class User < ActiveRecord::Base
     if current_user.id.to_i != followed_id.to_i 
       if !current_user.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
+        current_user.create_activity :follow, owner: current_user, recipient: User.find(followed_id)
         msg = 'User Followed !'
       else
         msg = 'Cant follow same User twice'

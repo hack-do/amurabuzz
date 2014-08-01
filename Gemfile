@@ -10,6 +10,7 @@ gem "thin"
 gem 'open_uri_redirections'
 gem "authbuttons-rails"
 gem "paranoia", "~> 2.0"
+gem 'public_activity'
 
 #gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0'

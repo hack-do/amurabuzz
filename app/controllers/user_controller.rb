@@ -23,30 +23,31 @@ class UserController < ApplicationController
   end
 
   def all_users
-    @users = User.where(["id != ?",current_user.id])#.paginate(:per_page => 10,:page => params[:page])
-   
+    @users = User.where(["id != ?",current_user.id]) 
   end
 
   def follow
     msg = current_user.follow!(current_user,params[:followed_id])
-    UserMailerFollow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user)
-    respond_to do |format|
-      format.html { redirect_to :back, notice: msg }
-      format.js
-    end
+    UserMailerFollow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user) 
+    redirect_to :back, notice: msg
   end
 
-  def unfollow 
+  def unfollow
     msg = current_user.unfollow!(current_user,params[:unfollowed_id])
-    
-    respond_to do |format|
-      format.html { redirect_to :back, alert: msg }
-      format.js
-    end
+    redirect_to :back, alert: msg
+  end
+
+  def notifications
+      puts "\n\nNOFICATIONS\n\n"
+      @activities = PublicActivity::Activity.all.order("created_at desc").where(owner_id: current_user.following_ids)
+      @my_activities = PublicActivity::Activity.all.order("created_at desc").where(owner_id: current_user.id)
   end
   
-    private
+
+private
+   
    def user_params
      params.require(:user).permit(:avatar_file_name , :avatar_content_type , :avatar_file_size, :avatar_updated_at,:avatar)
    end
+
 end
