@@ -64,26 +64,33 @@ class TweetsController < ApplicationController
   end
 
     def vote
-      value = params[:type] == "Like" ? 1 : 0
+      @value = params[:type] == "Like" ? 1 : 0
       @tweet = Tweet.find(params[:id])
-      @tweet.add_or_update_evaluation(:votes, value, current_user)
-      if value == 1
+      @tweet.add_or_update_evaluation(:votes, @value, current_user)
+      if @value == 1
+        @msg = "Liked tweet"
         current_user.create_activity :like, owner: current_user,recipient: @tweet
+      else
+        @msg = "Unliked tweet"
       end
 
-      redirect_to :back
+      puts "\n\n\n\n\n\n----------Tweet #{@msg}-------------\n\n\n\n\n\n"
+      respond_to do |format|
+        format.html { redirect_to :back,notice: @msg }
+        format.js
+      end
     end
 
     def likes
       tid = params[:tweet_id]
-      #logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}"
-      tweet = Tweet.find(tid)
-      @likers_a = []
-      @likers = tweet.evaluators_for(:votes)
-      @likers.each do |l|
-        #puts "\n\n#{l.user_name}\n"
-        @likers_a << l.user_name
+      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}\n\n\n"
+      @tweet = Tweet.find(tid)
+      @likers_ids = RsEvaluation.where(target_id: tid, value: 1.0).map{|rs| rs.source_id }
+      @likers = []
+      @likers_ids.each do |l_id|
+         @likers << User.find(l_id)
       end
+      logger.debug "\n\n\n---------------------------------- Likers : #{@likers.inspect}\n\n\n"
     end
 
   private

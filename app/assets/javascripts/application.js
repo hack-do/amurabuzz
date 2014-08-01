@@ -62,7 +62,10 @@ function initialize(){
 	});
 
 
-	
+	$("#user_avatar input").addClass("btn btn-success");
+	$("#user_avatar").click(function(){
+		alert("aaa");
+	});
 	//-----------add ACTIVE class to navbar li
 	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
 };
@@ -75,6 +78,7 @@ $(document).ready(function() {
 
 $(document).on('page:change', function() {
   initialize();
+  console.log("Page change(Turbolinks)");
 });
 
 // $(document).on('page:load', function() {
