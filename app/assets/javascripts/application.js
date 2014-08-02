@@ -63,11 +63,7 @@ function initialize(){
 
 
 	$("#user_avatar input").addClass("btn btn-success");
-	$("#user_avatar").click(function(){
-		alert("aaa");
-	});
-	//-----------add ACTIVE class to navbar li
-	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
+
 };
 
 
@@ -85,7 +81,6 @@ $(document).on('page:change', function() {
 
 $(document).on('page:fetch', function() {
 
-  //console.log("Page Fetch Turbolinks");
   $('#main_body').css("opacity","0.3");
   $('#main_body').css("z-index","-5");
   $('#spinner').css("z-index","10");

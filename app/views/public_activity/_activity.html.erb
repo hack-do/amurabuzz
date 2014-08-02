@@ -3,7 +3,11 @@
 	<div class="container-fluid">
 	  <div class="activity row">
 	  	<div class="col-md-3 col-md-offset-2">
-		    <%= link_to activity.owner.user_name, activity.owner if activity.owner %>
+	  		<%if activity.owner.id == current_user.id %>
+		    	You
+		    <%else%>	
+		    <%= link_to activity.owner.user_name, my_friend_path(activity.owner_id) if activity.owner.id %>
+		    <%end%>
 		    <%= render_activity activity %>
 	    </div>
 	    <div class="col-md-5 col-md-offset-2">
