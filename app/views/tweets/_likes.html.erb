@@ -1,0 +1,7 @@
+<% likers.each do |l|%>
+	<% if l.id == current_user.id %>
+		<tr><td><%= link_to l.user_name,my_profile_path('me') %></td></tr>
+	<% else %>
+		<tr><td><%= link_to l.user_name,my_friend_path(l.id) %></td></tr>
+	<% end %>
+<% end %>

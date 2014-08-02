@@ -11,13 +11,20 @@
 		                	<%# image_tag "amura.png", size: size %>
 		                </div>
 	                    <div class="col-md-10 wrap"> 
+	                 
 	                        <p><strong>User Name: </strong><%= current_user.user_name%></p>
-                         <% if current_user.name %>
-	                        <p><strong>Name: </strong> <%= current_user.name %></p>
-	                      <% end %>
-	                        <p><strong>DOB: </strong><%= current_user.dob%></p>
-	                        <p><strong>Email: </strong><%= current_user.email%></p>
-	                        <p><strong>Bio: </strong><%= current_user.bio%></p>
+                        	<% if current_user.name%>
+	                        	<p><strong>Name: </strong> <%= current_user.name %></p>
+	                      	<% end %>
+	                      	<% if current_user.dob %>
+	                        	<p><strong>DOB: </strong><%= current_user.dob%></p>
+	                       	<% end %> 
+	                      	<% if current_user.email %> 
+	                        	<p><strong>Email: </strong><%= current_user.email%></p>
+	                       	<% end %> 
+	                      	<% if current_user.bio %>  
+	                        	<p><strong>Bio: </strong><%= current_user.bio%></p>
+	                       	<% end %>
 	                    </div>             
 	                </div> 
 

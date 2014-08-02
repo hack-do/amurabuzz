@@ -22,7 +22,6 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to "Amura Buzz",root_path, class: "navbar-brand" %>
-         <!--  <a class="navbar-brand" href="http://getbootstrap.com/examples/theme/#">Amura Buzz</a> -->
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -46,10 +45,7 @@
               </li> 
                <li class="<%= is_active?(my_notifications_path) %>"><%= link_to '<i class="fa fa-globe fa-lg"></i> Notifications'.html_safe,my_notifications_path,accesskey: "n" %>
             </li>
-            <%#else%>
-              <!--  <li class="<%# is_active?(root_path('me')) %>">
-                <%# link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,root_path,accesskey: "h" %>
-                </li> -->
+        
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -64,20 +60,20 @@
                 <span class="caret"></span>
               </a>
              <ul class="dropdown-menu" role="menu">
-              <!--   <li class="dropdown-header">Register</li> -->
+             
               <%= render 'devise/menu/registration_items' %>
               <%= render 'devise/menu/login_items' %>
             </ul>
            </li>
            <%if user_signed_in?%>
            <li class="dropdown">
-            <%= link_to "<i id='notification_globe' class='fa fa-globe fa-lg'></i><span class='caret'></span>".html_safe,my_notifications_path,:data => {toggle: "dropdown"},class:"dropdown-toggle",remote: true %>
+            <%= link_to "<i id='notification_globe' class='fa fa-globe fa-lg' title = 'friends activities '></i><span class='caret'></span>".html_safe,my_notifications_path,:data => {toggle: "dropdown"},class:"dropdown-toggle",remote: true %>
              <ul id="user_notifications" class="dropdown-menu scrollable-menu" role="menu">
             </ul>
            </li>
            <%end%>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
 
@@ -88,7 +84,7 @@
 	<% if alert %>
 		<p class="alert bg-danger text-danger"><%= alert %></p>
 	<% end %>
-  <p id="ajax_notice" class="notice bg-info text-info"></p>
+  <p id="ajax_notice" class="bg-info text-info"></p>
 </div>
 
 <div class="main-yield col-md-10 col-md-offset-1">

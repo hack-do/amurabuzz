@@ -1,4 +1,3 @@
-$("#like_modal_body_table").text("");
-<% @likers_a.each do |l|%>
-	$("#like_modal_body_table").append("<tr><td><%= j link_to l.user_name,my_friend_path(id: l.id) %></td></tr>");
-<% end %>
+
+$("#like_modal_body_table").html("<%= j render '/tweets/likes',likers: @likers %>");
+
