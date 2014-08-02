@@ -1,82 +1,20 @@
-<div class = 'wrapper'>
-  <h1>Listing tweets</h1>
 
-  <div class="row-fluid">
-    <center>
-     <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
-          :pagination_class => "pagination-small pagination-centered"%>
-    </center>
-  </div>
+<h1>Listing tweets</h1>
 
-  <% if @tweets %>
-  <% @tweets.each do |tweet| %>
- 
+<div class="row-fluid">
+ <center>
+   <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
+        :pagination_class => "pagination-small pagination-centered"%>
+  </center>
+</div>
 
-
-  <div class="panel panel-info container-fluid tweet border-shadow">
-   
-
-    <div class="panel-heading row">
-      <h3 class="panel-title col-md-4">
-        <%if tweet.user.id == current_user.id%>
-          <%= link_to tweet.user.user_name,my_profile_path(id: 'me') %>
-        <%else%>
-          <%= link_to tweet.user.user_name,my_friend_path(id: tweet.user.id) %>
-        <%end%>
-      </h3>
-      <div class = 'col-md-8 text-right'>
-
-          <div class="col-md-5 col-md-offset-4">
-            <small><em><%=distance_of_time_in_words_to_now(tweet.updated_at)%> ago</em></small>
-          </div>
-        
-          <div class="col-md-1">
-            <%= link_to '<i class="fa fa-eye"></i>'.html_safe,my_tweet_path('me',tweet.id),title: "View" %>
-          </div>
-        
-          <%if tweet.user_id == @current_user.id %>
-            <div class="col-md-1">  
-              <%= link_to '<i class="fa fa-pencil"></i>'.html_safe,edit_my_tweet_path('me',tweet.id),title:"Edit" %>
-            </div>
-
-            <div class="col-md-1">
-               <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
-                    </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close", title: "Delete" %>
-            </div>
-          <% end %> 
-       </div>
+<% if @tweets %>
+<% @tweets.each do |tweet| %>
+    <div  id="tweet<%= tweet.id %>">
+      <%= render '/tweets/tweet',tweet: tweet %>
     </div>
-
-
-
-
-      <div class="panel-body wrap_word">
-        <%=tweet.content %>
-      </div>
-      <div class='col-md-4 text-left likes'>
-        <small>
-          <div class="col-xs-3">
-
-          <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>
-         </div>
-          <div class="col-xs-5" id="<%= tweet.id %>vote_link">
-
-            <% if current_user.voted_for?(tweet) %>
-             <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm",remote: true %>
-             <%else%>
-              <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm",remote: true %>
-            <%end%>
-         </div>
-        </small>
-      </div>
-   
-      
-   </div>
-
-
-
-    <% end %> 
   <% end %> 
+<% end %> 
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
