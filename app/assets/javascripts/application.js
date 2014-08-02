@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require_tree.
+//= require_tree .
 
 
 function initialize(){
@@ -28,16 +28,16 @@ function initialize(){
 	{
 		$('#all_users_datatable').dataTable({
 		  	"sPaginationType": "bootstrap",
-		   	// "processing": true,
-    		// "serverSide": true,
-    		// "ajax": $('#all_users_datatable').data('source'),
-    		// "pagingType": 'full_numbers'
+	
 		});
 	}
 
 
 	//$.fn.dataTable.ext.errMode = 'throw';
+	
 
+
+	
 	 $('#post_tweet').attr('disabled','disabled');	
 
 	 $('#tweet_msg').keydown(function(e){
@@ -53,23 +53,33 @@ function initialize(){
 	 	}
 	 });
 	
+
+	$('#tweet_msg').keydown(function() {
+	    if (event.keyCode == 13 && $(this).val()!= "") {
+	        this.form.submit();
+	        return false;
+	     }
+	});
+
+
+	$("#user_avatar input").addClass("btn btn-success");
+	$("#user_avatar").click(function(){
+		alert("aaa");
+	});
 	//-----------add ACTIVE class to navbar li
-	$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
+	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
 };
 
 
 $(document).ready(function() {	
 	console.log("Page Reloaded(Ready Event JS)");
-	//initialize();
+
 });
 
 $(document).on('page:change', function() {
   initialize();
 });
 
-// $(document).on('page:load', function() {
-//   console.log("Page load Turbolinks");
-// });
 
 
 
@@ -82,21 +92,17 @@ $(document).on('page:fetch', function() {
   $('#spinner').show();
 });
 
+
+
+
 $(document).on('page:receive', function() {
 
-  //console.log("Page receive Turbolinks");
    $('#main_body').css("opacity","1");
    $('#main_body').css("z-index","10");
    $('#spinner').css("z-index","-5");
    $('#spinner').hide();
 });
 
-// $(document).on('page:update', function() {
-//   console.log("Page update Turbolinks");
-// });
-// $(document).on('page:before-change', function() {
-//   console.log("Page before change Turbolinks");
-// });
 
 
 function isDataTable ( nTable )
@@ -111,5 +117,4 @@ function isDataTable ( nTable )
     }
     return false;
 }
-
 

@@ -9,7 +9,7 @@
 	u1 = User.create(email: "vineet@amuratech.com",password: "qwerty007",user_name: "vinzeee", :password_confirmation => "qwerty007")
 	u2 = User.create(email: "vinzee93@gmail.com",password: "qwerty007",user_name: "vinzee", :password_confirmation => "qwerty007")
 	u3 = User.create(email: "sayali@amuratech.com",password: "sayali123",user_name: "sayali912", :password_confirmation => "sayali123")
-	u4 = User.create(email: "shaunak@amuratech.com",password: "12345678",user_name: "12345678", :password_confirmation => "qwerty007")
+	u4 = User.create(email: "shaunak@amuratech.com",password: "qwerty007",user_name: "shaunak", :password_confirmation => "qwerty007")
 
 	Relationship.create(follower_id: 1,followed_id: 4)
 	Relationship.create(follower_id: 1,followed_id: 2)

@@ -3,8 +3,7 @@
 <%= link_to "My friends",my_friends_path('me'),class: "btn btn-primary" %>
 
 <br><br><br>
-  <%# will_paginate @users %>
-<!-- , data-source="<%# user_all_users_path(format: :json) %>" -->
+
 
 <div class="container-fluid">
 	<div class="row">
@@ -29,9 +28,9 @@
 				
 				
 					<% if current_user.following?(f) %>
-						<%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id},class: "btn btn-sm btn-warning",id: f.id.to_s + "uf" %>
+						<%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id},class: "btn btn-sm btn-warning unfollow",id: f.id.to_s + "uf" %>
 					<% else %>
-						<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,{:action => "follow",:followed_id => f.id}, class: "btn btn-sm btn-success",id: f.id.to_s + "f" %>
+						<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,{:action => "follow",:followed_id => f.id}, class: "btn btn-sm btn-success follow",id: f.id.to_s + "f" %>
 					<% end %>
 				</td>
 			</tr>

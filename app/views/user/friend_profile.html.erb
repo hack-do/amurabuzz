@@ -1,6 +1,15 @@
 <div class="well">
   <div class="container-fluid">
     <div class="row col-md-10 col-md-offset-1">
+      <% if @user.avatar_file_name.nil?%>
+          <div class="col-md-3 col-lg-3 " align="center"> 
+            <%= image_tag "amura.png",size:"130x100",class: "img-thumbnail"%>
+          </div>
+            <%else%>
+          <div class="col-md-3 col-lg-3 " align="center"> 
+            <%= image_tag @user.avatar.url,size:"130x100",class: "img-thumbnail"%> 
+          </div>
+        <% end %>
       <h4><%= @user.user_name%></h4>
       <% if @user.name %>
         <p><strong>Name: </strong> <%= @user.name%></p>
@@ -14,6 +23,13 @@
       <% if @user.bio %>
         <p><strong>Bio: </strong><%= word_wrap(@user.bio, :line_width => 20) %></p>
         <% end %>
+        <div class = "com-md-pull-right-5">
+        <% if current_user.following?(@user.id) %>
+            <%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => @user.id},class: "btn btn-sm btn-warning",id: @user.id.to_s + "uf" %>
+        <% else %>
+            <%= link_to "Follow",{:action => "follow",:followed_id => @user.id}, class: "btn btn-sm btn-success",id: @user.id.to_s + "f" %>
+        <% end %>
+        </div>
     </div>
   </div>
 </div>
@@ -25,7 +41,7 @@
     <% @tweets.each do |tweet| %>
       <div class="panel panel-info container-fluid">
         <div class="panel-heading row">
-              <h3 class="panel-title col-md-4"><%= @user.email%></h3>
+              <h3 class="panel-title col-md-4"><%= @user.user_name%></h3>
                   <div class = 'col-md-8 text-right'>
                             <div class="col-md-11">
                                   <%= distance_of_time_in_words_to_now(tweet.created_at)%> ago
@@ -35,9 +51,53 @@
               <div class="panel-body overflow-x">
                 <%=tweet.content %>
               </div>
+        <div class='col-md-4 text-left likes'>
+        <small>
+          <div class="col-xs-3">
+          <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm", remote: true %>
+      </div>
+      <div class="col-xs-4">
+         <% if current_user.voted_for?(tweet) %>
+            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm" %>
+         <%else%>
+             <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm" %>
+         <%end%>
+       </div>
+      </small>
+       </div>
+
+
       </div>
     <%end%>
   </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Likes</h4>
+      </div>
+      <div class="modal-body">
+      <div class="container-fluid">
+         <div class="row" >
+          <div class="col-md-8 col-md-offset-2" id="like_modal_body">
+             <table id="like_modal_body_table" class="table table-hover table-condensed table-bordered center">
+            </tr>
+            </table>
+          </div>
+         </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+</div>
+
                           
    

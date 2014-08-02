@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'vineet@amuratech.com'
+  config.mailer_sender = 'amurabuzz@gmail.com'
   config.allow_unconfirmed_access_for = 30.days
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -255,3 +255,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 end
+
+
+Devise::Async.backend = :delayed_job
+Devise::Async.enabled = true
