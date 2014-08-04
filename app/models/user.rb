@@ -17,8 +17,9 @@ class User < ActiveRecord::Base
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
   validates :dob,date: {after: Proc.new {Time.now - 100.years},
-                        before: Proc.new {Time.now}
-   } 
+                        before: Proc.new {Time.now} } 
+
+   validates_attachment :avatar,:content_type => { :content_type => ["image/jpeg", "image/jpg", "image/png"] },:size => {:in => 0..500.kilobytes}
 
 
   def following?(followed)
@@ -89,7 +90,7 @@ class User < ActiveRecord::Base
     end
   end
 
- def to_param
-    "#{email}".parameterize
-  end
+ # def to_param
+ #    "#{email}".parameterize
+ #  end
 end

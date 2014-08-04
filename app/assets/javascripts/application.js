@@ -62,9 +62,9 @@ function initialize(){
 	});
 
 
-	$("#user_avatar input").addClass("btn btn-success");
+	$("#user_avatar input[type=button]").addClass("btn btn-success");
 	$("#user_avatar").click(function(){
-		alert("aaa");
+		console.log("button" + $("#user_avatar"));
 	});
 	//-----------add ACTIVE class to navbar li
 	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");

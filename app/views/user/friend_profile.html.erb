@@ -39,34 +39,8 @@
   <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
          :pagination_class => "pagination-small pagination-centered"%>
     <% @tweets.each do |tweet| %>
-      <div class="panel panel-info container-fluid">
-        <div class="panel-heading row">
-              <h3 class="panel-title col-md-4"><%= @user.user_name%></h3>
-                  <div class = 'col-md-8 text-right'>
-                            <div class="col-md-11">
-                                  <%= distance_of_time_in_words_to_now(tweet.created_at)%> ago
-                            </div>
-                  </div>
-        </div>
-              <div class="panel-body overflow-x">
-                <%=tweet.content %>
-              </div>
-        <div class='col-md-4 text-left likes'>
-        <small>
-          <div class="col-xs-3">
-          <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm", remote: true %>
-      </div>
-      <div class="col-xs-4">
-         <% if current_user.voted_for?(tweet) %>
-            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm" %>
-         <%else%>
-             <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm" %>
-         <%end%>
-       </div>
-      </small>
-       </div>
-
-
+      <div  id="tweet<%= tweet.id %>">
+        <%= render '/tweets/tweet',tweet: tweet %>
       </div>
     <%end%>
   </div>

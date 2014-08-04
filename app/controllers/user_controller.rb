@@ -39,8 +39,20 @@ class UserController < ApplicationController
 
   def notifications
       puts "\n\nNOFICATIONS\n\n"
-      @activities = PublicActivity::Activity.all.order("created_at desc").where(owner_id: current_user.following_ids)
-      @my_activities = PublicActivity::Activity.all.order("created_at desc").where(owner_id: current_user.id)
+      @activities = PublicActivity::Activity.where(owner_id: current_user.following_ids).order("created_at desc")
+      @my_activities = PublicActivity::Activity.where(owner_id: current_user.id).order("created_at desc")
+
+
+     
+      notify = PublicActivity::Activity.order("created_at desc").find_by(trackable_id: current_user.id,key: "user.notify")
+      if notify 
+        @activities_drawer = @activities.where(["created_at > ?",notify.created_at])
+      else
+        @activities_drawer = @activities
+      end
+      
+      current_user.create_activity :notify
+
   end
   
 
