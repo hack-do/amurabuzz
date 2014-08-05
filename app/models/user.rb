@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates :user_name, uniqueness: true
   validates :dob,date: {after: Proc.new {Time.now - 100.years},
                         before: Proc.new {Time.now}
-   } 
+   },on: :edit 
 
 
   def following?(followed)

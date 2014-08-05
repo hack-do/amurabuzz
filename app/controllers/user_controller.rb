@@ -28,7 +28,9 @@ class UserController < ApplicationController
 
   def follow
     msg = current_user.follow!(current_user,params[:followed_id])
-    UserMailerFollow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user) 
+    if msg == 'User Followed !'
+      UserMailerFollow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user) 
+    end
     redirect_to :back, notice: msg
   end
 
@@ -38,9 +40,7 @@ class UserController < ApplicationController
   end
 
   def notifications
-      puts "\n\nNOFICATIONS\n\n"
       @activities = PublicActivity::Activity.where(owner_id: current_user.following_ids).order("created_at desc")
-      puts "#\n\n----------#{@activities.inspect}"
       @my_activities = PublicActivity::Activity.where(owner_id: current_user.id).order("created_at desc")
       
       notify = PublicActivity::Activity.order("created_at desc").find_by(trackable_id: current_user.id,key: "user.notify")

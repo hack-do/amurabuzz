@@ -64,13 +64,13 @@ group :development, :test do
 	gem 'brakeman', :require => false
 	gem 'rspec-rails', '~> 3.0.0'
 	gem 'factory_girl_rails' 
-end 
-
-group :test do 
+	gem 'database_cleaner'
 	gem 'faker' 
 	gem 'capybara' 
 	gem 'guard-rspec' 
-	gem 'launchy' 
+	gem 'launchy'
+	gem 'poltergeist'
+    gem 'phantomjs', :require => 'phantomjs/poltergeist' 
 end 
 
 
