@@ -1,0 +1,145 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require font-awesome
+ *= require_tree .
+ */
+
+
+/*@navbar-brand-color: WHITE;*/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-top: 60px;
+  /*margin-bottom: 60px;*/
+}
+
+#main_body{
+  
+}
+/*.home{
+  opacity: 0.8;
+}*/
+.jumbocontent p{opacity:1.0;}
+.jumbocontent h1{opacity:1.0;}
+#spinner{
+  postion:absolute;
+  margin-left:500px;
+  margin-top:-350px;
+  //z-index:-10;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  text-align: center;
+  opacity:0.5;
+}
+
+.footer .container p{
+	/*margin:5px;*/
+}
+
+.notice_alert{
+  margin-top:50px;
+  text-align:center;
+}
+
+.notice, .alert{
+  height:30px;
+  padding:7px;
+}
+
+
+
+.main-yield{
+  margin-bottom:70px;
+  position:relative;
+}
+
+.tweet_modal{
+ cursor:pointer; 
+}
+
+#ajax_notice{
+}
+
+.grey{
+  color:GREY;
+}
+
+.center{
+  text-align:center;
+}
+
+.overflow-x{
+  overflow-x:hidden;
+}
+
+.wrap_all{
+  word-wrap:break-all;
+}
+
+.wrap_word{
+   word-wrap:break-word;
+}
+
+
+.likes{
+  opacity:0.7;
+}
+.tweet:hover .likes{
+  opacity:1.0;
+}
+
+
+.user_wrapper {
+  background-color:WHITE;
+}
+
+#user_notifications{
+  width: 300px;
+}
+
+#notification_globe{
+  color: rgb(100, 143, 255);  
+}
+
+
+.border-shadow {
+  border-radius: 5px;
+box-shadow: 1px 1px 20px 1px grey;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.bg-white {
+  background-color: WHITE;
+}
+body {
+        background: url(<%= asset_path 'bg2.jpg' %>);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+ }
