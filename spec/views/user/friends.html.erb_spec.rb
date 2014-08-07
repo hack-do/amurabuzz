@@ -13,8 +13,8 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user1.save
     login_as @user,:scope => :user
     puts "#{@user.inspect}"
-    @user.follow!(@user,@user1.id)
-    @user1.follow!(@user1,@user.id)
+    @user.follow!(@user1.id)
+    @user1.follow!(@user.id)
 
     visit my_friends_path('me')
     puts "Current Path : #{current_path}"

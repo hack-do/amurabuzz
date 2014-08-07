@@ -60,15 +60,15 @@ RSpec.describe User, :type => :model do
 		end
 
 		it "should'nt follow self" do
-			expect(@user.follow!(@user,@user.id)).to eq("Cant follow self")
+			expect(@user.follow!(@user.id)).to eq("Cant follow self")
 		end
 
 		it "should create relationship on doing follow & vice versa" do
 			@user.save
 			@user2 = FactoryGirl.create :user1
-			@user.follow!(@user,@user2.id)
+			@user.follow!(@user2.id)
 			expect(Relationship.find_by(follower_id: @user.id,followed_id: @user2.id)).not_to be_nil
-			@user.unfollow!(@user,@user2.id)
+			@user.unfollow!(@user2.id)
 			expect(Relationship.find_by(follower_id: @user.id,followed_id: @user2.id)).to be_nil
 		end
 

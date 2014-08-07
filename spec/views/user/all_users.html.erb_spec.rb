@@ -46,8 +46,9 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
       expect(page).to have_link("Follow")
       click_on 'Follow'
       expect(page).to have_link("Unfollow")
+      click_on 'Unfollow'
+      expect(page).to have_link("Follow")
     end
   end
-
 
 end

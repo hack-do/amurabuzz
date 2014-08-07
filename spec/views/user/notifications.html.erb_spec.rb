@@ -4,40 +4,51 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
   
   before :each do
     @user = FactoryGirl.build(:user)
+    @user1 = FactoryGirl.build(:user1)
     @request.env["devise.mapping"] = Devise.mappings[@user]
-    @user.confirm!
+    @user.confirmed_at = Time.now
+    @user.save
+    @user1.confirmed_at = Time.now
+    @user1.save
+    login_as @user,:scope => :user
      #puts "#{@user.inspect}"
 
-     visit new_user_session_path
+     @user1.follow!(@user.id)
+     @activity = Activity.first#find(:key "follow",)
+
+     @user1.follow!(@user.id)
+     @activity = Activity.first
+     @user.follow!(@user1.id)
+   	 @activity1 = Activity.last
+     visit my_notifications_path
+     puts "Current Path : #{current_path}"
   end
 
-  it "signs me in" do
+  it "displays friends notifications correctly" do
+  	
+  	within '#f_act' do
+   		expect(find("#activity#{@activity.id}"))
+   	end
+
+  end
+
+   it "displays its own notifications correctly" do
+   	
+   	click_on 'My Activities'
+
+   	within '#my_act' do
+   		expect(find("#activity#{@activity1.id}"))
+   	end
+   end
+
+   	it "displays its own notifications in Notifications drawer correctly" do
    
-    Capybara.default_selector = :xpath
+     	find('#notification_globe').click
+      sleep(2.seconds)
 
-    fill_in 'Email', :with => @user.email
-    fill_in 'Password', :with => @user.password
-
-    click_on 'Sign in'
-
-    # email = find(:id,'user_email')
-    # password = find(:id,'user_password')
-    #email.set(@user.email)
-    #password.set(@user.email)
-    # puts "------Email : #{email.value}------"
-    # puts "------Password : #{password.value}------"
-    
-    expect(page).to have_content 'Signed in successfully'
-  end
-
-  it "doesnt signin invalid user" do
-     fill_in 'Email', :with => "crap"
-     fill_in 'Password', :with => "bull-shit"
-
-     click_on 'Sign in'
-      
-    expect(page).to have_content 'Invalid'
-  end
-
+     	within '#user_notifications' do
+        expect(find("#activity#{@activity.id}"))
+     	end
+   end
 
 end

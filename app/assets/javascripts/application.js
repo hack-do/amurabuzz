@@ -66,10 +66,9 @@ function initialize(){
 };
 
 
-$(document).ready(function() {	
-	console.log("Page Reloaded(Ready Event JS)");
+// $(document).ready(function() {	
 
-});
+// });
 
 $(document).on('page:change', function() {
   initialize();

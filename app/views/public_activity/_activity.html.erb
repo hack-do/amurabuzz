@@ -1,7 +1,7 @@
 <% type_of_activity.each do |activity| %>
 <%# activity.inspect %>
 	<div class="container-fluid">
-	  <div class="activity row">
+	  <div id="<%= "activity#{activity.id}"%>"class="activity row">
 	  	<div class="col-md-4 col-md-offset-2">
 	  		<% if activity.owner.id == @current_user.id %>
 	  			You

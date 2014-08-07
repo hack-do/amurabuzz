@@ -5,39 +5,27 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
   before :each do
     @user = FactoryGirl.build(:user)
     @request.env["devise.mapping"] = Devise.mappings[@user]
-    @user.confirm!
-     #puts "#{@user.inspect}"
-
-     visit new_user_session_path
+    @user.confirmed_at = Time.now
+    @user.save
+    login_as @user,:scope => :user
+     visit my_profile_path('me')
+     puts "Current Path : #{current_path}"
   end
 
-  it "signs me in" do
-   
-    Capybara.default_selector = :xpath
 
-    fill_in 'Email', :with => @user.email
-    fill_in 'Password', :with => @user.password
-
-    click_on 'Sign in'
-
-    # email = find(:id,'user_email')
-    # password = find(:id,'user_password')
-    #email.set(@user.email)
-    #password.set(@user.email)
-    # puts "------Email : #{email.value}------"
-    # puts "------Password : #{password.value}------"
-    
-    expect(page).to have_content 'Signed in successfully'
+  it "shows user credentials correctly" do
+    within('.panel') do
+        expect(page).to have_content(@user.user_name)
+        expect(page).to have_content(@user.name)
+        expect(page).to have_content(@user.bio)     
+    end    
   end
 
-  it "doesnt signin invalid user" do
-     fill_in 'Email', :with => "crap"
-     fill_in 'Password', :with => "bull-shit"
-
-     click_on 'Sign in'
-      
-    expect(page).to have_content 'Invalid'
+  it "routes to edit profile page on clicking Edit" do
+      within('.panel') do
+        click_on 'Edit'
+      end    
+    expect(current_path).to eq(edit_user_registration_path)
   end
-
 
 end

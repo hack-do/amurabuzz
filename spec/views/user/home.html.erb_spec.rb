@@ -33,18 +33,4 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
       
   end
 
-  #it "doesnt signin invalid user" do
-    #  fill_in 'Email', :with => "crap"
-    #  fill_in 'Password', :with => "bull-shit"
-
-    #  click_on 'Sign in'
-      
-    # expect(page).to have_content 'Invalid'
-  #end
-
-  after(:each) do
-    Warden.test_reset! 
-  end
-
-
 end

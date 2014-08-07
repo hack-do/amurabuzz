@@ -26,11 +26,11 @@ class User < ActiveRecord::Base
 	   relationships.find_by_followed_id(followed)
   end
 
-  def follow!(current_user,followed_id)
-    if current_user.id.to_i != followed_id.to_i 
-      if !current_user.following?(followed_id)
+  def follow!(followed_id)
+    if self.id.to_i != followed_id.to_i 
+      if !self.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
-        current_user.create_activity :follow, owner: current_user, recipient: User.find(followed_id)
+        self.create_activity :follow, owner: self, recipient: User.find(followed_id)
         msg = 'User Followed !'
       else
         msg = 'Cant follow same User twice'
@@ -41,9 +41,9 @@ class User < ActiveRecord::Base
     msg
   end
 
-  def unfollow!(current_user,unfollowed_id)
-    if current_user.id != unfollowed_id 
-      if current_user.following?(unfollowed_id)
+  def unfollow!(unfollowed_id)
+    if self.id != unfollowed_id 
+      if self.following?(unfollowed_id)
         relationships.find_by_followed_id(unfollowed_id).really_destroy!
         msg = 'User Unfollowed !'
       else
