@@ -68,12 +68,12 @@ RSpec.describe UserController, :type => :controller do
 
     describe "GET notifications" do
       it "checks follow user activity is added" do
-        puts "------------#{activity.inspect}---------------"
+        # puts "------------#{activity.inspect}---------------"
         get "notifications",controller: 'user',id: 'me'
         expect(assigns(:my_activities)).to include(activity)
     end
       it "checks new tweet activity is added" do
-        puts "------------#{activity.inspect}---------------"
+        # puts "------------#{activity.inspect}---------------"
         get "notifications",controller: 'user',id: 'me'
         expect(assigns(:my_activities)).to include(activity_tweet)
     end

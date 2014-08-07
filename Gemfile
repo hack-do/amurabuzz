@@ -68,6 +68,7 @@ group :development, :test do
 	gem 'faker' 
 	gem 'capybara' 
 	gem 'guard-rspec' 
+	gem 'guard-zeus'
 	gem 'launchy'
 	gem 'poltergeist'
     gem 'phantomjs', :require => 'phantomjs/poltergeist' 
