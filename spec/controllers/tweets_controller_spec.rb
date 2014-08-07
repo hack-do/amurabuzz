@@ -7,11 +7,28 @@ RSpec.describe TweetsController do
   before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]
       @request.env["HTTP_REFERER"] = '/'
-      # or set a confirmed_at inside the factory. Only necessary if you
-      # are using the confirmable module
       user.confirm!
       sign_in user
   end
+      describe "GET index" do 
+
+        it "should route to my tweets" do
+          expect(:get => my_tweets_path('me')).
+          to route_to(:controller => "tweets", :action => "index",id: 'me')
+          expect(response.status).to eq(200)
+        end
+
+        it "should render index template" do
+          get "index", controller: 'tweets',:id => 'me'
+          expect(response).to render_template("index")
+        end
+
+        it "assigns @tweets" do 
+             get "index", controller: 'tweets',:id => 'me'
+            expect(assigns(:tweets)).to include(tweet)
+        end
+      end
+
       describe "GET show " do
           it "should route to show tweet" do
             expect(:get => my_tweet_path('me',tweet.id)).
@@ -63,27 +80,48 @@ RSpec.describe TweetsController do
 
 
         it "should render new template" do 
-          get 'new', user_id: tweet.user_id, id: tweet
+          xhr :get, 'new', user_id: tweet.user_id, id: tweet
           expect(response).to render_template('new')
         end
       end
 
-    	describe "GET index" do 
+      describe "POST tweet" do
 
-        it "should route to my tweets" do
-          expect(:get => my_tweets_path('me')).
-          to route_to(:controller => "tweets", :action => "index",id: 'me')
+          it "should create a new tweet" do
+              tweet_params = FactoryGirl.attributes_for(:tweet)
+             xhr :post,"create",controller: "tweets" ,user_id:user, id: tweet,action: "create",tweet: tweet_params
+          end
+       end 
+
+    	
+
+      describe "GET likes" do
+        
+        it "should route to likes path" do
+          expect(:get => tweets_likes_path).
+          to route_to(:controller => "tweets", :action => "likes")
           expect(response.status).to eq(200)
         end
 
-        it "should render index template" do
-          get "index", controller: 'tweets',:id => 'me'
-          expect(response).to render_template("index")
+        it "should render likes template" do 
+          xhr :get, 'likes',controller: 'tweets',tweet_id: tweet
+          expect(response).to render_template('likes')
         end
+      end     
 
-        it "assigns @tweets" do 
-             get "index", controller: 'tweets',:id => 'me'
-            expect(assigns(:tweets)).to include(tweet)
-      	end
-    end
+   
+
+     describe "POST like" do
+      it "should like(vote) a tweet" do
+          xhr :post,"vote",user_id:tweet.user_id,controller: "tweets",action: 'votes',id:tweet.id,type: "Like"
+          expect(assigns(:value)).to be(1)
+      end
+
+       it "should unlike(vote) a tweet" do
+          xhr :post,"vote",user_id:tweet.user_id,controller: "tweets",action: 'votes',id:tweet.id,type: "Unlike"
+          expect(assigns(:value)).to be(0)
+      end
+     end    
+
+
 end

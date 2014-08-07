@@ -88,8 +88,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-
- def to_param
-    "#{email}".parameterize
-  end
 end

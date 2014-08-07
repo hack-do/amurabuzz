@@ -11,9 +11,6 @@ RSpec.describe UserController, :type => :controller do
       #let(:activity) {FactoryGirl.create(:activity,PublicActivity::Activity id:owner_id: user.id,trackable_id: user.id,parameters: {})}
       before(:each) do
         @request.env["devise.mapping"] = Devise.mappings[:user]
-    
-        # or set a confirmed_at inside the factory. Only necessary if you
-        # are using the confirmable module
         user.confirm!
         sign_in user
     	end
@@ -68,13 +65,11 @@ RSpec.describe UserController, :type => :controller do
 
     describe "GET notifications" do
       it "checks follow user activity is added" do
-        # puts "------------#{activity.inspect}---------------"
-        get "notifications",controller: 'user',id: 'me'
+        xhr :get, "notifications",controller: 'user',id: 'me'
         expect(assigns(:my_activities)).to include(activity)
     end
       it "checks new tweet activity is added" do
-        # puts "------------#{activity.inspect}---------------"
-        get "notifications",controller: 'user',id: 'me'
+        xhr :get, "notifications",controller: 'user',id: 'me'
         expect(assigns(:my_activities)).to include(activity_tweet)
     end
   end
