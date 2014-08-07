@@ -1,35 +1,45 @@
  <div class="jumbotron border-shadow home">
   <div class="container-fluid">
 	 <div class="container">
-          <div class="row">
-            <div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
-                           
-               <div class="col-md-12">
-	                <div class="col-md-2">
-	                	<%= profile_pic_tag current_user.avatar.url,size: "130x100" %> 
-	                </div>
-                    <div class="col-md-10 wrap"> 
-                        <p><strong>User Name: </strong><%= current_user.user_name %></p>
-                     <% if current_user.name %>
-                        <p><strong>Name: </strong> <%= current_user.name %></p>
-                      <% end %>
-                        <p><strong>DOB: </strong><%= current_user.dob %></p>
-                        <p><strong>Email: </strong><%= current_user.email %></p>
-                        <p><strong>Bio: </strong><%= current_user.bio %></p>
-                    </div>             
-                </div> 
+
+	          <div class="row">
+	            <div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+	                           
+	               <div class="col-md-12">
+		                <div class="col-md-2">
+		                	<%= profile_pic_tag current_user.avatar.url,size: "130x100" %> 
+		                	<%# size= "100x100" %>
+		                	<%# image_tag "amura.png", size: size %>
+		                </div>
+	                    <div class="col-md-10 wrap"> 
+	                 
+	                        <p><strong>User Name: </strong><%= current_user.user_name%></p>
+                        	<% if current_user.name%>
+	                        	<p><strong>Name: </strong> <%= current_user.name %></p>
+	                      	<% end %>
+	                      	<% if current_user.dob %>
+	                        	<p><strong>DOB: </strong><%= current_user.dob%></p>
+	                       	<% end %> 
+	                      	<% if current_user.email %> 
+	                        	<p><strong>Email: </strong><%= current_user.email%></p>
+	                       	<% end %> 
+	                      	<% if current_user.bio %>  
+	                        	<p><strong>Bio: </strong><%= current_user.bio%></p>
+	                       	<% end %>
+	                    </div>             
+	                </div> 
 
                 <div class="col-xs-12 divider text-center">
                           <div class="col-xs-12 col-sm-4 ">
-                              <h2><strong class = "label label-success"><%= current_user.followers.count%></strong></h2>                    
+                              <h2 id="user_followers_count"><strong class = "label label-success"><%= current_user.followers.count%></strong></h2>                    
                               <p><small>Followers</small></p>
                           </div>
                           <div class="col-xs-12 col-sm-4 ">
-                              <h2><strong class = "label label-info"><%= current_user.following.count%></strong></h2>                    
+                              <h2 id="user_following_count"><strong class = "label label-info"><%= current_user.following.count%></strong></h2>                    
                               <p><small>Following</small></p>
                           </div>
                            <div class="col-xs-12 col-sm-4 ">
-                             <h2><strong class = "label label-primary"><%= current_user.tweets.count%></strong></h2>                    
+                             <h2 id="user_tweets_count"><strong class = "label label-primary"><%= current_user.tweets.count%></strong></h2>                    
                              <p><small>Tweets</small></p>
                          </div>           
                 </div>  

@@ -8,7 +8,6 @@
 	  		<% else %>
 		    	<%= link_to activity.owner.user_name, my_friend_path(activity.owner.id) if activity.owner %>
 		    <% end %>
-
 		    <%= render_activity activity %>
 	    </div>
 	    <div class="col-md-4 col-md-offset-2">

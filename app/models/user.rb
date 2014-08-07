@@ -16,11 +16,11 @@ class User < ActiveRecord::Base
   validates_presence_of :user_name
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
+
   validates :dob,date: {after: Proc.new {Time.now - 100.years},
-                        before: Proc.new {Time.now} } 
+                        before: Proc.new {Time.now} } ,on: :edit
 
    validates_attachment :avatar,:content_type => { :content_type => ["image/jpeg", "image/jpg", "image/png"] },:size => {:in => 0..500.kilobytes}
-
 
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
@@ -76,9 +76,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.user_name = auth.info.nickname 
       user.name = auth.info.name   # assuming the user model has a name
-      user.avatar =  open(auth.info.image,:allow_redirections => :all)#, allow_unsafe_redirects: true)
-      #{}"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/t1.0-1/c0.0.50.50/p50x50/1475882_10202951255481270_75787339_n.jpg"
-      #auth.info.image.gsub("­http","htt­ps") # assuming the user model has an image
+      user.avatar =  open(auth.info.image,:allow_redirections => :all)
     end
   end
 

@@ -1,21 +1,21 @@
 <div class="panel panel-info container-fluid tweet border-shadow">
   <div class="panel-heading row">
-    <h3 class="panel-title col-md-4"><%= link_to tweet.user.email,my_friend_path(id: tweet.user.id) %></h3>
-    <div class = 'col-md-8 text-right'>
-     <div class="col-md-5 col-md-offset-4">
+    <h3 class="panel-title col-xs-4"><%= link_to tweet.user.email,my_friend_path(id: tweet.user.id) %></h3>
+    <div class = 'col-xs-8 text-right'>
+     <div class="col-xs-5 col-xs-offset-4">
        <small><em><%=distance_of_time_in_words_to_now(tweet.created_at)%> ago</em></small>
        
        
      </div>
-      <div class="col-md-1">
+      <div class="col-xs-1">
         <%= link_to '<i class="fa fa-eye"></i>'.html_safe,my_tweet_path('me',tweet.id),title: "View" %>
       </div>
-      <div class="col-md-1">
+      <div class="col-xs-1">
       <%if tweet.user_id == @current_user.id %>
         <%= link_to '<i class="fa fa-pencil"></i>'.html_safe,edit_my_tweet_path('me',tweet.id),title:"Edit" %>
       <% end %>
       </div>
-     <div class="col-md-1">
+     <div class="col-xs-1">
         <% if tweet.user_id == @current_user.id %>
          <%= link_to '<span aria-hidden="true">&times;</span><span class="sr-only">Close
               </span>'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },:class => "close", title: "Delete" %> 
@@ -27,7 +27,7 @@
   <div class="panel-body wrap_word">
     <%=tweet.content %>
   </div>
-  <div class='col-md-4 text-left likes'>
+  <div class='col-xs-4 text-left likes'>
     <small>
       <div class="col-xs-3">
           <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,"Like"}",{:controller => "tweets",action: "likes",tweet_id: tweet.id },:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>

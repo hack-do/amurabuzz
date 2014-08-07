@@ -62,12 +62,7 @@ function initialize(){
 	});
 
 
-	$("#user_avatar input[type=button]").addClass("btn btn-success");
-	$("#user_avatar").click(function(){
-		console.log("button" + $("#user_avatar"));
-	});
-	//-----------add ACTIVE class to navbar li
-	//$("#"+ $('body').data("cc") + "_" + $('body').data("ca")).parent().addClass("active");
+	$("#user_avatar input").addClass("btn btn-success");
 };
 
 
@@ -85,7 +80,6 @@ $(document).on('page:change', function() {
 
 $(document).on('page:fetch', function() {
 
-  //console.log("Page Fetch Turbolinks");
   $('#main_body').css("opacity","0.3");
   $('#main_body').css("z-index","-5");
   $('#spinner').css("z-index","10");

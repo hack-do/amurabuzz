@@ -18,6 +18,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
+gem 'friendly_id', '~> 5.0.0'
 
 #gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
@@ -60,18 +61,24 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development, :test do 
+#group :development, :test do 
 	gem 'brakeman', :require => false
 	gem 'rspec-rails', '~> 3.0.0'
 	gem 'factory_girl_rails' 
-end 
+#end 
 
-group :test do 
+#group :test do 
 	gem 'faker' 
 	gem 'capybara' 
 	gem 'guard-rspec' 
+	gem 'zeus'
+	gem 'guard-zeus'
 	gem 'launchy' 
-end 
+	gem 'database_cleaner'
+	gem 'poltergeist'
+    gem 'phantomjs', :require => 'phantomjs/poltergeist'
+    gem 'selenium-webdriver'
+#end 
 
 
 # Use ActiveModel has_secure_password

@@ -73,8 +73,11 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    childprocess (0.5.3)
+      ffi (~> 1.0, >= 1.0.11)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cliver (0.3.2)
     cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -86,6 +89,7 @@ GEM
       execjs
     coffee-script-source (1.7.1)
     daemons (1.1.9)
+    database_cleaner (1.3.0)
     date_validator (0.7.0)
       activemodel (>= 3)
     delayed_job (4.0.2)
@@ -127,6 +131,8 @@ GEM
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    friendly_id (5.0.4)
+      activerecord (>= 4.0.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -136,6 +142,9 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    guard-zeus (2.0.0)
+      guard (~> 2.0)
+      zeus (~> 0)
     haml (4.0.5)
       tilt
     hashie (3.2.0)
@@ -215,6 +224,12 @@ GEM
       mime-types
     paranoia (2.0.2)
       activerecord (~> 4.0)
+    phantomjs (1.9.7.1)
+    poltergeist (1.5.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
     pry (0.10.0)
       coderay (~> 1.1.0)
@@ -276,6 +291,7 @@ GEM
       sexp_processor (~> 4.1)
     rubydns (0.8.4)
       eventmachine (~> 1.0.0)
+    rubyzip (1.1.6)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -285,6 +301,11 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    selenium-webdriver (2.42.0)
+      childprocess (>= 0.5.0)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0.4)
     sexp_processor (4.4.3)
     slim (2.0.3)
       temple (~> 0.6.6)
@@ -326,8 +347,12 @@ GEM
       macaddr (~> 1.0)
     warden (1.2.3)
       rack (>= 1.0)
+    websocket (1.0.7)
+    websocket-driver (0.3.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    zeus (0.15.1)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -342,6 +367,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   daemons
+  database_cleaner
   date_validator
   delayed_job_active_record
   devise
@@ -350,7 +376,9 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-rails
+  friendly_id (~> 5.0.0)
   guard-rspec
+  guard-zeus
   invoker
   jbuilder (~> 1.2)
   jquery-datatables-rails!
@@ -362,12 +390,16 @@ DEPENDENCIES
   open_uri_redirections
   paperclip (~> 3.0)
   paranoia (~> 2.0)
+  phantomjs
+  poltergeist
   public_activity
   rails
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.0)
   sdoc
+  selenium-webdriver
   therubyracer
   thin
   turbolinks
   uglifier (>= 1.3.0)
+  zeus
