@@ -69,10 +69,14 @@ group :development, :test do
 	gem 'capybara' 
 	gem 'guard-rspec' 
 	gem 'guard-zeus'
+	gem 'guard-cucumber'
 	gem 'launchy'
 	gem 'poltergeist'
     gem 'phantomjs', :require => 'phantomjs/poltergeist' 
 end 
+group :test do
+    gem 'cucumber-rails'
+end
 
 
 # Use ActiveModel has_secure_password

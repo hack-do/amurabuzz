@@ -19,7 +19,7 @@ RSpec.describe UserController, :type => :controller do
          expect(subject.current_user).not_to be_nil
       end
 
-    	describe "route tests" do
+    describe "route tests" do
     	it "should route to home" do
          expect(:get => my_home_path('me')).
         to route_to(:controller => "user", :action => "home",id: 'me')
@@ -67,11 +67,11 @@ RSpec.describe UserController, :type => :controller do
       it "checks follow user activity is added" do
         xhr :get, "notifications",controller: 'user',id: 'me'
         expect(assigns(:my_activities)).to include(activity)
-    end
+      end
       it "checks new tweet activity is added" do
         xhr :get, "notifications",controller: 'user',id: 'me'
         expect(assigns(:my_activities)).to include(activity_tweet)
+      end
     end
-  end
 
 end

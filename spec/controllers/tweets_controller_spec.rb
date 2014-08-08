@@ -47,26 +47,25 @@ RSpec.describe TweetsController do
       end    
 
       describe "GET edit" do
-           it "should route to edit my tweet" do
-            expect(:get => edit_my_tweet_path('me',tweet.id)).
-            to route_to(:controller => "tweets", :action => "edit",uid: 'me',id: tweet.id.to_s)
-            expect(response.status).to eq(200)
-          end
-          it "should render edit template" do
-            get "edit",:uid => 'me', controller: 'tweets',id: tweet.id
-            expect(response).to render_template("edit")
-           end
-         it "assigns @tweet" do 
-             get "edit",:uid => 'me', controller: 'tweets',id: tweet.id
-            expect(assigns(:tweet)).to eq(tweet)
+        it "should route to edit my tweet" do
+          expect(:get => edit_my_tweet_path('me',tweet.id)).
+          to route_to(:controller => "tweets", :action => "edit",uid: 'me',id: tweet.id.to_s)
+          expect(response.status).to eq(200)
+        end
+        it "should render edit template" do
+          get "edit",:uid => 'me', controller: 'tweets',id: tweet.id
+          expect(response).to render_template("edit")
+         end
+        it "assigns @tweet" do 
+           get "edit",:uid => 'me', controller: 'tweets',id: tweet.id
+          expect(assigns(:tweet)).to eq(tweet)
         end
       end
 
       describe "PATCH update" do
-         it "should route to update my tweet" do
-          
-          expect(:patch => update_my_tweet_path('me',tweet.id)).to route_to(:controller => "tweets", :action => "update",uid: 'me',id: tweet.id.to_s)
-          expect(response.status).to eq(200)
+        it "should route to update my tweet" do 
+           expect(:patch => update_my_tweet_path('me',tweet.id)).to route_to(:controller => "tweets", :action => "update",uid: 'me',id: tweet.id.to_s)
+           expect(response.status).to eq(200)
         end
       end   
 
