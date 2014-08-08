@@ -6,6 +6,7 @@ TwitterApp::Application.routes.draw do
   get "user/follow"
   get "user/unfollow"
   get "me/notifications" => "user#notifications",as: "my_notifications"
+  get "test" => "user#test"
 
   get "main/home"
   get "main/xtra"

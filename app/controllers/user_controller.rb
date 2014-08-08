@@ -22,6 +22,11 @@ class UserController < ApplicationController
     @following = current_user.following
   end
 
+  def test
+    @users = User.where(["id != ?",current_user.id]) 
+    render json: @users
+  end
+
   def all_users
     @users = User.where(["id != ?",current_user.id]) 
   end
