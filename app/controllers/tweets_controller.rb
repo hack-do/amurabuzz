@@ -42,7 +42,7 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
+    #puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
     if @tweet.user == current_user
       PublicActivity::Activity.where(recipient_type: "Tweet",recipient_id: @tweet.id).each do |a|
         a.destroy

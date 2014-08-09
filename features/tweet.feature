@@ -31,3 +31,8 @@ Scenario:unlike a tweet
 	Given i liked a tweet "helloworld7"
 	When i click on Unlike
 	Then likes should decrease by 1	
+
+Scenario:delete a tweet
+	Given i create a tweet "helloworld8"
+	When i click on close
+	Then page should not have "helloworld8"	
