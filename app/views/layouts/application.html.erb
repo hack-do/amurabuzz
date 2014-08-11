@@ -34,8 +34,7 @@
             <li class="<%= is_active?(my_tweets_path('me')) %>"><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,my_tweets_path('me'),accesskey: "t" %>
             </li>
               <li>
-                <a class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static" accesskey="m">
-
+                <a id="create_tweet_link" class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static" accesskey="m">
                  <span class="glyphicon glyphicon-pencil"></span> Tweet
                 </a>
               </li> 
@@ -49,7 +48,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-user"></span> Welcome, 
                   <% if user_signed_in? %>
-                   <%= truncate(current_user.email,length: 30) %>
+                   <%= truncate(current_user.user_name,length: 20) %>
                   <% else %>
                     Guest
                   <% end %>
