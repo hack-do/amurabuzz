@@ -9,7 +9,6 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user.save
     login_as @user,:scope => :user
      visit my_profile_path('me')
-     puts "Current Path : #{current_path}"
   end
 
 

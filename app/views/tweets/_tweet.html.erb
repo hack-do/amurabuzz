@@ -8,7 +8,7 @@
        
      </div>
       <div class="col-xs-1">
-        <%= link_to '<i class="fa fa-eye"></i>'.html_safe,my_tweet_path('me',tweet.id),title: "View" %>
+        <%= link_to '<i class="fa fa-eye"></i>'.html_safe,my_tweet_path('me',tweet.id),title: "View",id: "show" %>
       </div>
       <div class="col-xs-1">
       <%if tweet.user_id == @current_user.id %>

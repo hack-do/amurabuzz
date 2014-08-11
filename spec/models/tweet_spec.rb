@@ -5,7 +5,6 @@ RSpec.describe Tweet, :type => :model do
   before(:each) do
 	@tweet = FactoryGirl.create :tweet
 	@user = @tweet.user
-	puts "----------Tweet : #{@tweet.inspect}-------"
   end
 
   	it "creates valid tweet successfully" do 

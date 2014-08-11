@@ -6,8 +6,6 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user = FactoryGirl.build(:user)
     @request.env["devise.mapping"] = Devise.mappings[@user]
     @user.confirm!
-     #puts "#{@user.inspect}"
-
      visit new_user_session_path
   end
 
@@ -17,20 +15,14 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
 
     click_on 'Sign in'
 
-    # Capybara.default_selector = :xpath
-    # email = find(:id,'user_email')
-    # password = find(:id,'user_password')
-    #email.set(@user.email)
-    #password.set(@user.email)
-    # puts "------Email : #{email.value}------"
-    # puts "------Password : #{password.value}------"
+
     
     expect(page).to have_content 'Signed in successfully'
   end
 
   it "doesnt signin invalid user" do
      fill_in 'Email', :with => "random"
-     fill_in 'Password', :with => "bull-shit"
+     fill_in 'Password', :with => "bs1234567"
 
      click_on 'Sign in'
       

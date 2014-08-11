@@ -65,22 +65,26 @@ end
 
 #group :development, :test do 
 	gem 'brakeman', :require => false
-	gem 'rspec-rails', '~> 3.0.0'
-	gem 'factory_girl_rails' 
 #end 
 
-#group :test do 
+group :test do 
 	gem 'faker' 
 	gem 'capybara' 
+	gem 'cucumber'
+	gem 'cucumber-rails',:require => false
 	gem 'guard-rspec' 
 	gem 'zeus'
 	gem 'guard-zeus'
+	gem 'guard-cucumber'
 	gem 'launchy' 
 	gem 'database_cleaner'
 	gem 'poltergeist'
     gem 'phantomjs', :require => 'phantomjs/poltergeist'
     gem 'selenium-webdriver'
-#end 
+   	gem 'rspec-rails', '~> 3.0.0'
+	gem 'factory_girl_rails' 
+end
+ 
 
 
 # Use ActiveModel has_secure_password
