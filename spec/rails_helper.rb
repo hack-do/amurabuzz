@@ -4,7 +4,10 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 Dir[File.expand_path('../support/**/*.rb', __FILE__)].each { |f| require f }
 require 'rspec/rails'
-require 'devise'
+require 'capybara/rspec'
+require 'capybara/rails'
+
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -21,11 +24,40 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  #config.include Devise::TestHelpers
+
+  config.include Capybara::DSL
+  config.include Devise::TestHelpers,:type => :controller
+  config.include Devise::TestHelpers,:type => :view
+  config.include Warden::Test::Helpers
+
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+    #FactoryGirl.lint
+  end
+
+  config.before(:each) do
+    Capybara.current_driver = :poltergeist
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+    Warden.test_reset!
+  end
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

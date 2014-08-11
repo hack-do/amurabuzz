@@ -9,6 +9,10 @@ class MainController < ApplicationController
 
   end
 
+  def my_backbone
+
+  end
+
   def xtra
   end
 end

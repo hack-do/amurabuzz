@@ -16,6 +16,14 @@
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+// require underscore
+// require backbone
+// require twitter_app
+// require_tree ../templates
+// require_tree ./models
+// require_tree ./collections
+// require_tree ./views
+// require_tree ./routers
 //= require_tree .
 
 
@@ -63,14 +71,12 @@ function initialize(){
 
 
 	$("#user_avatar input").addClass("btn btn-success");
-
 };
 
 
-$(document).ready(function() {	
-	console.log("Page Reloaded(Ready Event JS)");
+// $(document).ready(function() {	
 
-});
+// });
 
 $(document).on('page:change', function() {
   initialize();

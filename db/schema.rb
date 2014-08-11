@@ -143,9 +143,9 @@ ActiveRecord::Schema.define(version: 20140801074505) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string   "provider"
     t.string   "uid"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
