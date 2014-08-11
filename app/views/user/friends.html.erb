@@ -4,15 +4,15 @@
 <br><br>
 <%= link_to "Make friends",all_users_path('me'),class: "btn btn-primary" %>
 <br><br><br>
-<div class="container-fluid">
+<div class = "user_wrapper">
+<div class="container-fluid border-shadow white_background">
 <h3>Followers</h3>
 <div class="row">
-<table class="table table-stripped col-md-4">
+<table id="followers_table" class="table table-stripped col-md-4">
 	<tr>
 		<th>Sr.No.</th>
 		<th>Email</th>
 		<th>User Name</th>
-		<th></th>
 	</tr>
 <% i = 0 %>
 <% @followers.each do |f| %>
@@ -29,10 +29,10 @@
 
 <br/><br>
 
-<div class="container-fluid">
+<div class="container-fluid border-shadow white_background">
 <h3>Following</h3>
 <div class="row">
-<table class="table table-stripped col-md-4">
+<table id="following_table" class="table table-stripped col-md-4">
 	<tr>
 		<th>Sr.No.</th>
 		<th>Email</th>
@@ -45,10 +45,10 @@
 		<td><%= i=i+1 %></td>
 		<td><%= link_to f.email ,{:action => "friend_profile", :id => f.id}  %> </td>
 		<td><%= f.user_name%></td>
-		<!-- <td><%# f.id %></td> -->	
-		<td><%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id}, class: "btn btn-sm btn-warning"%></td>
+				<td><%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id}, class: "btn btn-sm btn-warning"%></td>
 	</tr>
 <% end %>
 </table>
+</div>
 </div>
 </div>

@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
 	end
 
   def check_login
-     puts"\n\n\n------------Check Login------------\n\n\n"
     unless current_user
       redirect_to new_user_session_path,notice: "Please Sign-in Before Continuing"
     end 

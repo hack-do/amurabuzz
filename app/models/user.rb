@@ -1,12 +1,9 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-
   include PublicActivity::Common
   #tracked
-  
   acts_as_paranoid
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
-
   has_many :tweets,:dependent => :destroy   
   has_many :evaluations, class_name: "RsEvaluation", as: :source
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
@@ -20,18 +17,20 @@ class User < ActiveRecord::Base
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
 
+  validates :dob,date: {after: Proc.new {Time.now - 100.years},
+                        before: Proc.new {Time.now} } ,on: :edit
+
+   validates_attachment :avatar,:content_type => { :content_type => ["image/jpeg", "image/jpg", "image/png"] },:size => {:in => 0..500.kilobytes}
 
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
   end
 
-#current_user.relationships << Relationships.create(:followed_id => followed.id)
-
-  def follow!(current_user,followed_id)
-    if current_user.id.to_i != followed_id.to_i 
-      if !current_user.following?(followed_id)
+  def follow!(followed_id)
+    if self.id.to_i != followed_id.to_i 
+      if !self.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
-        current_user.create_activity :follow, owner: current_user, recipient: User.find(followed_id)
+        self.create_activity :follow, owner: self, recipient: User.find(followed_id)
         msg = 'User Followed !'
       else
         msg = 'Cant follow same User twice'
@@ -42,9 +41,9 @@ class User < ActiveRecord::Base
     msg
   end
 
-  def unfollow!(current_user,unfollowed_id)
-    if current_user.id != unfollowed_id 
-      if current_user.following?(unfollowed_id)
+  def unfollow!(unfollowed_id)
+    if self.id != unfollowed_id 
+      if self.following?(unfollowed_id)
         relationships.find_by_followed_id(unfollowed_id).really_destroy!
         msg = 'User Unfollowed !'
       else
@@ -56,10 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def timeline_tweets
-    u = []
-    u << self.id
-    u << self.following_ids
-    Tweet.where(user_id: u.flatten)
+    Tweet.where(user_id: [self.id,self.following_ids].flatten.compact)
   end
 
   def voted_for?(tweet)
@@ -80,9 +76,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.user_name = auth.info.nickname 
       user.name = auth.info.name   # assuming the user model has a name
-      user.avatar =  open(auth.info.image,:allow_redirections => :all)#, allow_unsafe_redirects: true)
-      #{}"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/t1.0-1/c0.0.50.50/p50x50/1475882_10202951255481270_75787339_n.jpg"
-      #auth.info.image.gsub("­http","htt­ps") # assuming the user model has an image
+      user.avatar =  open(auth.info.image,:allow_redirections => :all)
     end
   end
 
@@ -94,7 +88,7 @@ class User < ActiveRecord::Base
     end
   end
 
- def to_param
-    "#{email}".parameterize
-  end
+ # def to_param
+ #    "#{email}".parameterize
+ #  end
 end

@@ -1,12 +1,16 @@
 <% type_of_activity.each do |activity| %>
 <%# activity.inspect %>
 	<div class="container-fluid">
-	  <div class="activity row">
-	  	<div class="col-md-3 col-md-offset-2">
-		    <%= link_to activity.owner.user_name, activity.owner if activity.owner %>
+	  <div id="<%= "activity#{activity.id}"%>"class="activity row">
+	  	<div class="col-md-4 col-md-offset-2">
+	  		<% if activity.owner.id == @current_user.id %>
+	  			You
+	  		<% else %>
+		    	<%= link_to activity.owner.user_name, my_friend_path(activity.owner.id) if activity.owner %>
+		    <% end %>
 		    <%= render_activity activity %>
 	    </div>
-	    <div class="col-md-5 col-md-offset-2">
+	    <div class="col-md-4 col-md-offset-2">
 		    <small><em>
 		    	<%= distance_of_time_in_words_to_now(activity.created_at) %>
 	    	</em></small>

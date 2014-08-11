@@ -32,8 +32,11 @@ body {
 #main_body{
   
 }
-
-
+/*.home{
+  opacity: 0.8;
+}*/
+.jumbocontent p{opacity:1.0;}
+.jumbocontent h1{opacity:1.0;}
 #spinner{
   postion:absolute;
   margin-left:500px;
@@ -46,6 +49,7 @@ body {
   width: 100%;
   background-color: #f5f5f5;
   text-align: center;
+  opacity:0.5;
 }
 
 .footer .container p{
@@ -96,11 +100,17 @@ body {
    word-wrap:break-word;
 }
 
+
 .likes{
   opacity:0.7;
 }
 .tweet:hover .likes{
   opacity:1.0;
+}
+
+
+.white_background {
+  background-color:WHITE;
 }
 
 #user_notifications{
@@ -111,8 +121,20 @@ body {
   color: rgb(100, 143, 255);  
 }
 
+
+.border-shadow {
+  border-radius: 5px;
+box-shadow: 1px 1px 20px 1px grey;
+}
+
 .scrollable-menu {
     height: auto;
     max-height: 300px;
     overflow-x: hidden;
 }
+
+.bg-white {
+  background-color: WHITE;
+}
+
+body{ background: url(<%= asset_path 'bg2.jpg' %>);background-size: cover; }

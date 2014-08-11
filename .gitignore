@@ -15,4 +15,6 @@
 /log/*.log
 /tmp
 
+#Ignore secret token
 /config/initializers/secret_token.rb
+/config/initializers/devise.rb

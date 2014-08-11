@@ -46,6 +46,7 @@ en:
         updated: "You updated your account successfully."
     sessions:
       signed_in: "Signed in successfully."
+      welcome_back: "Your Account has been reactivated.Welcome Back"
       signed_out: "Signed out successfully."
       welcome_back: "Your account has been Reactivated. Welcome Back !"
     unlocks:
