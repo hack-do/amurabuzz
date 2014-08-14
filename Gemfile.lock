@@ -60,6 +60,7 @@ GEM
       ejs
       jquery-rails
       railties
+    backbone-validation-rails (0.7.1.1)
     bcrypt (3.1.7)
     bootstrap-kaminari-views (0.0.3)
       kaminari (>= 0.13)
@@ -208,6 +209,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    marionette-rails (2.1.0)
+      railties (>= 3.1)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.0)
@@ -383,6 +386,7 @@ DEPENDENCIES
   authbuttons-rails
   autoprefixer-rails
   backbone-on-rails
+  backbone-validation-rails
   bootstrap-kaminari-views
   bootstrap-sass (~> 3.2.0)
   brakeman
@@ -407,6 +411,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  marionette-rails
   mysql2
   omniauth-facebook
   open_uri_redirections

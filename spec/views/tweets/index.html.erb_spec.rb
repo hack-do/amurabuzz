@@ -70,7 +70,6 @@ describe 'tweets/index.html.erb', :js => true do
    	click_on "Like"	
 		expect(page).to have_content("1 Like")
 		click_on ("1 Like")
-    puts page.html
   	expect(page).to have_content("#{@user.user_name}")
 	end
 

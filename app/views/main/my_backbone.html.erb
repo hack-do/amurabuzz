@@ -1,31 +1,67 @@
-<h1>Backbone <small>Testing</small></h1>
-<p>Current Action : <%= @ca  %></p>
-<p>Current Controller : <%= @cc %></p>
+<h1>Backbone <small>Crud actions</small></h1>
+<!-- <p>Current Action : <%# @ca  %></p>
+<p>Current Controller : <%# @cc %></p> -->
 
-<br><br>
+
 <!-- <button id="btn_test" class="btn btn-primary">Heya</button> -->
 <h2 class="page_title">All Users</h2>
 
-<a href="/backbone">All Users</a> |
-<a href="/backbone/show/1">Show</a> |
-<a href="/backbone/edit/1">Edit</a> |
-<a href="/backbone/delete/1">Delete</a> |
-<hr>
+<a class="btn btn-info" href="/backbone/index">All Users</a>&nbsp;
+<!-- <button class="btn btn-success" data-toggle="modal" data-target="#new_user_backbone">
+  Create User
+</button>
+<a class="btn btn-sm btn-primary" href="/backbone/show/1">Show</a> -->
+<a class="btn btn-info" href="/backbone/things">All Things</a>&nbsp;
+<a class="btn btn-sm btn-primary" href="/backbone/things/create">Create Thing</a>
+<br><br>
 <div class="container-fluid">
   <div class="row">
-  Listing All Users
-    <div id="all_users_backbone">
-      --
+    <div class="col-md-12 backbone_main" id="all_users_backbone">
+    	<div class="col-md-offset-5">
+      <br><br><br><br><br><em><b>loading...</b></em>
+  	</div>
     </div>
   </div>
 </div>
-<hr>
-<!-- 
-<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
 
-<button type="button" rel="popover" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-  Popover on left
-</button>
 
-<br><br><br><br>
-<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button> -->
+<div class="modal fade" id="new_user_backbone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+	    <form role="form">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Create User</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="container-fluid">
+	  			<div class="row">
+			        <div class="col-xs-8 col-xs-offset-2">
+						  <div class="form-group">
+						    <label for="exampleInputEmail1">Email</label>
+						    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@example.com">
+						  </div>
+						  <div class="form-group">
+						    <label for="user_username_backbone">User Name</label>
+						    <input type="password" class="form-control" id="user_username_backbone" placeholder="User Name">
+						  </div>
+						  <div class="form-group">
+						    <label for="user_password_backbone">Password</label>
+						    <input type="password" class="form-control" id="user_password_backbone" placeholder="Password">
+						  </div>
+						   <div class="form-group">
+						    <label for="user_password_confirm_backbone">Password Confirm</label>
+						    <input type="password" class="form-control" id="user_password_confirm_backbone" placeholder="Password">
+						  </div>
+					</div>
+				</div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="user_create_backbone">Create</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 TwitterApp::Application.routes.draw do
+  
+
   #get "user/profile"
   get "user/friends"
   get "user/friend_profile"
@@ -8,10 +10,11 @@ TwitterApp::Application.routes.draw do
   get "me/notifications" => "user#notifications",as: "my_notifications"
 
 
-  get "bb_index" => "user#bb_index"
-  get "bb_show" => "user#bb_show"
+  get "backbone/bb_index" => "user#bb_index"
+  get "backbone/bb_show" => "user#bb_show"
   get "backbone/" => "main#my_backbone"
   get "backbone/*ng" => "main#my_backbone"
+  get "backbone/things/show/things/:id" => "thing#show"
 
   get "main/home"
   get "main/xtra"
@@ -40,7 +43,7 @@ TwitterApp::Application.routes.draw do
 
  
   #match 'users/auth/:provider/callback' => 'omniauthcallbacks#facebook' ,via: :get
-  
+  resources :things
   devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks",:sessions => "sessions"}
 
   resources :users do

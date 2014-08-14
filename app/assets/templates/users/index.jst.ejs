@@ -1,0 +1,20 @@
+<table id="users_table_backbone" class="table table-stripped border-shadow bg-white">
+	<tr>
+   		<th>Email</th>
+   		<th>User Name</th>
+   		<th></th>
+   		<th></th>
+   		<th></th>
+   </tr>
+	<% for(var i=0; i<users.length; i++) {%>
+		<tr id="user_<%= users[i].id %>_backbone">
+	   		<td><%= users[i].email %></li></td>
+	   		<td><%= users[i].user_name %></li></td>
+	   		<td><a class="btn btn-sm btn-primary" href="/backbone/show/1">Show</a></td>
+	   		<td><a class="btn btn-sm btn-success" href="/backbone/edit/1">Edit</a></td>
+	   		<td><a class="btn btn-sm btn-danger" href="/backbone/delete/1">Delete</a></td>
+		</tr>
+	<% } %>
+</table>
+
+

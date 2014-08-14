@@ -12,6 +12,8 @@ gem "authbuttons-rails"
 gem "paranoia", "~> 2.0"
 gem 'public_activity'
 gem 'backbone-on-rails'
+gem 'backbone-validation-rails'
+gem 'marionette-rails'
 
 
 #gem 'puma'

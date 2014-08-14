@@ -10,7 +10,7 @@ class UserController < ApplicationController
 
   def bb_show
     @user  = User.find(params[:id])
-    render json @user
+    render json: @user
   end
 
   def friend_profile
