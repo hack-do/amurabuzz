@@ -11,6 +11,8 @@ gem 'open_uri_redirections'
 gem "authbuttons-rails"
 gem "paranoia", "~> 2.0"
 gem 'public_activity'
+gem 'backbone-on-rails'
+
 
 #gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -18,6 +20,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
+gem 'friendly_id', '~> 5.0.0'
 
 #gem 'jquery-datatables-rails', '~> 2.1.10.0.3'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
@@ -60,18 +63,28 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development, :test do 
+#group :development, :test do 
 	gem 'brakeman', :require => false
-	gem 'rspec-rails', '~> 3.0.0'
-	gem 'factory_girl_rails' 
-end 
+#end 
 
 group :test do 
 	gem 'faker' 
 	gem 'capybara' 
+	gem 'cucumber'
+	gem 'cucumber-rails',:require => false
 	gem 'guard-rspec' 
+	gem 'zeus'
+	gem 'guard-zeus'
+	gem 'guard-cucumber'
 	gem 'launchy' 
-end 
+	gem 'database_cleaner'
+	gem 'poltergeist'
+    gem 'phantomjs', :require => 'phantomjs/poltergeist'
+    gem 'selenium-webdriver'
+   	gem 'rspec-rails', '~> 3.0.0'
+	gem 'factory_girl_rails' 
+end
+ 
 
 
 # Use ActiveModel has_secure_password

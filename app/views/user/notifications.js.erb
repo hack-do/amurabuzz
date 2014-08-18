@@ -1,4 +1,4 @@
 $("#user_notifications").text("");
-<% @activities_drawer.each do |activity| %>
-   $("#user_notifications").append("<li role='presentation'><p><span class='btn btn-link'><%= j link_to activity.owner.user_name, my_friend_path(activity.owner.id) if activity.owner %></span><%= j render_activity activity %></p></li><li role='presentation' class='divider'></li>");
+<% @activities.each do |activity| %>
+   $("#user_notifications").append("<li id='activity<%= activity.id %>'role='presentation'><p><span class='btn btn-link'><%= j link_to activity.owner.user_name, my_friend_path(activity.owner.id) if activity.owner %></span><%= j render_activity activity %></p></li><li role='presentation' class='divider'></li>");
 <% end %>

@@ -63,14 +63,12 @@ function initialize(){
 
 
 	$("#user_avatar input").addClass("btn btn-success");
-
 };
 
 
-$(document).ready(function() {	
-	console.log("Page Reloaded(Ready Event JS)");
+// $(document).ready(function() {	
 
-});
+// });
 
 $(document).on('page:change', function() {
   initialize();

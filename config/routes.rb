@@ -7,11 +7,17 @@ TwitterApp::Application.routes.draw do
   get "user/unfollow"
   get "me/notifications" => "user#notifications",as: "my_notifications"
 
+
+  get "bb_index" => "user#bb_index"
+  get "bb_show" => "user#bb_show"
+  get "backbone/" => "main#my_backbone"
+  get "backbone/*ng" => "main#my_backbone"
+
   get "main/home"
   get "main/xtra"
   
   get "x" => "main#xtra"
-  get "tweets/likes" => "tweets#likes"
+  get "tweets/likes" => "tweets#likes" 
 
   constraints :id => 'me' do
      get ':id/all_users' => 'user#all_users', :as => 'all_users'    
@@ -19,7 +25,6 @@ TwitterApp::Application.routes.draw do
      get ':id/tweets' => 'tweets#index', :as => 'my_tweets'    
      get ':id/profile' => 'user#profile', :as => 'my_profile' 
      get ':id/friends' => 'user#friends', :as => 'my_friends'      
-     get ':id/tweets' => 'tweets#index'
   end
 
   constraints :uid => 'me' do

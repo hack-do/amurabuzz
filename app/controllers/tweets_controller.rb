@@ -7,7 +7,6 @@ class TweetsController < ApplicationController
   end
 
   def show
-  #  puts "\n\nSHOW action\n\n"
   end
 
   def new
@@ -19,7 +18,6 @@ class TweetsController < ApplicationController
   end
 
   def create
-     puts "\n\nCREATE action\n\n"
     @tweet = Tweet.new(tweet_params)
 
       if @tweet.save
@@ -33,9 +31,6 @@ class TweetsController < ApplicationController
   end
 
   def update
-    #puts "\n\nUPDATE action\n\n"
-    #puts "#{@tweet.inspect}\n\n\n"
-    #puts "#{tweet_params[:tweet]}\n\n\n"
     respond_to do |format|
       if @tweet.update(tweet_params)
         @tweet.create_activity :update, owner: current_user
@@ -47,7 +42,7 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
+    #puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
     if @tweet.user == current_user
       PublicActivity::Activity.where(recipient_type: "Tweet",recipient_id: @tweet.id).each do |a|
         a.destroy
@@ -76,8 +71,6 @@ class TweetsController < ApplicationController
       else
         @msg = "Unliked tweet"
       end
-
-      puts "\n\n\n\n\n\n----------Tweet #{@msg}-------------\n\n\n\n\n\n"
       respond_to do |format|
         format.html { redirect_to :back,notice: @msg }
         format.js
@@ -86,15 +79,12 @@ class TweetsController < ApplicationController
 
     def likes
       tid = params[:tweet_id]
-
-      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}\n\n\n"
       @tweet = Tweet.find(tid)
       @likers_ids = RsEvaluation.where(target_id: tid, value: 1.0).map{|rs| rs.source_id }
       @likers = []
       @likers_ids.each do |l_id|
           @likers << User.find(l_id)
       end
-      logger.debug "\n\n\n---------------------------------- Likers : #{@likers.inspect}\n\n\n"
     end
   private
     # Use callbacks to share common setup or constraints between actions.
