@@ -27,8 +27,8 @@
 				<!-- <td><%# link_to f.email ,{:action => "friend_profile", :id => f.id}  %></td> -->
 				<td><%= f.user_name %></td>
 				<td>
-				
-				
+
+
 					<% if current_user.following?(f) %>
 						<%= link_to "Unfollow",{:action => "unfollow",:unfollowed_id => f.id},class: "btn btn-sm btn-warning unfollow",id: f.id.to_s + "uf" %>
 					<% else %>
@@ -37,7 +37,7 @@
 				</td>
 			</tr>
 
-		<% end %> 
+		<% end %>
 		</tbody>
 		</table>
 	</div>

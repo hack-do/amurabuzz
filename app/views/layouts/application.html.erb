@@ -25,7 +25,7 @@
           <% if user_signed_in? %>
             <li class="<%= is_active?(my_home_path('me')) %>">
               <%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,my_home_path('me'),accesskey: "h" %>
-            </li>            
+            </li>
             <li class="<%= is_active?(my_friends_path('me')) %>">
               <%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,my_friends_path('me'),accesskey: "j" %>
               </li>
@@ -37,16 +37,16 @@
                 <a id="create_tweet_link" class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static" accesskey="m">
                  <span class="glyphicon glyphicon-pencil"></span> Tweet
                 </a>
-              </li> 
+              </li>
                <li class="<%= is_active?(my_notifications_path) %>"><%= link_to '<i class="fa fa-globe fa-lg"></i> Notifications'.html_safe,my_notifications_path,accesskey: "n" %>
             </li>
-        
+
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-user"></span> Welcome, 
+                <span class="glyphicon glyphicon-user"></span> Welcome,
                   <% if user_signed_in? %>
                    <%= truncate(current_user.user_name,length: 20) %>
                   <% else %>
@@ -55,7 +55,7 @@
                 <span class="caret"></span>
               </a>
              <ul class="dropdown-menu" role="menu">
-             
+
               <%= render 'devise/menu/registration_items' %>
               <%= render 'devise/menu/login_items' %>
             </ul>
@@ -91,7 +91,7 @@
   </div>
 </div>
 
- 
+
 
 <div class="footer">
   <div class="container-fluid">
@@ -112,7 +112,7 @@
       </div>
       <div class="modal-body">
           <br>
-          
+
           <div class="row-fluid">
             <div class="input-group col-xs-6 col-xs-offset-3">
               <!-- <input type="text" class="form-control"> -->
@@ -128,7 +128,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= f.submit 'Post',:class=>"btn btn-primary actions",:id => 'post_tweet' %>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-        
+
       </div>
 
     </div>

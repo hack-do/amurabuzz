@@ -4,8 +4,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## Database authenticatable
       t.string :user_name,          :null => false, :limit => 40
       t.string :name,         :limit => 60
-     
-      
+
+
       t.date :dob
       t.text :bio, :limit => 160
       t.attachment :avatar

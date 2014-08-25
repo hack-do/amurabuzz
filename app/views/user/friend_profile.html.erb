@@ -1,13 +1,13 @@
 <div class="well">
   <div class="container-fluid">
     <div class="row col-md-10 col-md-offset-1">
-      <% if @user.avatar_file_name.nil?%>
-          <div class="col-md-3 col-lg-3 " align="center"> 
+      <% if @user.avatar_file_name?%>
+          <div class="col-md-3 col-lg-3 " align="center">
             <%= image_tag "amura.png",size:"130x100",class: "img-thumbnail"%>
           </div>
             <%else%>
-          <div class="col-md-3 col-lg-3 " align="center"> 
-            <%= image_tag @user.avatar.url,size:"130x100",class: "img-thumbnail"%> 
+          <div class="col-md-3 col-lg-3 " align="center">
+            <%= image_tag @user.avatar.url,size:"130x100",class: "img-thumbnail"%>
           </div>
         <% end %>
       <h4><%= @user.user_name%></h4>
@@ -73,5 +73,5 @@
 
 </div>
 
-                          
-   
+
+
