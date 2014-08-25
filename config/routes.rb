@@ -7,12 +7,6 @@ TwitterApp::Application.routes.draw do
   get "user/unfollow"
   get "me/notifications" => "user#notifications",as: "my_notifications"
 
-
-  get "bb_index" => "user#bb_index"
-  get "bb_show" => "user#bb_show"
-  get "backbone/" => "main#my_backbone"
-  get "backbone/*ng" => "main#my_backbone"
-
   get "main/home"
   get "main/xtra"
   
