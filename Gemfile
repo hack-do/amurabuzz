@@ -61,24 +61,24 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-#group :development, :test do 
+#group :development, :test do
 	gem 'brakeman', :require => false
 	gem 'rspec-rails', '~> 3.0.0'
-	gem 'factory_girl_rails' 
-#end 
+	gem 'factory_girl_rails'
+#end
 
-#group :test do 
-	gem 'faker' 
-	gem 'capybara' 
-	gem 'guard-rspec' 
+#group :test do
+	gem 'faker'
+	gem 'capybara'
+	gem 'guard-rspec'
 	gem 'zeus'
 	gem 'guard-zeus'
-	gem 'launchy' 
+	gem 'launchy'
 	gem 'database_cleaner'
 	gem 'poltergeist'
     gem 'phantomjs', :require => 'phantomjs/poltergeist'
     gem 'selenium-webdriver'
-#end 
+#end
 
 
 # Use ActiveModel has_secure_password
