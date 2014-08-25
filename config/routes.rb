@@ -1,20 +1,12 @@
 TwitterApp::Application.routes.draw do
   
 
-  #get "user/profile"
   get "user/friends"
   get "user/friend_profile"
   get "user/all_users"
   get "user/follow"
   get "user/unfollow"
   get "me/notifications" => "user#notifications",as: "my_notifications"
-
-
-  get "backbone/bb_index" => "user#bb_index"
-  get "backbone/bb_show" => "user#bb_show"
-  get "backbone/" => "main#my_backbone"
-  get "backbone/*ng" => "main#my_backbone"
-  get "backbone/things/show/things/:id" => "thing#show"
 
   get "main/home"
   get "main/xtra"
@@ -42,70 +34,16 @@ TwitterApp::Application.routes.draw do
   #match ':id/profile' => 'user#friend_profile', :via => :get
 
  
-  #match 'users/auth/:provider/callback' => 'omniauthcallbacks#facebook' ,via: :get
-  resources :things
-  devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks",:sessions => "sessions"}
+  #match 'users/auth/:provider/callback' => 'omniauthcallbacks#facebook' ,via: :get  devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks",:sessions => "sessions"}
 
+
+ devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks",:sessions => "sessions"}
   resources :users do
      resources :tweets do
         member { post :vote }
      end
   end
-  #  resources :users do
-  #   resources :tweets
-  # end
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
   root 'main#home'
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

@@ -11,10 +11,6 @@ gem 'open_uri_redirections'
 gem "authbuttons-rails"
 gem "paranoia", "~> 2.0"
 gem 'public_activity'
-gem 'backbone-on-rails'
-gem 'backbone-validation-rails'
-gem 'marionette-rails'
-
 
 #gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -30,7 +26,7 @@ gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-ra
 #gem 'will_paginate'
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'invoker'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'

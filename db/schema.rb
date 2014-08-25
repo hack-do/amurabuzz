@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811115920) do
+ActiveRecord::Schema.define(version: 20140801074505) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -103,13 +103,6 @@ ActiveRecord::Schema.define(version: 20140811115920) do
   add_index "rs_reputations", ["reputation_name", "target_id", "target_type"], name: "index_rs_reputations_on_reputation_name_and_target", unique: true, using: :btree
   add_index "rs_reputations", ["reputation_name"], name: "index_rs_reputations_on_reputation_name", using: :btree
   add_index "rs_reputations", ["target_id", "target_type"], name: "index_rs_reputations_on_target_id_and_target_type", using: :btree
-
-  create_table "things", force: true do |t|
-    t.string   "name"
-    t.string   "category"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "tweets", force: true do |t|
     t.string   "content"
