@@ -56,10 +56,10 @@ class UserController < ApplicationController
   end
 
 
-private
+# private
 
-   def user_params
-     params.require(:user).permit(:avatar_file_name , :avatar_content_type , :avatar_file_size, :avatar_updated_at,:avatar)
-   end
+#    def user_params
+#      params.require(:user).permit(:avatar_file_name , :avatar_content_type , :avatar_file_size, :avatar_updated_at,:avatar)
+#    end
 
 end
