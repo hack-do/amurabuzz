@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   #tracked
   acts_as_paranoid
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
-  has_many :tweets,:dependent => :destroy   
+  has_many :tweets,:dependent => :destroy
   has_many :evaluations, class_name: "RsEvaluation", as: :source
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def follow!(followed_id)
-    if self.id.to_i != followed_id.to_i 
+    if self.id.to_i != followed_id.to_i
       if !self.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
         self.create_activity :follow, owner: self, recipient: User.find(followed_id)
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   end
 
   def unfollow!(unfollowed_id)
-    if self.id != unfollowed_id 
+    if self.id != unfollowed_id
       if self.following?(unfollowed_id)
         relationships.find_by_followed_id(unfollowed_id).really_destroy!
         msg = 'User Unfollowed !'
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
       user.password_confirmation = pass
       user.provider = auth.provider
       user.uid = auth.uid
-      user.user_name = auth.info.nickname 
+      user.user_name = auth.info.nickname
       user.name = auth.info.name   # assuming the user model has a name
       user.avatar =  open(auth.info.image,:allow_redirections => :all)
     end
@@ -83,12 +83,9 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+        user.email = data["email"] if user.email?
       end
     end
   end
 
- # def to_param
- #    "#{email}".parameterize
- #  end
 end

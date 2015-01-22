@@ -2,7 +2,7 @@ class TweetsController < ApplicationController
   before_action :check_login #,only: [:friends,:profile,:index,:edit]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
-  def index  
+  def index
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
   end
 
@@ -36,14 +36,13 @@ class TweetsController < ApplicationController
         @tweet.create_activity :update, owner: current_user
         format.html { redirect_to user_tweet_path(current_user,@tweet), notice: 'Tweet was successfully updated.' }
       else
-        format.html { render action: 'edit' }
+        format.html { render 'edit' }
       end
     end
   end
 
   def destroy
-    #puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
-    if @tweet.user == current_user
+    # if @tweet.user == current_user
       PublicActivity::Activity.where(recipient_type: "Tweet",recipient_id: @tweet.id).each do |a|
         a.destroy
       end
@@ -54,9 +53,9 @@ class TweetsController < ApplicationController
       @tweet.really_destroy!
 
       msg = 'Tweet deleted successfully'
-    else
-      msg = 'Permission denied !'
-    end
+    # else
+      # msg = 'Permission denied !'
+    # end
    redirect_to user_tweets_url(current_user),:notice => msg
   end
 
@@ -89,7 +88,8 @@ class TweetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
-      @tweet = Tweet.find(params[:id])
+      # @tweet = Tweet.find(params[:id])
+      @tweet = current_user.tweets.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

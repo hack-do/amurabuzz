@@ -12,7 +12,7 @@ gem "authbuttons-rails"
 gem "paranoia", "~> 2.0"
 gem 'public_activity'
 gem 'backbone-on-rails'
-
+gem 'rails-timeago', '~> 2.0'
 
 #gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -62,29 +62,29 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
-#group :development, :test do 
+gem "rails_best_practices"
+#group :development, :test do
 	gem 'brakeman', :require => false
-#end 
+#end
 
-group :test do 
-	gem 'faker' 
-	gem 'capybara' 
+group :test do
+	gem 'faker'
+	gem 'capybara'
 	gem 'cucumber'
 	gem 'cucumber-rails',:require => false
-	gem 'guard-rspec' 
+	gem 'guard-rspec'
 	gem 'zeus'
 	gem 'guard-zeus'
 	gem 'guard-cucumber'
-	gem 'launchy' 
+	gem 'launchy'
 	gem 'database_cleaner'
 	gem 'poltergeist'
     gem 'phantomjs', :require => 'phantomjs/poltergeist'
     gem 'selenium-webdriver'
    	gem 'rspec-rails', '~> 3.0.0'
-	gem 'factory_girl_rails' 
+	gem 'factory_girl_rails'
 end
- 
+
 
 
 # Use ActiveModel has_secure_password

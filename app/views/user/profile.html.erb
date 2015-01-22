@@ -9,21 +9,21 @@
 		</div>
 		<div class="panel-body container-fluid">
 			<div class="row">
-		    <div class="col-md-3 col-lg-3 " align="center"> 
-		    <%= profile_pic_tag current_user.avatar.url %> 
+		    <div class="col-md-3 col-lg-3 " align="center">
+		    <%= profile_pic_tag current_user.avatar.url %>
 		    </div>
-			<div class=" col-md-9 col-lg-9 "> 
+			<div class=" col-md-9 col-lg-9 ">
 				<table class="table table-user-information wrap_all">
 		            <tbody>
-		            
+
 		              <tr>
 				        <th>Name</th>
 				        <% if current_user.name%>
 				        	<th><%= current_user.name%> </th>
 				         <% end %>
 				      </tr>
-				    
-				      
+
+
 				      <tr>
 				        <th>DOB</th>
 				        <th><%= current_user.dob%> </th>
@@ -37,7 +37,7 @@
 				        <th>Email</th>
 				        <th><%= current_user.email%> </th>
 				      </tr>
-		     
+
 		            </tbody>
 		            <td><%= link_to 'Edit', edit_user_registration_path , class: "btn btn-success" %></td>
 		        </table>
@@ -52,4 +52,3 @@
 
 
 
-    

@@ -1,6 +1,6 @@
 
 <br><br>
- 
+
 <div class="container-fluid border-shadow" >
 	<div class="row">
 	<!-- Nav tabs -->
@@ -22,13 +22,13 @@
 
 		  <div class="tab-pane fade in active noti" id="f_act">
 		  	<br>
-		  	<%= render "public_activity/activity",:type_of_activity => @activities%>
+		  	<%= render "public_activity/activity",:type_of_activity => @activities,current_user: @current_user%>
 		  	<br>
 		  </div>
-		  	
+
 		  <div class="tab-pane fade noti" id="my_act">
 			<br>
-		  	<%= render "public_activity/activity",:type_of_activity => @my_activities%>
+		  	<%= render "public_activity/activity",:type_of_activity => @my_activities,current_user: @current_user%>
 		  	<br>
 		  </div>
 

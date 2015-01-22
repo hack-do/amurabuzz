@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  #include PublicActivity::StoreController 
+  #include PublicActivity::StoreController
 
   protect_from_forgery with: :exception
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   def check_login
     unless current_user
       redirect_to new_user_session_path,notice: "Please Sign-in Before Continuing"
-    end 
+    end
  end
 
 end

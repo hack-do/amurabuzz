@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require rails-timeago-all
 //= require_tree .
 
 
@@ -28,17 +29,17 @@ function initialize(){
 	{
 		$('#all_users_datatable').dataTable({
 		  	"sPaginationType": "bootstrap",
-	
+
 		});
 	}
 
 
 	//$.fn.dataTable.ext.errMode = 'throw';
-	
 
 
-	
-	 $('#post_tweet').attr('disabled','disabled');	
+
+
+	 $('#post_tweet').attr('disabled','disabled');
 
 	 $('#tweet_msg').keydown(function(e){
 	 	var msg_len = $(this).val().length;
@@ -49,10 +50,10 @@ function initialize(){
 	 	}
 	 	else
 	 	{
-	 		$('#post_tweet').attr('disabled','disabled');	
+	 		$('#post_tweet').attr('disabled','disabled');
 	 	}
 	 });
-	
+
 
 	$('#tweet_msg').keydown(function() {
 	    if (event.keyCode == 13 && $(this).val()!= "") {
@@ -66,7 +67,7 @@ function initialize(){
 };
 
 
-// $(document).ready(function() {	
+// $(document).ready(function() {
 
 // });
 
