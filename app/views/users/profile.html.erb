@@ -1,0 +1,41 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+  		<div class="col-md-10 col-md-offset-1">
+      		<div class="panel panel-info">
+				<div class="panel-heading">User Profile</div>
+				<div class="panel-body container-fluid">
+					<div class="row-fluid">
+			    		<div class="col-md-3 col-lg-3 " align="center"> 
+			    			<%= profile_pic_tag @user.avatar.url %> 
+			    		</div>
+						<div class=" col-md-9 col-lg-9 "> 
+							<table class="table table-user-information wrap_all">
+				              	<tr>
+							        <th>User Name
+						        	<th><%= @user.user_name %>
+					      		</tr>
+				              	<tr>
+							        <th>Name
+						        	<th><%= @user.name %>
+						      	</tr>
+						      	<tr>
+							        <th>DOB
+							        <th><%= @user.dob %>
+						      	</tr>
+						      	<tr>
+							        <th>Bio
+							        <th class="wrap"><%= @user.bio %>
+						      	</tr>
+						      	<tr>
+							        <th>Email
+							        <th><%= @user.email%> 
+						      	</tr>
+					        </table>
+		            		<%= link_to 'Edit', edit_user_registration_path , class: "btn btn-default pull-right" %>
+	       				</div>
+		   			</div>
+				</div>
+	  		</div>
+    	</div>
+  	</div>
+</div>

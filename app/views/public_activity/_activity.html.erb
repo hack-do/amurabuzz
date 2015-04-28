@@ -6,7 +6,7 @@
 	  		<% if activity.owner.id == @current_user.id %>
 	  			You
 	  		<% else %>
-		    	<%= link_to activity.owner.user_name, my_friend_path(activity.owner.id) if activity.owner %>
+		    	<%= link_to activity.owner.user_name, user_path(activity.owner.id) if activity.owner %>
 		    <% end %>
 		    <%= render_activity activity %>
 	    </div>

@@ -1,0 +1,69 @@
+<div class="navbar navbar-inverse navbar-fixed-top visible-phone" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "Amura Buzz",root_path, class: "navbar-brand" %>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
+        <li class="<%= is_active?(root_path) %> <%= is_active?(user_path) %>">
+          <%= link_to '<span class="fa fa-home"></span> Home'.html_safe,root_path,accesskey: "h" %>
+        </li>
+        <li>
+            <a href="#" id="create_tweet_link" class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static" accesskey="m">
+             <span class="fa fa-pencil"></span> Tweet
+            </a>
+        </li>
+      <% end %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= form_tag users_path, :method => 'get',role: 'form',class: 'navbar-form navbar-right' do %>
+            <div class="input-group">
+              <%= text_field_tag :search, params[:search], class: 'form-control', placeholder:'Search Amurabuzz'%>
+              <span class="input-group-btn">
+                <%# submit_tag "Search",class: 'btn btn-default search-button' %>
+                <button class="btn btn-success search-button" name="commit">
+                    <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          <% end %>
+        </li>
+
+       <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <% if user_signed_in? %>
+                <%= profile_pic_tag current_user.avatar.url, 'img-xs' %> 
+                <%= truncate(current_user.user_name,length: 20) %>
+              <% else %>
+                Guest
+              <% end %>
+            <span class="caret"></span>
+          </a>
+         <ul class="dropdown-menu" role="menu">
+
+          <%= render 'devise/menu/registration_items' %>
+          <%= render 'devise/menu/login_items' %>
+        </ul>
+       </li>
+       <%if user_signed_in?%>
+       <li class="dropdown">
+        <%= link_to "<i id='notification_globe' class='fa fa-globe fa-lg' title = 'friends activities '></i><span class='caret'></span>".html_safe,notifications_user_path,:data => {toggle: "dropdown"},class:"dropdown-toggle",remote: true %>
+        <ul id="user_notifications" class="dropdown-menu scrollable-menu" role="menu">
+          <li id="user_notifications_panel"></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Show all notifications'.html_safe,notifications_user_path,accesskey: "n" %></li>            
+        </ul>
+       </li>
+       <%end%>
+      </ul>
+    </div>
+  </div>
+</div>

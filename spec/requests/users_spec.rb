@@ -15,7 +15,7 @@
 #     # @user.save
 #     puts "#{@user.inspect}"
 
-#     visit my_home_path('me')
+#     visit my_user_path('me')
 #     puts "Current Path : #{current_path}"
 #   end
 

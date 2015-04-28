@@ -16,11 +16,21 @@ class User < ActiveRecord::Base
   validates_presence_of :user_name
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
+  validates :name, uniqueness: true
+  validates :name, uniqueness: true
 
   validates :dob,date: {after: Proc.new {Time.now - 100.years},
-                        before: Proc.new {Time.now} } ,on: :edit
+                        before: Proc.new {Time.now} } ,allow_blank: true
 
-   validates_attachment :avatar,:content_type => { :content_type => ["image/jpeg", "image/jpg", "image/png"] },:size => {:in => 0..500.kilobytes}
+  validates_attachment :avatar,:content_type => { :content_type => ["image/jpeg", "image/jpg", "image/png"] },:size => {:in => 0..500.kilobytes}
+
+  def self.search(search=nil)
+    if search.present?
+      where("name LIKE ? OR user_name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      all
+    end
+  end
 
   def following?(followed)
 	   relationships.find_by_followed_id(followed)
@@ -31,27 +41,21 @@ class User < ActiveRecord::Base
       if !self.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
         self.create_activity :follow, owner: self, recipient: User.find(followed_id)
-        msg = 'User Followed !'
-      else
-        msg = 'Cant follow same User twice'
+        Follow.delay(run_at: 1.minute.from_now).new_follower(User.find(params[:followed_id]).email,current_user)
+        return true
       end
-    else
-      msg = 'Cant follow self'
     end
-    msg
+    false
   end
 
   def unfollow!(unfollowed_id)
     if self.id != unfollowed_id 
       if self.following?(unfollowed_id)
         relationships.find_by_followed_id(unfollowed_id).really_destroy!
-        msg = 'User Unfollowed !'
-      else
-        msg = 'User already unfollowed'
+        return true
       end
-    else
-      msg = 'Cant follow self'
     end
+    false
   end
 
   def timeline_tweets

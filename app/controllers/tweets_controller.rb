@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  include ActionController::Live
+
   before_action :check_login #,only: [:friends,:profile,:index,:edit]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
@@ -7,35 +9,32 @@ class TweetsController < ApplicationController
   end
 
   def show
-  #  puts "\n\nSHOW action\n\n"
   end
 
   def new
     @tweet = Tweet.new
-
   end
 
   def edit
   end
 
   def create
-     puts "\n\nCREATE action\n\n"
-    @tweet = Tweet.new(tweet_params)
+    @tweet = current_user.tweets.new(tweet_params)
 
+    respond_to do |format|
       if @tweet.save
-        current_user.tweets << @tweet
-        current_user.save
         @tweet.create_activity :create, owner: current_user
-        redirect_to my_tweets_path('me'), notice: 'Tweet was successfully created.'
+
+        format.html { redirect_to user_path, notice: 'Tweet was successfully created.' }
+        format.json { render json: @tweet }
       else
-        redirect_to :back,notice: "Tweet Unsuccessful"
+        format.html { redirect_to :back,notice: "Tweet Unsuccessful" }
+        format.json { render json: @tweet.errors.full_messages, status: :unprocessable_entity }
       end
+    end
   end
 
   def update
-    #puts "\n\nUPDATE action\n\n"
-    #puts "#{@tweet.inspect}\n\n\n"
-    #puts "#{tweet_params[:tweet]}\n\n\n"
     respond_to do |format|
       if @tweet.update(tweet_params)
         @tweet.create_activity :update, owner: current_user
@@ -47,7 +46,6 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    puts "\n\n\n#{@tweet.user.inspect}   #{current_user.inspect}\n\n\n"
     if @tweet.user == current_user
       PublicActivity::Activity.where(recipient_type: "Tweet",recipient_id: @tweet.id).each do |a|
         a.destroy
@@ -65,44 +63,60 @@ class TweetsController < ApplicationController
    redirect_to user_tweets_url(current_user),:notice => msg
   end
 
-    def vote
-      @value = params[:type] == "Like" ? 1 : 0
-      @tweet = Tweet.find(params[:id])
+  def vote
+    value = params[:type] == "Like" ? 1 : 0
+    @tweet = Tweet.find(params[:id])
 
-      @tweet.add_or_update_evaluation(:votes, @value, current_user)
-      if @value == 1
-        @msg = "Liked tweet"
-        current_user.create_activity :like, owner: current_user,recipient: @tweet
-      else
-        @msg = "Unliked tweet"
-      end
-
-      puts "\n\n\n\n\n\n----------Tweet #{@msg}-------------\n\n\n\n\n\n"
-      respond_to do |format|
-        format.html { redirect_to :back,notice: @msg }
-        format.js
-      end
+    @tweet.add_or_update_evaluation(:votes, value, current_user)
+    if value == 1
+      @msg = "Liked tweet"
+      current_user.create_activity :like, owner: current_user,recipient: @tweet
+    else
+      @msg = "Unliked tweet"
     end
 
-    def likes
-      tid = params[:tweet_id]
-
-      logger.debug "\n\n\n---------------------------------- Tweet ID : #{tid}\n\n\n"
-      @tweet = Tweet.find(tid)
-      @likers_ids = RsEvaluation.where(target_id: tid, value: 1.0).map{|rs| rs.source_id }
-      @likers = []
-      @likers_ids.each do |l_id|
-          @likers << User.find(l_id)
-      end
-      logger.debug "\n\n\n---------------------------------- Likers : #{@likers.inspect}\n\n\n"
+    respond_to do |format|
+      format.html { redirect_to :back,notice: @msg }
+      format.js
     end
+  end
+
+  def likes
+    @tweet = Tweet.find(params[:id])
+    @likers = RsEvaluation.where(target_id: params[:id], value: 1.0).map{|rs| User.find(rs.source_id) }
+  end
+
+  def stream
+    response.headers['Content-Type'] = 'text/event-stream'
+
+    begin
+      10.times {
+        response.stream.write "hello world\n"
+        sleep 1
+      }
+    rescue IOError
+    ensure
+      response.stream.close
+    end
+  end
+
+  def sse
+    response.headers['Content-Type'] = 'text/event-stream'
+
+    sse = Stream::SSE.new(response.stream)
+    begin
+        sse.write({ :message => "My first sse !" }) #{params[:message]}
+    rescue IOError
+    ensure
+      sse.close
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_tweet
       @tweet = Tweet.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
       params.require(:tweet).permit(:content,:tweet)
     end

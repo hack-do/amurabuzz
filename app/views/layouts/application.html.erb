@@ -1,143 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Amura Buzz</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "jquery.transit.min.js"%>
-  <%= csrf_meta_tags %>
-  <%= favicon_link_tag 'amura.png' %>
-</head>
-<body data-cc="<%= @cc %>" data-ca="<%= @ca %>">
- <div class="navbar navbar-inverse navbar-fixed-top visible-phone" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to "Amura Buzz",root_path, class: "navbar-brand" %>
+    <head>
+        <title>Amura Buzz</title>
+        <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+        <%= csrf_meta_tags %>
+        <%= favicon_link_tag 'amura.png' %>
+    </head>
+    <body>
+        <%= render "partials/navbar",:current_user => current_user %>
+
+        <div class="row-fluid">
+            <div class="col-md-3" id="sidebar">
+                <%= render "partials/sidebar" %>
+            </div>
+            <div class="col-md-6" id="main_body">
+                <%= yield %>
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-          <% if user_signed_in? %>
-            <li class="<%= is_active?(my_home_path('me')) %>">
-              <%= link_to '<span class="glyphicon glyphicon-home"></span> Home'.html_safe,my_home_path('me'),accesskey: "h" %>
-            </li>
-            <li class="<%= is_active?(my_friends_path('me')) %>">
-              <%= link_to '<i class="fa fa-group"></i> Friends'.html_safe ,my_friends_path('me'),accesskey: "j" %>
-              </li>
-            <li class="<%= is_active?(my_profile_path('me')) %>"><%= link_to '<i class="fa fa-child"></i> Me'.html_safe,my_profile_path('me'),accesskey: "p" %>
-            </li>
-            <li class="<%= is_active?(my_tweets_path('me')) %>"><%= link_to '<i class="fa fa-bars"></i> Timeline'.html_safe,my_tweets_path('me'),accesskey: "t" %>
-            </li>
-              <li>
-                <a id="create_tweet_link" class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static" accesskey="m">
-                 <span class="glyphicon glyphicon-pencil"></span> Tweet
-                </a>
-              </li>
-               <li class="<%= is_active?(my_notifications_path) %>"><%= link_to '<i class="fa fa-globe fa-lg"></i> Notifications'.html_safe,my_notifications_path,accesskey: "n" %>
-            </li>
 
-            <% end %>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-           <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-user"></span> Welcome,
-                  <% if user_signed_in? %>
-                   <%= truncate(current_user.user_name,length: 20) %>
-                  <% else %>
-                    Guest
-                  <% end %>
-                <span class="caret"></span>
-              </a>
-             <ul class="dropdown-menu" role="menu">
-
-              <%= render 'devise/menu/registration_items' %>
-              <%= render 'devise/menu/login_items' %>
-            </ul>
-           </li>
-           <%if user_signed_in?%>
-           <li class="dropdown">
-            <%= link_to "<i id='notification_globe' class='fa fa-globe fa-lg' title = 'friends activities '></i><span class='caret'></span>".html_safe,my_notifications_path,:data => {toggle: "dropdown"},class:"dropdown-toggle",remote: true %>
-             <ul id="user_notifications" class="dropdown-menu scrollable-menu" role="menu">
-            </ul>
-           </li>
-           <%end%>
-          </ul>
+        <div id="spinner">
+        <%= image_tag 'spinner.gif' %>
         </div>
-      </div>
-    </div>
 
-<div class="notice_alert">
-	<% if notice %>
-		<p class="notice bg-info text-info"><%= notice %></p>
-	<% end %>
-	<% if alert %>
-		<p class="alert bg-danger text-danger"><%= alert %></p>
-	<% end %>
-  <p id="ajax_notice" class="bg-info text-info"></p>
-</div>
+        <%= render "partials/footer" %>
 
-<div class="main-yield col-md-10 col-md-offset-1">
-  <div id="main_body">
-    <%= yield %>
-  </div>
-  <div id="spinner">
-    <%= image_tag 'spinner.gif' %>
-  </div>
-</div>
+        <%= render "partials/tweet_modal" %>
 
 
+        <% javascript_tag do %>
+          <% if notice.present? %>
+              Amura.global_success_handler(<%= notice %>);
+          <% end %>
+          <% if alert.present? %>
+              Amura.global_error_handler(<%= alert %>);
+          <% end %>
+        <% end %>
 
-<div class="footer">
-  <div class="container-fluid">
-    <p> <span class="text-muted">Freshers</span>&nbsp;|&nbsp;© Amura 2014</p>
-  </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="create_tweet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
- <% if user_signed_in? %>
-<%= form_for(@tweet,url: url_for([current_user,@tweet])) do |f| %>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Post a Tweet</h4>
-      </div>
-      <div class="modal-body">
-          <br>
-
-          <div class="row-fluid">
-            <div class="input-group col-xs-6 col-xs-offset-3">
-              <!-- <input type="text" class="form-control"> -->
-                  <%= f.text_area :content,class: 'form-control',size: '15x7', :placeholder => "Tweet message ...",:id => 'tweet_msg',:maxlength => '160' %>
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-
-          <p class="pull-right" id="tweet_len">160</p>
-          <br>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <%= f.submit 'Post',:class=>"btn btn-primary actions",:id => 'post_tweet' %>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-
-      </div>
-
-    </div>
-  </div>
-  <% end %>
-  <% end %>
-</div>
-
-
-
-</body>
+    </body>
 </html>

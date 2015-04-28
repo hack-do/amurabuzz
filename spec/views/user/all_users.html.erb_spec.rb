@@ -38,7 +38,7 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
 
   it "goes to user profile" do
     click_on @user1.email
-    expect(current_path).to eq(my_friend_path(@user1.id))
+    expect(current_path).to eq(user_path(@user1.id))
   end
 
   it "follows, unfollows user" do

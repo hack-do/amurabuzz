@@ -1,6 +1,6 @@
 class Tweet < ActiveRecord::Base
 
-	 include PublicActivity::Common
+ 	include PublicActivity::Common
   	 #tracked owner: Proc.new{ |controller, model| controller.current_user }
   	
 	acts_as_paranoid

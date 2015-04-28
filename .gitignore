@@ -19,3 +19,5 @@
 /config/initializers/secret_token.rb
 /config/initializers/devise.rb
 /doc/*
+
+/public/system
