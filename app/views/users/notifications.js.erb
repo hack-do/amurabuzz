@@ -1,0 +1,7 @@
+$("#user_notifications_panel").text("");
+var activities;
+<% @activities.each do |activity| %>
+	activities += "<li id='activity<%= activity.id %>'role='presentation'><p><span class='btn btn-link'><%= j link_to activity.owner.user_name, user_path(activity.owner.id) if activity.owner %></span><%= j render_activity activity %></p></li><li role='presentation' class='divider'></li>";
+<% end %>
+
+$("#user_notifications_panel").prepend(activities);

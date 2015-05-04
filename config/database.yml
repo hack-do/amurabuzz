@@ -11,10 +11,10 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: twitter_app_development
+  database: amurabuzz_development
   pool: 5
   username: root
-  password: amura123
+  password: root
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -23,19 +23,19 @@ development:
 test: &test
   adapter: mysql2
   encoding: utf8
-  database: twitter_app_test
+  database: amurabuzz_test
   pool: 5
   username: root
-  password: amura123
+  password: root
   socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
   encoding: utf8
-  database: twitter_app_production
+  database: amurabuzz_production
   pool: 5
   username: root
-  password: amura123
+  password: root
   socket: /var/run/mysqld/mysqld.sock
 
 cucumber:

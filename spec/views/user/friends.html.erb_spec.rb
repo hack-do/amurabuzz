@@ -19,14 +19,14 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
   it "goes to user profile (Followers)" do
     within(:id,'followers_table') do
       click_on @user1.email
-      expect(current_path).to eq(my_friend_path(@user1.id))
+      expect(current_path).to eq(user_path(@user1.id))
     end
   end
 
   it "goes to user profile (Following)" do
     within('#following_table') do
       click_on @user1.email
-      expect(current_path).to eq(my_friend_path(@user1.id))
+      expect(current_path).to eq(user_path(@user1.id))
     end
   end
 

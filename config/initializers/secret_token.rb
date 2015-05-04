@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-TwitterApp::Application.config.secret_key_base = '97c2adb1ba2d5b70fb4ae44d9d06fd45e92d8e272ba416e2c159bc9918996646fc0ae0208229db4f92e69ff37a5f311f5be34ed74b3b0c7cbe7325b4715bb607'
+AmuraBuzz::Application.config.secret_key_base = '97c2adb1ba2d5b70fb4ae44d9d06fd45e92d8e272ba416e2c159bc9918996646fc0ae0208229db4f92e69ff37a5f311f5be34ed74b3b0c7cbe7325b4715bb607'

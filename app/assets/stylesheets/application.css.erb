@@ -1,59 +1,67 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
  *= require_self
- *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require font-awesome
- *= require_tree .
+ *= require defaults
+ *= require font-awesome
+ *= require bootstrap-less/bootstrap
  */
-
-
-/*@navbar-brand-color: WHITE;*/
-
-@import "bootstrap-sprockets";
-@import "bootstrap";
 
 html {
   position: relative;
   min-height: 100%;
 }
 body {
-  margin-top: 60px;
+  margin-top: 60px !important;
   /*margin-bottom: 60px;*/
 }
 
-#main_body{
-  
+.tweet_options .dropdown-toggle{
+  padding: 0px 5px !important;
 }
-/*.home{
-  opacity: 0.8;
-}*/
-.jumbocontent p{opacity:1.0;}
-.jumbocontent h1{opacity:1.0;}
+.img-xs{
+  max-height: 20px;
+  max-width: 20px;
+}
+.img-sm{
+  max-height: 50px;
+  max-width: 50px;
+}
+.img-md{
+  max-height: 100px;
+  max-width: 100px;
+}
+
+.img-lg{
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.img-xl{
+  max-height: 400px;
+  max-width: 400px;
+}
+
+#main_body{
+  margin-bottom:70px;
+  position:relative; 
+}
+
+.likes_popover {
+    white-space:pre-wrap;
+}
+
 #spinner{
-  postion:absolute;
+  position: absolute;
   margin-left:500px;
   margin-top:-350px;
-  //z-index:-10;
+  z-index:-10;
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #f5f5f5;
+  background-color: rgba(245,245,245,0.5);
   text-align: center;
-  opacity:0.5;
-}
-
-.footer .container p{
-	/*margin:5px;*/
 }
 
 .notice_alert{
@@ -66,26 +74,8 @@ body {
   padding:7px;
 }
 
-
-
-.main-yield{
-  margin-bottom:70px;
-  position:relative;
-}
-
-.tweet_modal{
- cursor:pointer; 
-}
-
-#ajax_notice{
-}
-
 .grey{
   color:GREY;
-}
-
-.center{
-  text-align:center;
 }
 
 .overflow-x{
@@ -99,7 +89,6 @@ body {
 .wrap_word{
    word-wrap:break-word;
 }
-
 
 .likes{
   opacity:0.7;
@@ -117,14 +106,9 @@ body {
   width: 300px;
 }
 
-#notification_globe{
-  color: rgb(100, 143, 255);  
-}
-
-
 .border-shadow {
   border-radius: 5px;
-box-shadow: 1px 1px 20px 1px GREY;
+  box-shadow: 1px 1px 20px 1px GREY;
 }
 
 .scrollable-menu {
@@ -137,4 +121,15 @@ box-shadow: 1px 1px 20px 1px GREY;
   background-color: WHITE;
 }
 
-body{ background: url('bg2.jpg');background-size: cover; }
+.black{
+  color: BLACK;
+}
+
+.activity{
+  margin-top:15px;
+  border-bottom: 1px;
+}
+
+.noti-wrap {
+  background-color: WHITE;
+}

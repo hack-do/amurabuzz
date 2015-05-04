@@ -1,4 +1,4 @@
-<h1>Edit tweet</h1>
+<h3>Edit tweet</h3>
 
 <%= form_for([current_user,@tweet],url: url_for(controller: 'tweets',action: 'update')) do |f| %>
   <% if @tweet.errors.any? %>
@@ -7,15 +7,15 @@
 
       <ul>
       <% @tweet.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li><%= msg %></li> <!-- Amura.global_error_handler -->
       <% end %>
       </ul>
     </div>
   <% end %>
 
 <div class="container-fluid"> 
-<div class="row">
-    <p class="center"><small>max 160 characters</small></p>
+<div class="row-fluid">
+    <p class="text-center"><small>max 160 characters</small></p>
 	<div class="col-lg-6 col-lg-offset-4">
 	  <%= f.text_area :content,:class => 'form-control',maxlength: 160 %>
 	  <span class="input-group-btn">
@@ -36,4 +36,4 @@
 
 
 <%= link_to 'Show', user_tweet_path(current_user,@tweet) %> |
-<%= link_to 'Back', user_tweets_path(current_user) %>
+<%= link_to 'Back', user_path(current_user) %>

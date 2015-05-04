@@ -1,3 +1,1 @@
-liked a <%= link_to "tweet1",my_tweet_path('me',activity.recipient.id) %>
-<br><br>
-<%= activity.inspect %>
+liked a <%= link_to "tweet1",user_tweet_path(activity.recipient.id) %>

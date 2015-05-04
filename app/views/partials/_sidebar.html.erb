@@ -1,0 +1,66 @@
+<% if user_signed_in? %>
+	<% if @user.present? %>
+		<% user = @user %>
+	<% else %>
+		<% user = current_user %>
+	<% end %>
+	<div class="border-shadow">
+		<div class="container-fluid">
+		 	<div class="row-fluid">
+		        <div class="col-xs-5">
+		        	<div class="mt10">
+		    			<%= profile_pic_tag user.avatar.url, 'img-thumbnail img-md' %>
+	    			</div>
+				</div>
+		        <div class="col-xs-6">
+		        	<div class="mt20">
+						<b><%= link_to user.name,profile_user_path(user.id) %></b>
+						<small><%= user.user_name %></small>
+					</div>
+
+					<% if user != @current_user %>
+						<% if current_user.following?(user.id) %>
+							<%= link_to "Unfollow",unfollow_user_path(user.id),class: "btn btn-sm btn-warning",id: user.id.to_s + "uf" %>
+						<% else %>
+							<%= link_to "Follow",follow_user_path(user.id), class: "btn btn-sm btn-success",id: user.id.to_s + "f" %>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid text-center">
+		    <div class="row-fluid">
+		        <div class="col-xs-4">
+		            <%= link_to followers_user_path, accesskey: "j" do %>
+			            <h3 id="user_followers_count">
+			              <strong class="label label-success">
+			                    <%= user.followers.count%>
+				          </strong>
+			            </h3>
+			            <p>Followers</p>
+		             <% end %>
+		         </div>
+	          	<div class="col-xs-4">
+		            <%= link_to following_user_path, accesskey: "j" do %>
+			            <h3 id="user_following_count">
+			              <strong class="label label-success">
+			                    <%= user.following.count%>
+				          </strong>
+			            </h3>
+			            <p>Following</p>
+		             <% end %>
+	         	</div>
+		        <div class="col-xs-4">
+		       	    <a href="#">
+			       	    <h3 id="user_tweets_count">
+			                <strong class = "label label-primary">
+			           		   <%= user.tweets.count%>
+			 		         </strong>
+			            </h3>
+			            <p>Tweets</p>
+		            </a>
+		       	</div>           
+		    </div>
+		</div>
+	</div>
+<% end %>

@@ -11,7 +11,7 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user.confirmed_at = Time.now
     @user.save
     login_as @user,:scope => :user
-    visit my_home_path('me')
+    visit my_user_path('me')
   end
 
   it "shows correct followers,following and tweets" do
