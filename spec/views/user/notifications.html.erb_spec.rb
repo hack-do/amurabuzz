@@ -11,8 +11,6 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user1.confirmed_at = Time.now
     @user1.save
     login_as @user,:scope => :user
-     #puts "#{@user.inspect}"
-
      @user1.follow!(@user.id)
      @activity = Activity.first#find(:key "follow",)
 
@@ -21,7 +19,6 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
      @user.follow!(@user1.id)
    	 @activity1 = Activity.last
      visit my_notifications_path
-     puts "Current Path : #{current_path}"
   end
 
   it "displays friends notifications correctly" do
@@ -45,7 +42,6 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
    
      	find('#notification_globe').click
       sleep(2.seconds)
-
      	within '#user_notifications' do
         expect(find("#activity#{@activity.id}"))
      	end

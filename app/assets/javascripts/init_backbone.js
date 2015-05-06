@@ -3,14 +3,10 @@
 //= require libs/backbone-relational
 //= require libs/backbone-validation
 //= require_tree ./backbone/templates/items/users
-// require_tree ./backbone/templates/items/common
-// require ./backbone/templates/layouts/main
 
 //= require ./backbone/app
 
 //= require_tree ./backbone/views/items/users
-//= require_tree ./backbone/views/items/common
-//= require ./backbone/views/layouts/main
 //= require_tree ./backbone/models
 //= require_tree ./backbone/collections
 //= require ./backbone/events/tweet_events
@@ -26,3 +22,8 @@ $(document).on('page:load', function() {
   Backbone.history.stop();
   return AmuraBuzz.initialize();
 });
+
+// require_tree ./backbone/templates/items/common
+// require ./backbone/templates/layouts/main
+// require_tree ./backbone/views/items/common
+// require ./backbone/views/layouts/main

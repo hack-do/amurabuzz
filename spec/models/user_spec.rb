@@ -4,9 +4,7 @@ require 'rails_helper'
 RSpec.describe User, :type => :model do
 
 		before(:each) do
-			#@user = User.new(user_name: "vinzee",password: "1212111111",email: "vinzee93@gmail.com")
 			@user = FactoryGirl.create :user
-			#puts "#{@user.inspect}"
 		end
 
 		it "always has email" do
@@ -38,7 +36,6 @@ RSpec.describe User, :type => :model do
 			@user.password = "1212"
 			expect(@user).not_to be_valid
 			expect(@user.errors.full_messages).to include("Password is too short (minimum is 8 characters)")
-			#expect(@user.password.length).to be >= 8
 		end
 
 		it "has a valid birth date" do 
@@ -51,7 +48,6 @@ RSpec.describe User, :type => :model do
 
 		it "should have many tweets" do
 			expect(@user).to respond_to(:tweets) 
-			#expect(@user.has_many(:tweets)).to be_true
 		end
 
 		it "should have many followers/following" do
@@ -75,7 +71,6 @@ RSpec.describe User, :type => :model do
 		it "acts as paranoid" do
 			@user.save
 			@user.destroy
-			#expect(@user.new_record?).to be_false
 			expect(@user.deleted_at).not_to be_nil
 			@user.really_destroy!
 			expect {User.find(@user.id)}.to raise_error ActiveRecord::RecordNotFound
@@ -91,11 +86,5 @@ RSpec.describe User, :type => :model do
 			
 			@user.avatar = Rack::Test::UploadedFile.new('app/assets/images/amura.png','image/png')#Image.new :photo => File.new(Rails.root + 'spec/fixtures/shoes.sh')
 			expect(@user).to be_valid
-		end
-
-		after(:each) do
-			# @user.errors.messages.each do |m|
-			# 	puts "#{m}\n"
-			# end
 		end
 end

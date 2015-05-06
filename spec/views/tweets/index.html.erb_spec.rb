@@ -4,11 +4,11 @@ describe 'tweets/index.html.erb', :js => true do
   
 	before :each do
     Capybara.current_driver = :selenium
-	 Warden.test_mode!
+	   Warden.test_mode!
   	 @tweet = FactoryGirl.create(:tweet)
   	 @user= @tweet.user
-	 @request.env["devise.mapping"] = Devise.mappings[@user]
-	 login_as(@user, :scope => :user)
+	   @request.env["devise.mapping"] = Devise.mappings[@user]
+	   login_as(@user, :scope => :user)
 	 
 	 visit my_tweets_path('me')
 	end
@@ -85,7 +85,6 @@ describe 'tweets/index.html.erb', :js => true do
 
 it "does not create new tweet" do
     find(:id,"create_tweet_link").click
-    # expect(page).to have_content("160")
     find("textarea[placeholder='Tweet message ...']").set "test tweet 2"
     find(:id,"tweet_msg").set("test tweet 2")
     click_on("Close")

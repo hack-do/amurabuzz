@@ -43,7 +43,7 @@ group :development, :test do
 	gem 'brakeman', :require => false
 	gem 'railroady'
 	gem 'quiet_assets'
-	gem 'byebug'
+	# gem 'byebug'
 	gem 'pry-rails'
 	gem 'awesome_print'
 	gem 'colorize'

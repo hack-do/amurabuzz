@@ -6,27 +6,20 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user = FactoryGirl.build(:user)
     @user1 = FactoryGirl.build(:user1)
     @request.env["devise.mapping"] = Devise.mappings[@user]
-
     @user.confirmed_at = Time.now
     @user.save
     @user1.confirmed_at = Time.now
     @user1.save
     login_as @user,:scope => :user
-    puts "#{@user.inspect}"
-
     visit all_users_path('me')
-    puts "Current Path : #{current_path}"
 
      
   end
 
   it "searches valid user correctly" do 
-    #puts page.evaluate_script('$("#all_users_datatable input[type=search]").val("#{@user.email}")')
-     #puts page.evaluate_script('$("#all_users_datatable input[type=search]").val()')
+
     input = find('input[type=search]')
     input.set @user1.email
-    puts "-------Search Box : #{input.value}-------"
-
     expect(find('#all_users_datatable').text).to have_content @user1.user_name
   end
 

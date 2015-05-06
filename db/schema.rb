@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811115920) do
+ActiveRecord::Schema.define(version: 20140801074505) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -103,13 +103,6 @@ ActiveRecord::Schema.define(version: 20140811115920) do
   add_index "rs_reputations", ["reputation_name", "target_id", "target_type"], name: "index_rs_reputations_on_reputation_name_and_target", unique: true, using: :btree
   add_index "rs_reputations", ["reputation_name"], name: "index_rs_reputations_on_reputation_name", using: :btree
   add_index "rs_reputations", ["target_id", "target_type"], name: "index_rs_reputations_on_target_id_and_target_type", using: :btree
-
-  create_table "things", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "category",   limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "tweets", force: :cascade do |t|
     t.string   "content",    limit: 255

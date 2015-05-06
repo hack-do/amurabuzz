@@ -4,7 +4,6 @@ describe "main/home.html.erb", :type => :view,js: true do
   
   before :each do
     Capybara.current_driver = :poltergeist
-    puts "Driver : #{Capybara.current_driver}"
     visit root_path
   end
 

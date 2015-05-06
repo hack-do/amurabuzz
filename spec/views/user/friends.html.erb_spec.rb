@@ -6,18 +6,14 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user = FactoryGirl.build(:user)
     @user1 = FactoryGirl.build(:user1)
     @request.env["devise.mapping"] = Devise.mappings[@user]
-
     @user.confirmed_at = Time.now
     @user.save
     @user1.confirmed_at = Time.now
     @user1.save
     login_as @user,:scope => :user
-    puts "#{@user.inspect}"
     @user.follow!(@user1.id)
     @user1.follow!(@user.id)
-
     visit my_friends_path('me')
-    puts "Current Path : #{current_path}"
   end
 
   it "goes to user profile (Followers)" do

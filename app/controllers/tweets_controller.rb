@@ -20,7 +20,6 @@ class TweetsController < ApplicationController
 
   def create
     @tweet = current_user.tweets.new(tweet_params)
-
     respond_to do |format|
       if @tweet.save
         @tweet.create_activity :create, owner: current_user
@@ -66,7 +65,6 @@ class TweetsController < ApplicationController
   def vote
     value = params[:type] == "Like" ? 1 : 0
     @tweet = Tweet.find(params[:id])
-
     @tweet.add_or_update_evaluation(:votes, value, current_user)
     if value == 1
       @msg = "Liked tweet"
