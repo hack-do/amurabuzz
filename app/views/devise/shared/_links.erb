@@ -1,6 +1,6 @@
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-  <h4>SignIn with the following :</h4>
+  <h4>Signin with:</h4>
   <%# image_tag("facebook_64.png") %>
     <%= link_to "#{image_tag("fb.png")}".html_safe, omniauth_authorize_path(resource_name, provider) %><br />
   <% end -%>

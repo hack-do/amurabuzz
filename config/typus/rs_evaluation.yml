@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+RsEvaluation:
+  fields:
+    default: reputation_name, source_id, target_id, value
+    form: reputation_name, source_id, target_id, value
+  relationships: 
+  application: Application

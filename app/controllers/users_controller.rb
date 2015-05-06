@@ -3,9 +3,6 @@ class UsersController < ApplicationController
   before_action :check_login
   before_action :get_user,only: [:show,:profile,:home]
 
-  def profile
-  end
-
   def index
       @users = User.search(params[:search])
   end
@@ -20,6 +17,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+  end
+
   def followers
     @followers = current_user.followers
     render :friends
@@ -32,11 +32,11 @@ class UsersController < ApplicationController
 
   def follow
     respond_to do |format|
-      if current_user.follow!(params[:followed_id])
-        format.html { redirect_to :back, notice: msg }
+      if current_user.follow(params[:followed_id])
+        format.html { redirect_to :back, notice: 'User followed successfully' }
         format.json { render json: @user }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to :back }
         format.json { render json: 'Invalid operation', status: :unprocessable_entity }
       end
     end
@@ -44,11 +44,11 @@ class UsersController < ApplicationController
 
    def unfollow
     respond_to do |format|
-      if current_user.unfollow!(params[:followed_id])
-        format.html { redirect_to :back, notice: msg }
+      if current_user.unfollow(params[:followed_id])
+        format.html { redirect_to :back, notice: 'User unfollowed successfully' }
         format.json { render json: @user }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to :back }
         format.json { render json: 'Invalid operation', status: :unprocessable_entity }
       end
     end

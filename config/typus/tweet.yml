@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+Tweet:
+  fields:
+    default: content, user_id
+    form: content, user_id
+  relationships: activities, reputations, evaluations
+  application: Application

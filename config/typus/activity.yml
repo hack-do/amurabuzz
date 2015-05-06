@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+Activity:
+  fields:
+    default: trackable_id, owner_id, key, parameters, recipient_id
+    form: trackable_id, owner_id, key, parameters, recipient_id
+  relationships: 
+  application: Application

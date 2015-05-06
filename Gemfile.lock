@@ -5,6 +5,14 @@ GIT
   specs:
     activerecord-reputation-system (2.0.2)
 
+GIT
+  remote: git://github.com/typus/typus.git
+  revision: 1c96f51561ce0ec93804f97724136984aed5316d
+  specs:
+    typus (4.0.0.beta1)
+      bcrypt (~> 3.1.10)
+      rails (~> 4.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -433,5 +441,6 @@ DEPENDENCIES
   selenium-webdriver
   therubyracer
   turbolinks
+  typus!
   uglifier (>= 1.3.0)
   zeus
