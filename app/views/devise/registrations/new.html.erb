@@ -1,65 +1,55 @@
-<%# fb_s = session["devise.facebook_data"]["extra"]["raw_info"] %>
+<div class='container-fluid'>
+    <div class='row-fluid'>
+        <div class='col-md-10 col-md-offset-2'>
+            <h3>Sign up</h3>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'form-horizontal mt30'}) do |f| %>
+                <%= devise_error_messages! %>
 
-<%# session["devise.facebook_data"]["info"] %>
+                <div class="form-group">
+                    <%= f.label :email, class: "col-sm-2 control-label" %>
+                    <div class="col-sm-6">
+                        <%= f.email_field :email, class: "form-control",:placeholder => 'email@example.com' %>
+                    </div>
+                </div>
 
-<div class = 'container-fluid'>
-<div class = 'col-md-6 col-md-offset-3'>	
-<h2 class = 'col-md-offset-3'>Sign up</h2>
-<br>
+                <div class="form-group">
+                    <%= f.label :password, class: "col-sm-2 control-label" %>
+                    <div class="col-sm-6">
+                        <%= f.password_field :password, autocomplete: "off", class: "form-control",:placeholder => 'more than 8 characters' %>
+                    </div>
+                </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'form-horizontal'}) do |f| %>
-<%= devise_error_messages! %>
+                <div class="form-group">
+                    <%= f.label :password_confirmation, class: "col-sm-5 col-md-pull-3 control-label" %>
+                    <div class="col-sm-6 col-md-pull-3">
+                        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",:placeholder => 'more than 8 characters' %>
+                    </div>
+                </div>
 
-<div class="form-group">
-    <%= f.label :email, class: "col-sm-2 control-label" %>
-    <div class="col-sm-6">
-        <%= f.email_field :email, class: "form-control",:placeholder => 'email@example.com' %>
-        <!-- ,value: fb_s["email"]s -->
+                <div class="form-group">
+                    <%= f.label :user_name, class: "col-sm-5 col-md-pull-3 control-label" %>
+                    <div class="col-sm-6 col-md-pull-3">
+                        <%= f.text_field :user_name, class: "form-control" %>
+                        <!-- ,value: "#{fb_s['first_name']} #{fb_s['last_name']}"  -->
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <%# f.label :dob, class: "col-sm-5 col-md-pull-3 control-label" %>
+                    <div class="col-sm-6 col-md-pull-3">
+                        <%# f.date_field :dob, class: "form-control", order: [:day, :month, :year] %>
+                    </div>
+                </div> -->
+
+                <div class="form-group mt20">
+                    <div class="col-sm-6 col-sm-offset-2">
+                        <%= f.submit "Sign up", class: "btn btn-primary btn-block" %>
+                    </div>
+                </div>
+            <% end %>
+            <div class="form-group">
+                <%= render "devise/shared/links" %>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="form-group">
-    <%= f.label :password, class: "col-sm-2 control-label" %>
-    <div class="col-sm-6">
-        <%= f.password_field :password, autocomplete: "off", class: "form-control",:placeholder => 'more than 8 characters' %>
-    </div>
-</div>
-
-<div class="form-group">
-    <%= f.label :password_confirmation, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control",:placeholder => 'more than 8 characters' %>
-    </div>
-</div>
-
-<div class="form-group">
-    <%= f.label :user_name, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%= f.text_field :user_name, class: "form-control" %>
-        <!-- ,value: "#{fb_s['first_name']} #{fb_s['last_name']}"  -->
-    </div>
-</div>
-
-<!-- <div class="form-group">
-    <%# f.label :dob, class: "col-sm-5 col-md-pull-3 control-label" %>
-    <div class="col-sm-6 col-md-pull-3">
-        <%# f.date_field :dob, class: "form-control", order: [:day, :month, :year] %>
-    </div>
-</div> -->
-
-<br>
-<!-- sign up button -->
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-6">
-        <%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block" %>
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-8">
-        <%= render "devise/shared/links" %>
-    </div>
-</div>
-<% end %>
-</div>
 </div>

@@ -1,30 +1,41 @@
 <h3>All Users</h3>
 
-<div class="container-fluid border-shadow bg-white">
-	<div class="row-fluid">
-		<table class="table table-stripped col-md-4" id="users_table">
-			<tr>
-				<th>Sr.No.</th>
-				<th>Name</th>
-				<th>Username</th>
-				<th></th>
-			</tr>
-			<% i = 0 %>
-			<% @users.each do |f| %>
+<% if @users.length == 0 %>
+	<p class="text-warning text-center">
+		No user found
+		<% if params[:search] %>
+			by name '<%= params[:search] %>'
+		<% end %>
+	</p>
+<% else %>
+	<div class="container-fluid border-shadow bg-white">
+		<div class="row-fluid">
+			<table class="table table-stripped col-md-4" id="users_table">
 				<tr>
-					<td><%= i=i+1 %></td>
-					<td><%= link_to f.email,user_path(f.id) %></td>
-					<!-- <td><%# link_to f.email ,{:action => "friend_profile", :id => f.id}  %></td> -->
-					<td><%= f.user_name %></td>
-					<td>					
-						<% if current_user.following?(f) %>
-							<%= link_to "Unfollow",user_unfollow_path(f.id),class: "btn btn-xs btn-warning unfollow",id: f.id.to_s + "uf" %>
-						<% else %>
-							<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,user_follow_path(f.id), class: "btn btn-xs btn-success follow",id: f.id.to_s + "f" %>
-						<% end %>
-					</td>
+					<th>Sr.No.</th>
+					<th>Name</th>
+					<th>Username</th>
+					<th></th>
 				</tr>
-			<% end %> 
-		</table>
+				<% i = 0 %>
+				<% @users.each do |f| %>
+					<tr>
+						<td><%= i=i+1 %></td>
+						<td><%= link_to f.email,user_path(f.id) %></td>
+						<!-- <td><%# link_to f.email ,{:action => "friend_profile", :id => f.id}  %></td> -->
+						<td><%= f.user_name %></td>
+						<td>					
+							<% if current_user != f %>
+								<% if current_user.following?(f) %>
+									<%= link_to "Unfollow",unfollow_user_path(f.id),class: "btn btn-xs btn-warning unfollow",id: f.id.to_s + "uf" %>
+								<% else %>
+									<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,follow_user_path(f.id), class: "btn btn-xs btn-success follow",id: f.id.to_s + "f" %>
+								<% end %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %> 
+			</table>
+		</div>
 	</div>
-</div>
+<% end %>

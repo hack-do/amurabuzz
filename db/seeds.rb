@@ -1,28 +1,11 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'faker'
 
-	User.create(email: "vineet@amuratech.com",password: "qwerty007",user_name: "vinzeee", :password_confirmation => "qwerty007")
-	User.create(email: "shaunak.pagnis@gmail.com",password: "12345678",user_name: "shaunakp", :password_confirmation => "12345678")
-	User.create(email: "sayali@amuratech.com",password: "sayali123",user_name: "sayali912", :password_confirmation => "sayali123")
-	User.create(email: "shaunak@amuratech.com",password: "12345678",user_name: "shaunakpp", :password_confirmation => "12345678")
+u1 = User.create!(name: 'Vineet Ahirkar',email: "vineet@amuratech.com",password: "amura123",user_name: "vinzee", :password_confirmation => "amura123")
+u2 = User.create!(name: 'Sayali Pendharkar', email: "sayali@amuratech.com",password: "amura123",user_name: "say", :password_confirmation => "amura123")
+u3 = User.create!(name: 'Shaunak Pagnis',email: "shaunak@amuratech.com",password: "amura123",user_name: "shaun", :password_confirmation => "amura123")
 
-	50.times do |i|
-		t = Tweet.create!(content: "Tweet #{i}",user_id: "1")
-	end
-
-	50.times do |i|
-		t = Tweet.create!(content: "Tweet #{i}",user_id: "2")
-	end
-
-	50.times do |i|
-		t = Tweet.create!(content: "Tweet #{i}",user_id: "4")
-	end
-
-	50.times do |i|
-		t = Tweet.create!(content: "Tweet #{i}",user_id: "3")
-	end
+20.times do |i|
+	t1 = Tweet.create!(content: Faker::Lorem.characters(160),user_id: u1.id)
+	t2 = Tweet.create!(content: Faker::Lorem.characters(160),user_id: u2.id)
+	t3 = Tweet.create!(content: Faker::Lorem.characters(160),user_id: u3.id)
+end

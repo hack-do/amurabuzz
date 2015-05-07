@@ -23,19 +23,20 @@
       <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <%= form_tag users_path, :method => 'get',role: 'form',class: 'navbar-form navbar-right' do %>
-            <div class="input-group">
-              <%= text_field_tag :search, params[:search], class: 'form-control', placeholder:'Search Amurabuzz'%>
-              <span class="input-group-btn">
-                <%# submit_tag "Search",class: 'btn btn-default search-button' %>
-                <button class="btn btn-success search-button" name="commit">
-                    <i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          <% end %>
-        </li>
+        <% if user_signed_in? %>
+	        <li>
+	          <%= form_tag users_path, :method => 'get',role: 'form',class: 'navbar-form navbar-right' do %>
+	            <div class="input-group">
+	              <%= text_field_tag :search, params[:search], class: 'form-control', placeholder:'Search Amurabuzz'%>
+	              <span class="input-group-btn">
+	                <button class="btn btn-success search-button" name="commit">
+	                    <i class="fa fa-search"></i>
+	                </button>
+	              </span>
+	            </div>
+	          <% end %>
+	        </li>
+        <% end %>
 
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">

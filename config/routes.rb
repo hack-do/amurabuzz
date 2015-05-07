@@ -18,8 +18,8 @@ AmuraBuzz::Application.routes.draw do
         end
      end
     member do 
-      get 'follow/:followed_id' => "user#follow", :as => 'follow'
-      get 'unfollow/:unfollowed_id' => "user#unfollow", :as => 'unfollow'
+      get 'follow/:followed_id' => "users#follow", :as => 'follow'
+      get 'unfollow/:unfollowed_id' => "users#unfollow", :as => 'unfollow'
       get :profile
       get :notifications
       get :followers
@@ -27,6 +27,6 @@ AmuraBuzz::Application.routes.draw do
     end
   end
 
-  root 'main#home'
+  root 'users#show'
 
 end

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
   has_many :tweets,:dependent => :destroy   
   has_many :evaluations, class_name: "RsEvaluation", as: :source
+  
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
 
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
 
   def self.search(search=nil)
     if search.present?
-      where("name LIKE ? OR user_name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+      where("name LIKE ? OR user_name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%") #.where.not(id: current_user.id)
     else
       all
     end
@@ -36,7 +37,7 @@ class User < ActiveRecord::Base
 	   relationships.find_by_followed_id(followed)
   end
 
-  def follow!(followed_id)
+  def follow(followed_id)
     if self.id.to_i != followed_id.to_i 
       if !self.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
@@ -48,7 +49,7 @@ class User < ActiveRecord::Base
     false
   end
 
-  def unfollow!(unfollowed_id)
+  def unfollow(unfollowed_id)
     if self.id != unfollowed_id 
       if self.following?(unfollowed_id)
         relationships.find_by_followed_id(unfollowed_id).really_destroy!
