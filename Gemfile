@@ -62,6 +62,7 @@ group :test do
     gem 'selenium-webdriver'
     gem 'factory_girl_rails'
     gem 'rspec-rails', '~> 3.0.0'
+    gem "codeclimate-test-reporter", require: nil
 end
 
 # gem 'debugger', group: [:development, :test]
