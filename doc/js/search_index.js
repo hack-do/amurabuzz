@@ -1,1 +1,0 @@
-var search_data = {"index":{"searchIndex":["readme"],"longSearchIndex":[""],"info":[["README","","README_rdoc.html","","<p># A demo of Social Networking Application #\n<p>to start server on amurabuzz.dev “` $ bundle install $ invoker …\n"]]}}

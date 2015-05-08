@@ -69,9 +69,6 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     require 'open-uri'
-    if auth.info.nickname.nil?
-      auth.info.nickname = auth.info.name
-    end
     where(auth.slice(:provider, :uid)).first_or_create! do |user|
       user.email = auth.info.email
       pass = Devise.friendly_token[0,20]
@@ -79,7 +76,7 @@ class User < ActiveRecord::Base
       user.password_confirmation = pass
       user.provider = auth.provider
       user.uid = auth.uid
-      user.user_name = auth.info.nickname
+      user.user_name = auth.info.nickname.blank? ? auth.info.name : auth.info.nickname
       user.name = auth.info.name   # assuming the user model has a name
       user.avatar =  open(auth.info.image,:allow_redirections => :all)
     end
