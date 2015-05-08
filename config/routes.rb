@@ -11,13 +11,13 @@ AmuraBuzz::Application.routes.draw do
   get 'sse' => 'tweets#sse', :as => 'my_sse'
 
   resources :users, :defaults => { :id => 'me' } do
-     resources :tweets, :defaults => { :user_id => 'me' } do
-        member do 
+     resources :tweets, :defaults => { :user_id => 'me' },except: [:index] do
+        member do
           get :likes
           post :vote
         end
      end
-    member do 
+    member do
       get 'follow/:followed_id' => "users#follow", :as => 'follow'
       get 'unfollow/:unfollowed_id' => "users#unfollow", :as => 'unfollow'
       get :profile

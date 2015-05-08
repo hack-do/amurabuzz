@@ -4,7 +4,7 @@ describe "sign_up process",js: true  do
   before :each do
   	 @user = FactoryGirl.create(:user)
 	   @request.env["devise.mapping"] = Devise.mappings[@user]
-		#Capybara.current_driver = :poltergeist  
+		#Capybara.current_driver = :poltergeist
     visit new_user_registration_path
   end
 
@@ -15,8 +15,8 @@ describe "sign_up process",js: true  do
         fill_in "Password confirmation",     with: @user.password
         fill_in "User name",    with: "exampleguy"
         click_on 'Sign up'
-		
-        expect(page).to have_content("Welcome! You have signed up successfully.")
+
+        expect(page).to have_content("exampleguy")
   end
 
   it "error for no email" do
@@ -25,14 +25,14 @@ describe "sign_up process",js: true  do
         fill_in "User name",    with: "exampleguy"
         click_on 'Sign up'
 
-        expect(page).to have_content("Email can't be blank") 
+        expect(page).to have_content("Email can't be blank")
   end
 
   it "error for no password" do
           fill_in "Email",        with: "aaaaaaa"
           fill_in "User name",    with: "exampleguy"
           click_on 'Sign up'
-      
+
           expect(page).to have_content("Password can't be blank")
   end
 
@@ -41,12 +41,12 @@ describe "sign_up process",js: true  do
         fill_in "Password",     with: @user.password
         fill_in "Password confirmation",     with: @user.password
         click_on 'Sign up'
-    
+
         expect(page).to have_content("User name can't be blank")
   end
 
 it "submit blank form" do
-  click_on 'Sign up'  
+  click_on 'Sign up'
   expect(page).to have_content("Email can't be blank")
   expect(page).to have_content("Password can't be blank")
   expect(page).to have_content("User name can't be blank")

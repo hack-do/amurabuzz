@@ -4,10 +4,6 @@ class TweetsController < ApplicationController
   before_action :check_login #,only: [:friends,:profile,:index,:edit]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
-  def index  
-    @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
-  end
-
   def show
   end
 
@@ -59,7 +55,7 @@ class TweetsController < ApplicationController
     else
       msg = 'Permission denied !'
     end
-   redirect_to user_tweets_url(current_user),:notice => msg
+   redirect_to user_path(current_user),:notice => msg
   end
 
   def vote

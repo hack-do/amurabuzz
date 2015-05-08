@@ -1,14 +1,14 @@
 require "rails_helper"
 
-RSpec.describe UserMailerFollow, :type => :mailer do
+RSpec.describe FollowMailer, :type => :mailer do
  # pending "add some examples to (or delete) #{__FILE__}"
 
 let(:user) { FactoryGirl.build(:user)}
 let(:follower) {FactoryGirl.build(:user)}
-let(:mail) { UserMailerFollow.new_follower(user.email,follower) }
+let(:mail) { FollowMailer.new_follower(user.email,follower) }
  	
  	it "sends an email" do
-    expect { UserMailerFollow.new_follower(user.email,follower).deliver }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    expect { FollowMailer.new_follower(user.email,follower).deliver_now }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 
     it 'renders the subject' do

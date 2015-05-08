@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+ENV['CODECLIMATE_REPO_TOKEN'] ='3c8e54c8e5da85c1712a36df9c4e2158e0835d8f77ee08302927cf9ce0f95e3b'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 Dir[File.expand_path('../support/**/*.rb', __FILE__)].each { |f| require f }
@@ -30,7 +31,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers,:type => :controller
   config.include Devise::TestHelpers,:type => :view
   config.include Warden::Test::Helpers
-
+  config.include Rails.application.routes.url_helpers
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

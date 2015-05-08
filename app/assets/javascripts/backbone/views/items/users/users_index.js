@@ -3,7 +3,6 @@ AmuraBuzz.Views.UsersIndex = Backbone.View.extend({
 	  template: JST['users/index'],
 
 	  initialize: function(options) {
-	    console.log("users index view initialized");
 	    return this.options = options;
 	  },
 
@@ -14,8 +13,6 @@ AmuraBuzz.Views.UsersIndex = Backbone.View.extend({
 
 	  render: function() {
 	    var markup;
-	    console.log(" view render function ");
-	     console.log(this.options.users);
 		// $.each(this.options.users, function(i, item) {
 		//     console.log(item);
 		//     markup += '<tr><td>' + item.email + '</td></tr>';
@@ -25,14 +22,13 @@ AmuraBuzz.Views.UsersIndex = Backbone.View.extend({
 	    	users: this.options.users
 	    }));
 
-	   
+
 
 	    $('#all_users_backbone').html(this.$el);
 	    return this;
 	  },
 
 	  show: function(){
-	  	console.log("Show function");
 	  }
 
 });

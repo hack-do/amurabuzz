@@ -1,7 +1,7 @@
 # require 'rails_helper'
 
 # describe "devise/session/new.html.erb", :type => :request,js: true do
-  
+
 
 #   before :each do
 #   	include Devise::TestHelpers
@@ -20,13 +20,13 @@
 #   end
 
 #   it "shows correct followers,following and tweets" do
-   
+
 #     Capybara.default_selector = :xpath
 
 #     expect(find(:id,'user_followers_count').text.to_i).to eq(@user.followers.count)
 #     expect(find(:id,'user_following_count').text.to_i).to eq(@user.following.count)
 #     expect(find(:id,'user_tweets_count').text.to_i).to eq(@user.tweets.count)
-    
+
 #   end
 
 # end

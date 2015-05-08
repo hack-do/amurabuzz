@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "devise/session/new.html.erb", :type => :view,js: true do
-  
+
   before :each do
     Warden.test_mode!
     @user = FactoryGirl.build(:user)
@@ -11,7 +11,8 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     @user.confirmed_at = Time.now
     @user.save
     login_as @user,:scope => :user
-    visit my_user_path('me')
+    @urls = Rails.application.routes.url_helpers
+    visit @urls.user_path('me')
   end
 
   it "shows correct followers,following and tweets" do
@@ -19,14 +20,14 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     expect(find(:id,'user_followers_count').text.to_i).to eq(@user.followers.count)
     expect(find(:id,'user_following_count').text.to_i).to eq(@user.following.count)
     expect(find(:id,'user_tweets_count').text.to_i).to eq(@user.tweets.count)
-    
+
   end
 
   it "shows user credentials correctly" do
       expect(page).to have_content(@user.user_name)
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.bio)
-      
+
   end
 
 end

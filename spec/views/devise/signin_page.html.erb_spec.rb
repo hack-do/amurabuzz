@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "devise/session/new.html.erb", :type => :view,js: true do
-  
+
   before :each do
     @user = FactoryGirl.build(:user)
     @request.env["devise.mapping"] = Devise.mappings[@user]
@@ -16,8 +16,8 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
     click_on 'Sign in'
 
 
-    
-    expect(page).to have_content 'Signed in successfully'
+
+    expect(page).to have_content "#{@user.name}"
   end
 
   it "doesnt signin invalid user" do
@@ -25,8 +25,8 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
      fill_in 'Password', :with => "bs1234567"
 
      click_on 'Sign in'
-      
-    expect(page).to have_content 'Invalid'
+
+    expect(page).to have_content 'Sign in'
   end
 
 

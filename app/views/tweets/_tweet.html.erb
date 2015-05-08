@@ -13,12 +13,12 @@
                     <li role="presentation">
                         <%= link_to '<i class="fa fa-pencil"></i> Edit'.html_safe,edit_user_tweet_path('me',tweet.id), title:"Edit", class: "edit",role: "menuitem",tabindex: "-1" %>
                     </li>
-                    <li role="presentation">                            
+                    <li role="presentation">
                         <%= link_to '<i class="fa fa-times"></i> Delete'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" }, title: "Delete",role: "menuitem",tabindex: "-1" %>
                     </li>
                 <% end %>
             </ul>
-        </div>                
+        </div>
         <small class="pull-right">
             <em><%= distance_of_time_in_words_to_now(tweet.created_at)%> ago</em>
         </small>
@@ -28,15 +28,15 @@
         <div>
             <%= tweet.content %>
         </div>
-    
+
         <div class="likes mt10" data-id="<%= tweet.id %>">
             <div class='pull-left'>
                 <small>
-                    <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,'Like'}",likes_user_tweet_path(tweet.id),:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>
+                    <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,'Like'}",likes_user_tweet_path(id:tweet.id),:data => {toggle:"modal",target: "#myModal"},class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>
                      <% if current_user.voted_for?(tweet) %>
-                        <%= link_to '<span class="fa fa-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Unlike"),method: "post",class: "btn btn-link btn-sm",remote: true %>
+                        <%= link_to '<span class="fa fa-thumbs-down"></span> Unlike'.html_safe, vote_user_tweet_path('me',tweet,type:"Unlike"),method: "post",class: "btn btn-link btn-sm",remote: true %>
                      <%else%>
-                         <%= link_to '<span class="fa fa-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path(tweet,tweet.id,type:"Like"),method: "post",class: "btn btn-link btn-sm",remote: true %>
+                         <%= link_to '<span class="fa fa-thumbs-up"></span> Like'.html_safe, vote_user_tweet_path('me',tweet,type:"Like"),method: "post",class: "btn btn-link btn-sm",remote: true %>
                      <%end%>
                 </small>
             </div>
