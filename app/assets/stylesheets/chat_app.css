@@ -1,0 +1,36 @@
+#chat-app{
+    position: fixed;
+    right: 0;
+	width: 300px;
+	height: 100%;
+}
+#chat-app .chat-friend{
+	padding: 0px;
+}
+#chat-area-container{
+    position: fixed;
+    bottom: 0;
+    right: 0;	
+}
+.chatbox .user-name{
+	font-weight: bold;
+}
+.chatbox .panel{
+	margin-bottom: 0px
+}
+.chatbox .panel-heading{
+	padding: 3px 15px;
+}
+.chatbox .panel-body{
+	overflow-y: auto;
+    max-height: 200px;
+}
+.message-input {
+    resize: none;
+}
+.message-box{
+	word-wrap:break-word;	
+}
+.chat-actions a{
+	padding: 6px;
+}

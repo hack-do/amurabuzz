@@ -1,0 +1,25 @@
+<div class="container-fluid" id="chat-app">
+    <div class="row-fluid">
+        <div class="col-md-10 col-md-offset-1">
+            <p class="text-success">Friends</p>
+            <ul class="list-group tc">
+                <% current_user.friends.each do |u| %>
+                    <li class="list-group-item chat-friend">
+                        <a class="btn btn-link btn-sm start_chat" href="#" data-user-id="<%= u.id %>"><%= u.name %></a>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>    
+</div>
+
+
+<div class="container-fluid" id="chat-area-container">
+    <div class="row-fluid">
+        <div class="col-md-8 col-md-offset-4 ">
+            <div class="clearfix" id="chat-area">
+            </div>
+        </div>
+    </div>    
+</div>
+

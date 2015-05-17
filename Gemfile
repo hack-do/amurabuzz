@@ -1,18 +1,16 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'rails-observers'
 
-
-# gem 'emoji'
-# gem 'escape_utils'
+gem 'private_pub'
+gem 'thin'
 gem "twemoji"
 
 gem 'ejs'
 gem 'mysql2'
 gem 'omniauth-facebook'
-gem 'puma'
 gem 'open_uri_redirections'
-gem 'paranoia', '~> 2.0'
 gem 'public_activity'
 
 gem "typus", github: "typus/typus"
@@ -47,13 +45,15 @@ end
 group :development, :test do
 	gem 'awesome_print'
 	gem 'colorize'
+	gem 'web-console', '~> 2.0'
+	gem 'byebug'
+	gem 'spring'
 end
 
 group :development do
 	gem 'brakeman', :require => false
 	gem 'railroady'
 	gem 'quiet_assets'
-	gem 'byebug'
 	gem 'pry-rails'
 	gem 'guard-cucumber'
 	gem 'guard-rspec'

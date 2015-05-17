@@ -7,6 +7,8 @@ AmuraBuzz::Application.routes.draw do
   }
   # match 'users/auth/:provider/callback' => 'omniauthcallbacks#facebook' ,via: :get  devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks",:sessions => "sessions"}
 
+  resources :chats,only:[:create]
+
   resources :users, :defaults => { :id => 'me',:user_id => 'me' } do
     resources :activities,:only => [:index]
     resources :tweets do

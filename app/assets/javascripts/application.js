@@ -10,6 +10,7 @@
 
 //= require amura
 //= require init_backbone.js
+//= require chat_app
 
 $(document).on('page:change', function() {
  	
