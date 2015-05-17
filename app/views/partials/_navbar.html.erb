@@ -16,7 +16,7 @@
           <%= link_to '<span class="fa fa-home"></span> Home'.html_safe,root_path,accesskey: "h" %>
         </li>
         <li>
-            <a href="#" id="create_tweet_link" class="tweet_modal link" data-toggle="modal" data-target="#create_tweet" data-keyboard="true" data-backdrop="static" accesskey="m">
+            <a href="#" id="tweet_modal_link" class="tweet_modal link" data-toggle="modal" data-target="#tweet_modal" data-keyboard="true" data-backdrop="static" accesskey="m">
              <span class="fa fa-pencil"></span> Tweet
             </a>
         </li>
@@ -56,11 +56,11 @@
        </li>
        <%if user_signed_in?%>
        <li class="dropdown">
-        <%= link_to "<i id='notification_globe' class='fa fa-globe fa-lg' title = 'friends activities '></i><span class='caret'></span>".html_safe,notifications_user_path,:data => {toggle: "dropdown"},class:"dropdown-toggle",remote: true %>
+        <%= link_to "<i id='notification_globe' class='fa fa-globe fa-lg' title = 'friends activities '></i><span class='caret'></span>".html_safe,user_activities_path,:data => {toggle: "dropdown"},class:"dropdown-toggle",remote: true %>
         <ul id="user_notifications" class="dropdown-menu scrollable-menu" role="menu">
           <li id="user_notifications_panel"></li>
           <li class="divider"></li>
-          <li><%= link_to 'Show all notifications'.html_safe,notifications_user_path,accesskey: "n" %></li>            
+          <li><%= link_to 'Show all notifications'.html_safe,user_activities_path,accesskey: "n" %></li>            
         </ul>
        </li>
        <%end%>

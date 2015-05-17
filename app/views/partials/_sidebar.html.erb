@@ -14,24 +14,26 @@
 				</div>
 		        <div class="col-xs-6">
 		        	<div class="mt20">
-						<b><%= link_to user.name,profile_user_path(user.id) %></b>
-						<small><%= user.user_name %></small>
+						<b><%= link_to user.name,profile_user_path(user.id) %></b><br>
+						<small>@<%= user.user_name %></small>
 					</div>
 
 					<% if user != @current_user %>
-						<% if current_user.following?(user.id) %>
-							<%= link_to "Unfollow",unfollow_user_path(user.id),class: "btn btn-sm btn-warning",id: user.id.to_s + "uf" %>
-						<% else %>
-							<%= link_to "Follow",follow_user_path(user.id), class: "btn btn-sm btn-success",id: user.id.to_s + "f" %>
-						<% end %>
+						<div class="mt10">
+							<% if current_user.following?(user.id) %>
+								<%= link_to "Unfollow",relate_user_path(user.id,type: 'unfollow'),class: "btn btn-xs btn-warning",id: user.id.to_s + "uf" %>
+							<% else %>
+								<%= link_to "Follow",relate_user_path(user.id,type: 'follow'), class: "btn btn-xs btn-success",id: user.id.to_s + "f" %>
+							<% end %>
+						</div>
 					<% end %>
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid text-center">
+		<div class="container-fluid text-center" id="sidebar-stats">
 		    <div class="row-fluid">
 		        <div class="col-xs-4">
-		            <%= link_to followers_user_path, accesskey: "j" do %>
+		            <%= link_to followers_user_path(user) do %>
 			            <h3 id="user_followers_count">
 			              <strong class="label label-success">
 			                    <%= user.followers.count%>
@@ -41,7 +43,7 @@
 		             <% end %>
 		         </div>
 	          	<div class="col-xs-4">
-		            <%= link_to following_user_path, accesskey: "j" do %>
+		            <%= link_to following_user_path(user) do %>
 			            <h3 id="user_following_count">
 			              <strong class="label label-success">
 			                    <%= user.following.count%>
@@ -51,14 +53,14 @@
 		             <% end %>
 	         	</div>
 		        <div class="col-xs-4">
-		       	    <a href="#">
+		            <%= link_to user_path(user) do %>
 			       	    <h3 id="user_tweets_count">
 			                <strong class = "label label-primary">
 			           		   <%= user.tweets.count%>
 			 		         </strong>
 			            </h3>
 			            <p>Tweets</p>
-		            </a>
+		             <% end %>
 		       	</div>           
 		    </div>
 		</div>

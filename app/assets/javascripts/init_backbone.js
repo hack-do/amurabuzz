@@ -1,7 +1,7 @@
-//= require libs/backbone
-//= require libs/backbone.marionette
-//= require libs/backbone-relational
-//= require libs/backbone-validation
+//= require backbone
+//= require backbone.marionette
+//= require backbone-relational
+//= require backbone-validation
 //= require_tree ./backbone/templates/items/users
 
 //= require ./backbone/app

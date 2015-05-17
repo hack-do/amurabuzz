@@ -1,0 +1,37 @@
+
+<br><br>
+ 
+<div class="container-fluid border-shadow" >
+	<div class="row">
+	<!-- Nav tabs -->
+		<ul id="activity_tabs" class="nav nav-tabs" role="tablist">
+		  <li class="active">
+		  	<a href="#friends_activities" role="tab" data-toggle="tab">
+		  		Friends Activities <span class="badge"><%= @activities[:others].count %></span>
+	  		</a>
+  		 </li>
+		  <li>
+			  <a href="#my_activities" role="tab" data-toggle="tab">
+			  	My Activities <span class="badge"><%= @my_activities[:me].count %></span>
+			  </a>
+		  </li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content noti-wrap ">
+
+		  <div class="tab-pane fade in active noti" id="friends_activities">
+		  	<br>
+		  	<%= render "public_activity/activity",:type_of_activity => @activities[:others] %>
+		  	<br>
+		  </div>
+		  	
+		  <div class="tab-pane fade noti" id="my_activities">
+			<br>
+		  	<%= render "public_activity/activity",:type_of_activity => @my_activities[:me] %>
+		  	<br>
+		  </div>
+
+		</div>
+	</div>
+</div>

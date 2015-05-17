@@ -63,7 +63,7 @@ describe 'tweets/index.html.erb', :js => true do
 	end
 
   it "creates new tweet" do
-    find(:id,"create_tweet_link").click
+    find(:id,"tweet_modal_link").click
     expect(page).to have_content("Post a Tweet")
     expect(page).to have_content("160")
     find("textarea[placeholder='Tweet message ...']").set "test tweet 2"

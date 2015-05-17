@@ -18,18 +18,17 @@
 					<th></th>
 				</tr>
 				<% i = 0 %>
-				<% @users.each do |f| %>
+				<% @users.each do |u| %>
 					<tr>
 						<td><%= i=i+1 %></td>
-						<td><%= link_to f.email,user_path(f.id) %></td>
-						<!-- <td><%# link_to f.email ,{:action => "friend_profile", :id => f.id}  %></td> -->
-						<td><%= f.user_name %></td>
+						<td><%= link_to u.email,user_path(u.id) %></td>
+						<td><%= u.user_name %></td>
 						<td>					
-							<% if current_user != f %>
-								<% if current_user.following?(f) %>
-									<%= link_to "Unfollow",unfollow_user_path(f.id),class: "btn btn-xs btn-warning unfollow",id: f.id.to_s + "uf" %>
+							<% if current_user != u %>
+								<% if current_user.following?(u) %>
+									<%= link_to "Unfollow",relate_user_path(u.id,type: 'unfollow'),class: "btn btn-xs btn-warning unfollow",id: u.id.to_s + "uf" %>
 								<% else %>
-									<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,follow_user_path(f.id), class: "btn btn-xs btn-success follow",id: f.id.to_s + "f" %>
+									<%= link_to " &nbsp;&nbsp;Follow&nbsp;&nbsp;".html_safe,relate_user_path(u.id,type: 'follow'), class: "btn btn-xs btn-success follow",id: u.id.to_s + "f" %>
 								<% end %>
 							<% end %>
 						</td>

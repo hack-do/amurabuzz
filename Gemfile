@@ -2,6 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails'
 
+
+# gem 'emoji'
+# gem 'escape_utils'
+gem "twemoji"
+
 gem 'ejs'
 gem 'mysql2'
 gem 'omniauth-facebook'
@@ -40,21 +45,26 @@ group :doc do
 end
 
 group :development, :test do
-	gem 'brakeman', :require => false
-	gem 'railroady'
-	gem 'quiet_assets'
-	# gem 'byebug'
-	gem 'pry-rails'
 	gem 'awesome_print'
 	gem 'colorize'
 end
 
-group :test do
-	gem 'faker'
-	gem 'capybara'
+group :development do
+	gem 'brakeman', :require => false
+	gem 'railroady'
+	gem 'quiet_assets'
+	gem 'byebug'
+	gem 'pry-rails'
+	gem 'guard-cucumber'
 	gem 'guard-rspec'
 	gem 'zeus'
 	gem 'guard-zeus'
+end
+
+group :test do
+	gem 'cucumber'
+	gem 'faker'
+	gem 'capybara'
 	gem 'launchy'
 	gem 'database_cleaner'
 	gem 'poltergeist'
@@ -64,5 +74,3 @@ group :test do
     gem 'rspec-rails', '~> 3.0.0'
     gem "codeclimate-test-reporter", require: nil
 end
-
-# gem 'debugger', group: [:development, :test]

@@ -29,6 +29,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include Devise::TestHelpers,:type => :controller
   config.include Devise::TestHelpers,:type => :view
+  config.extend ControllerMacros, :type => :controller
   config.include Warden::Test::Helpers
   config.include Rails.application.routes.url_helpers
   config.include RequestMacros,type: :request
@@ -41,14 +42,11 @@ RSpec.configure do |config|
   config.before(:each) do
     Capybara.current_driver = :poltergeist
     DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.start
   end
 
   config.before(:each, :js => true) do
     DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
   end
 
   config.after(:each) do

@@ -7,26 +7,19 @@ AmuraBuzz::Application.routes.draw do
   }
   # match 'users/auth/:provider/callback' => 'omniauthcallbacks#facebook' ,via: :get  devise_for :users,:controllers => {registrations: 'registrations',:omniauth_callbacks => "users/omniauth_callbacks",:sessions => "sessions"}
 
-  get 'stream' => 'tweets#stream', :as => 'my_stream'
-  get 'sse' => 'tweets#sse', :as => 'my_sse'
-
-  resources :users, :defaults => { :id => 'me' } do
-     resources :tweets, :defaults => { :user_id => 'me' },except: [:index] do
-        member do
-          get :likes
-          post :vote
-        end
-     end
-    member do
-      get 'follow/:followed_id' => "users#follow", :as => 'follow'
-      get 'unfollow/:unfollowed_id' => "users#unfollow", :as => 'unfollow'
+  resources :users, :defaults => { :id => 'me',:user_id => 'me' } do
+    resources :activities,:only => [:index]
+    resources :tweets do
+      resources :rs_evaluations,:only => [:index,:create]
+      get :stream
+    end
+    member do 
+      get 'relate/:followed_id' => "users#relate", :as => 'relate'
       get :profile
-      get :notifications
       get :followers
       get :following
     end
   end
-
+  
   root 'users#show'
-
 end
