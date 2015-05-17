@@ -18,15 +18,14 @@ RSpec.describe Tweet, :type => :model do
 	end
 
 	it "gets paranoid deleted successfully" do 
-		@tweet.destroy
-		expect(@tweet.deleted_at).not_to be_nil
+		@tweet.active = false
+		@tweet.save
+		expect(Tweet.count).to eq(0)
 	end
 
 	it "gets really deleted successfully" do
-		@tweet.really_destroy!
+		@tweet.destroy
 		expect {Tweet.find(@tweet.id)}.to raise_error ActiveRecord::RecordNotFound
 	end
-
-
 
 end

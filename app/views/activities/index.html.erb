@@ -1,6 +1,3 @@
-
-<br><br>
- 
 <div class="container-fluid border-shadow" >
 	<div class="row">
 	<!-- Nav tabs -->
@@ -12,7 +9,7 @@
   		 </li>
 		  <li>
 			  <a href="#my_activities" role="tab" data-toggle="tab">
-			  	My Activities <span class="badge"><%= @my_activities[:me].count %></span>
+			  	My Activities <span class="badge"><%= @activities[:me].count %></span>
 			  </a>
 		  </li>
 		</ul>
@@ -28,7 +25,7 @@
 		  	
 		  <div class="tab-pane fade noti" id="my_activities">
 			<br>
-		  	<%= render "public_activity/activity",:type_of_activity => @my_activities[:me] %>
+		  	<%= render "public_activity/activity",:type_of_activity => @activities[:me] %>
 		  	<br>
 		  </div>
 

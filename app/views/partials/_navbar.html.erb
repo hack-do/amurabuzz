@@ -16,7 +16,7 @@
           <%= link_to '<span class="fa fa-home"></span> Home'.html_safe,root_path,accesskey: "h" %>
         </li>
         <li>
-            <a href="#" id="tweet_modal_link" class="tweet_modal link" data-toggle="modal" data-target="#tweet_modal" data-keyboard="true" data-backdrop="static" accesskey="m">
+            <a href="#" class="new-tweet-link link" data-toggle="modal" data-target="#tweet_modal" data-keyboard="true" data-backdrop="static" accesskey="m">
              <span class="fa fa-pencil"></span> Tweet
             </a>
         </li>
@@ -60,7 +60,7 @@
         <ul id="user_notifications" class="dropdown-menu scrollable-menu" role="menu">
           <li id="user_notifications_panel"></li>
           <li class="divider"></li>
-          <li><%= link_to 'Show all notifications'.html_safe,user_activities_path,accesskey: "n" %></li>            
+          <li><%= link_to 'All notifications'.html_safe,user_activities_path,accesskey: "n" %></li>
         </ul>
        </li>
        <%end%>

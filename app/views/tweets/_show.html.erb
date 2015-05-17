@@ -1,0 +1,47 @@
+<div class="panel panel-info tweet" data-id="<%= tweet.id %>" id="tweet<%= tweet.id %>">
+    <div class="panel-heading clearfix">
+        <span class="pull-left"><%= link_to tweet.user.email,user_path(id: tweet.user.id) %></span>
+        <div class="pull-right dropdown tweet-options">
+            <button class="btn btn-link dropdown-toggle" id="dropdownMenu<%= tweet.id%>" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-ellipsis-h "></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu<%= tweet.id%>">
+                <li role="presentation">
+                    <%= link_to '<i class="fa fa-info"></i> Details'.html_safe,user_tweet_path('me',tweet.id),title: "View",class: "show-tweet",role: "menuitem",tabindex: "-1" %>
+                </li>
+                <% if tweet.user_id == @current_user.id %>
+                    <li role="presentation">
+                        <a href="#" class="edit-tweet" title="Edit" role="menuitem" tabindex="-1">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <%= link_to '<i class="fa fa-times"></i> Delete'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },class: 'delete-tweet', title: "Delete",role: "menuitem",tabindex: "-1" %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+        <small class="pull-right">
+            <em><%= distance_of_time_in_words_to_now(tweet.created_at)%> ago</em>
+        </small>
+    </div>
+
+    <div class="panel-body">
+        <div class="tweet-content">
+            <%= emojify tweet.content %>
+        </div>
+
+        <div class="likes mt10">
+            <div class='pull-left'>
+                <small>
+                    <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,'Like'}",user_tweet_rs_evaluations_path('me',tweet.id),class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>
+                     <% if current_user.voted_for?(tweet) %>
+                        <%= link_to '<span class="fa fa-thumbs-down"></span> Unlike'.html_safe, {controller: 'rs_evaluations',action: 'create' ,user_id: 'me',tweet_id: tweet.id,type: 0},method: :post, class: "btn btn-link btn-sm",remote: true %>
+                     <% else %>
+                        <%= link_to '<span class="fa fa-thumbs-up"></span> Like'.html_safe, {controller: 'rs_evaluations',action: 'create',user_id: 'me',tweet_id: tweet.id,type: 1}, method: :post, class: "btn btn-link btn-sm",remote: true %>
+                     <% end %>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

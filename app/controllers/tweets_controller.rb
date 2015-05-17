@@ -10,7 +10,7 @@ class TweetsController < ApplicationController
     respond_to do |format|
       format.html {}
       format.json { render json: @tweets }
-    end  
+    end
   end
 
   def show
@@ -49,7 +49,8 @@ class TweetsController < ApplicationController
   def destroy
     respond_to do |format|
       if @tweet.user == current_user
-        @tweet.destroy # really_destroy!
+        @tweet.active == false
+        @tweet.save
   
         format.html { redirect_to user_path(current_user), notice: 'Tweet successfully deleted.' }
         format.json { render json: @tweet }

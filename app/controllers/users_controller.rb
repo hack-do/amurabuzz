@@ -20,12 +20,20 @@ class UsersController < ApplicationController
 
   def followers
     @followers = @user.followers
-    render :friends
+    respond_to do |format|
+      format.html { render :friends }
+      format.json { render json: @followers }
+      format.js
+    end
   end
 
   def following
     @following = @user.following
-    render :friends
+    respond_to do |format|
+      format.html { render :friends }
+      format.json { render json: @followers }
+      format.js
+    end
   end
 
   def relate

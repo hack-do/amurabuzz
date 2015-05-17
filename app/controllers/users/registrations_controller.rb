@@ -3,7 +3,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
      PublicActivity::Activity.where(owner_type: "User",owner_id: current_user.id).each do |a|
        a.destroy
      end
-    super
+    current_user.active = false
+    current_user.save
+    # super
   end 
 
   def sign_up_params

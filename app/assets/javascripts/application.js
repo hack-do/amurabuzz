@@ -6,16 +6,14 @@
 //= require underscore
 //= require jquery.noty
 //= require select2
-// require jquery.transit
-
-//= require faye
+//= require jquery.transit.min
 
 //= require amura
 //= require init_backbone.js
 
 $(document).on('page:change', function() {
  	
- 	$('#tweet_content').on('input',function(e){
+ 	$('#tweet-input').on('input',function(e){
 	 	var msg_len = $(this).val().length;
 	 	$('#tweet_len').text(160 - msg_len);
 	 	if(msg_len > 0){
@@ -26,7 +24,7 @@ $(document).on('page:change', function() {
  	});
 
 	$("#tweet_modal").on("hidden.bs.modal", function(){
-		$('#tweet_content').val("").trigger('input');
+		$('#tweet-input').val("").trigger('input');
 	});
 
 	$("#tweet_modal").on("show.bs.modal", function(e){
@@ -49,7 +47,7 @@ $(document).on('page:change', function() {
 
 		$.ajax({
 			url: url,
-			data: {tweet: {content: $("#tweet_content").val()}},
+			data: {tweet: {content: $("#tweet-input").val()}},
 			type: type,
 			dataType: "json",
 			success: function(fonts,status,errors){
@@ -64,28 +62,10 @@ $(document).on('page:change', function() {
 		var tweet_id = $tweet.data("id");
 		var tweet_content = $tweet.find(".tweet-content").text().trim();
 		if(!Amura.blank(tweet_id)){
-			$("#tweet_content").val(tweet_content).trigger('input');
+			$("#tweet-input").val(tweet_content).trigger('input');
 			$("#tweet_modal").data("tweet-id",tweet_id).modal("show");
 		}
 	});
-
-	// var source = new EventSource('/users/me/tweets/67/stream');
-	// source.addEventListener('message',function(e){
-	//   console.log("message received !!!! ", e);
-	//   // message = JSON.parse(e.data);
-	// });
-	// source.addEventListener('open', function(e) {
-	//   // console.log("stream opened", e);
-	// }, false);
-
-	// source.addEventListener('error', function(e) {
-	//   if (e.readyState == EventSource.CLOSED) {
-	//   	console.log("stream closed", e);
-	//   }
-	// }, false);
-	// source.onmessage = function(event) {
-	//     console.log("onmessage : ", event);
-	// };
 
 });
 

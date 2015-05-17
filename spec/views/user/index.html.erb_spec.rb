@@ -4,7 +4,7 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
 
   before :each do
     @user = FactoryGirl.build(:user)
-    @user1 = FactoryGirl.build(:user1)
+    @user1 = FactoryGirl.build(:user)
     @request.env["devise.mapping"] = Devise.mappings[@user]
     @user.confirmed_at = Time.now
     @user.save

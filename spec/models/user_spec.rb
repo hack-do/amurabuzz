@@ -25,8 +25,7 @@ RSpec.describe User, :type => :model do
 		end
 
 		it "should have unique user_name" do
-			@user.save
-			@user2 = FactoryGirl.build :user,:email => "aaaaaa@gmail.com"
+			@user2 = FactoryGirl.build :user,:user_name => @user.user_name
 			expect(@user2).not_to be_valid
 			expect(@user2.errors.full_messages).to include("User name has already been taken")
 		end
@@ -61,7 +60,7 @@ RSpec.describe User, :type => :model do
 
 		it "should create relationship on doing follow & vice versa" do
 			@user.save
-			@user2 = FactoryGirl.create :user1
+			@user2 = FactoryGirl.create :user
 			@user.follow(@user2.id)
 			expect(Relationship.find_by(follower_id: @user.id,followed_id: @user2.id)).not_to be_nil
 			@user.unfollow(@user2.id)
@@ -69,10 +68,10 @@ RSpec.describe User, :type => :model do
 		end
 
 		it "acts as paranoid" do
+			@user.active = false
 			@user.save
+			expect(User.count).to eq(0)
 			@user.destroy
-			expect(@user.deleted_at).not_to be_nil
-			@user.really_destroy!
 			expect {User.find(@user.id)}.to raise_error ActiveRecord::RecordNotFound
 		end
 

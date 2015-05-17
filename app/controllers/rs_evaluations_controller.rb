@@ -3,7 +3,13 @@ class RsEvaluationsController < ApplicationController
 
   	def index
 	    @tweet = Tweet.find(params[:tweet_id])
-    	@likers = @tweet.evaluations
+    	@likers = @tweet.evaluations.map{ |e| e.source}
+
+	    respond_to do |format|
+			format.html {}
+			format.json { render json: @likers }
+			format.js 
+		end
   	end
 
   	def create

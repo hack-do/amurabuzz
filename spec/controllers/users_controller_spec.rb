@@ -63,15 +63,15 @@ RSpec.describe UsersController, :type => :controller do
     #   end
     # end
 
-    describe "GET notifications" do
-      it "checks follow user activity is added" do
-        xhr :get, "notifications",controller: 'users',id: 'me'
-        expect(assigns(:my_activities)).to include(activity)
-      end
-      it "checks new tweet activity is added" do
-        xhr :get, "notifications",controller: 'users',id: 'me'
-        expect(assigns(:my_activities)).to include(activity_tweet)
-      end
-    end
+    # describe "GET notifications" do
+    #   it "checks follow user activity is added" do
+    #     xhr :get, "notifications",controller: 'users',id: 'me'
+    #     expect(assigns(:my_activities)).to include(activity)
+    #   end
+    #   it "checks new tweet activity is added" do
+    #     xhr :get, "notifications",controller: 'users',id: 'me'
+    #     expect(assigns(:my_activities)).to include(activity_tweet)
+    #   end
+    # end
 
 end

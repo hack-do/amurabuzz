@@ -1,4 +1,4 @@
-<% likers.each do |l|%>
+<% @likers.each do |l|%>
 	<% if l.id == current_user.id %>
 		<tr><td><%= link_to l.user_name,user_path %></td></tr>
 	<% else %>

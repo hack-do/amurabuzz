@@ -4,15 +4,15 @@
  *= require defaults
  *= require font-awesome
  *= require bootstrap-less/bootstrap
- *= require summernote
+ *= require chat_app
  */
 
 html {
-  position: relative;
   min-height: 100%;
 }
 body {
   margin-top: 60px !important;
+  overflow-x: hidden;
   /*margin-bottom: 60px;*/
 }
 #sidebar-stats{
@@ -48,43 +48,6 @@ body {
   max-height: 400px;
   max-width: 400px;
 }
-
-#main_body{
-  margin-bottom:70px;
-  position:relative; 
-}
-
-.likes_popover {
-    white-space:pre-wrap;
-}
-
-#spinner{
-  position: absolute;
-  margin-left:500px;
-  margin-top:-350px;
-  z-index:-10;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: rgba(245,245,245,0.5);
-  text-align: center;
-}
-
-.notice_alert{
-  margin-top:50px;
-}
-
-.notice, .alert{
-  height:30px;
-  padding:7px;
-}
-
-.grey{
-  color:GREY;
-}
-
 .tweet .likes{
   opacity:0.7;
 }
@@ -99,7 +62,6 @@ body {
   border-radius: 5px;
   box-shadow: 1px 1px 20px 1px GREY;
 }
-
 .scrollable-menu {
     height: auto;
     max-height: 300px;
@@ -109,6 +71,6 @@ body {
   margin-top:15px;
   border-bottom: 1px;
 }
-#sidebar{
+/*#sidebar{
   position: fixed;
-}
+}*/

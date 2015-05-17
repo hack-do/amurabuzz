@@ -1,4 +1,4 @@
-<%= link_to "Make friends",users_path,class: "btn btn-primary" if !@followers.nil? %>
+<%= link_to "Make friends",users_path,class: "btn btn-primary" if !@following.nil? %>
 
 <div class="user_wrapper mt30">
 	<div class="container-fluid border-shadow">
@@ -8,29 +8,23 @@
 		</h3>
 		<div class="row">
 			<table id="followers_table" class="table table-stripped col-md-4">
-				<tr>
-					<th>Sr.No.</th>
-					<th>Email</th>
-					<th>User Name</th>
-				</tr>
-				<% i = 0 %>
-				
 				<% @followers.each do |f| %>
 					<tr>
-						<td><%= i=i+1 %></td>
-						<td><%= link_to f.email, user_path(f)  %> </td>
-						<td><%= f.user_name %></td>
-						</td>
+	  	              	<td><%= profile_pic_tag f.avatar.url, 'img-sm' %></td>
+						<td><%= link_to f.user_name, user_path(f)  %> </td>
+						<% if current_user.following?(f) %>
+							<td><%= link_to "Unfollow",relate_user_path(f,type: 'unfollow'), class: "btn btn-xs btn-warning"%></td>
+						<% else %>
+							<td><%= link_to "Follow",relate_user_path(f,type: 'follow'), class: "btn btn-xs btn-success"%></td>
+						<% end %>
 					</tr>
 				<% end if @followers.present? %>
 
 				<% @following.each do |f| %>
 					<tr>
-						<td><%= i=i+1 %></td>
-						<td><%= link_to f.email ,user_path(f)  %> </td>
-						<td><%= f.user_name %></td>
-						<td><%= link_to "Unfollow",unfollow_user_path(f), class: "btn btn-sm btn-warning"%></td>
-						</td>
+	  	              	<td><%= profile_pic_tag f.avatar.url, 'img-sm' %></td>
+						<td><%= link_to f.user_name, user_path(f)  %> </td>
+						<td><%= link_to "Unfollow",relate_user_path(f,type: 'unfollow'), class: "btn btn-xs btn-warning"%></td>
 					</tr>
 				<% end if @following.present? %>
 			</table>

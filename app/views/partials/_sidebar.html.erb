@@ -14,16 +14,16 @@
 				</div>
 		        <div class="col-xs-6">
 		        	<div class="mt20">
-						<b><%= link_to user.name,profile_user_path(user.id) %></b><br>
+						<b><%= link_to user.name,profile_user_path(user) %></b><br>
 						<small>@<%= user.user_name %></small>
 					</div>
 
 					<% if user != @current_user %>
 						<div class="mt10">
-							<% if current_user.following?(user.id) %>
-								<%= link_to "Unfollow",relate_user_path(user.id,type: 'unfollow'),class: "btn btn-xs btn-warning",id: user.id.to_s + "uf" %>
+							<% if current_user.following?(user) %>
+								<%= link_to "Unfollow",relate_user_path(user,type: 'unfollow'),class: "btn btn-xs btn-warning",id: user.id.to_s + "uf" %>
 							<% else %>
-								<%= link_to "Follow",relate_user_path(user.id,type: 'follow'), class: "btn btn-xs btn-success",id: user.id.to_s + "f" %>
+								<%= link_to "Follow",relate_user_path(user,type: 'follow'), class: "btn btn-xs btn-success",id: user.id.to_s + "f" %>
 							<% end %>
 						</div>
 					<% end %>

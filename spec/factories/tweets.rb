@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :tweet do
-  	content Faker::Lorem.characters(100)
+  	content Faker::Lorem.characters(160)
   	association :user
   end
 end

@@ -3,26 +3,11 @@ require 'faker'
 
 FactoryGirl.define do
   factory :user do
-  	 name 		Faker::Name.name #'Vineet Ahirkar'
-  	 user_name  Faker::Internet.user_name #'vinzee'
-  	 email  	Faker::Internet.safe_email #'vinzee@gmail.com'
-  	 password	Faker::Internet.password(8, 128) #'qwerty007'
-  	 dob 		Faker::Time.between(20.years.ago, Time.now)#'Time.now - 20.years'
-  end
-
-  factory :user1,class: User do
-     name     Faker::Name.name #'Vineet Ahirkar'
-     user_name  Faker::Internet.user_name #'vinzee'
-     email    Faker::Internet.safe_email #'vinzee@gmail.com'
-     password Faker::Internet.password(8, 128) #'qwerty007'
-     dob    Faker::Time.between(20.years.ago, Time.now)#'Time.now - 20.years'
-  end
-
- factory :user2,class: User do
-     name     'Vineet Ahirkar'
-     user_name  'vinzee'
-     email    'vinzee@gmail.com'
-     password 'qwerty007'
-     dob    Time.now - 20.years
+  	 name { Faker::Name.name } 
+  	 user_name{ Faker::Internet.user_name } 
+  	 email { Faker::Internet.safe_email } 
+  	 password { Faker::Internet.password(8, 128) } 
+  	 dob { Faker::Time.between(40.years.ago, Time.now) } 
+     confirmed_at { Time.now }
   end
 end

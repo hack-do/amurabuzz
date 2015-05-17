@@ -1,29 +1,27 @@
-<% if user_signed_in? %>
-  <div class="modal fade" id="tweet_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel">Post a Tweet</h4>
-        </div>
-        <div class="modal-body">
-            <div class="row-fluid">
-              <div class="input-group col-xs-6 col-xs-offset-3">
-                    <textarea id="tweet_content" class='form-control' rows='6' cols='10' placeholder='Tweet message ...' maxlength='160'></textarea>
-              </div>
+<div class="modal fade" id="tweet_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Post a Tweet</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row-fluid">
+            <div class="input-group col-xs-6 col-xs-offset-3">
+                  <textarea id="tweet-input" class='form-control' rows='6' cols='10' placeholder='Tweet message ...' maxlength='160'></textarea>
             </div>
+          </div>
 
-            <p class="pull-right"><span id="tweet_len">160</span> characters left</p>
-            <br>
-
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" data-dismiss="modal">Close</button>
-          <button class="btn btn-primary actions" id='post_tweet' disabled>Post</button>
-          <%# f.submit 'Post',:class=>"btn btn-primary actions",:id => 'post_tweet' %>
-        </div>
+          <p class="pull-right"><span id="tweet_len">160</span> characters left</p>
+          <br>
 
       </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary actions" id='post_tweet' disabled>Post</button>
+        <%# f.submit 'Post',:class=>"btn btn-primary actions",:id => 'post_tweet' %>
+      </div>
+
     </div>
   </div>
-<% end %>
+</div>

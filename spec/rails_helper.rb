@@ -1,12 +1,13 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV['CODECLIMATE_REPO_TOKEN'] ='3c8e54c8e5da85c1712a36df9c4e2158e0835d8f77ee08302927cf9ce0f95e3b'
-require 'spec_helper'
+# require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 Dir[File.expand_path('../support/**/*.rb', __FILE__)].each { |f| require f }
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara/poltergeist'
 require "codeclimate-test-reporter"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -29,9 +30,9 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include Devise::TestHelpers,:type => :controller
   config.include Devise::TestHelpers,:type => :view
-  config.extend ControllerMacros, :type => :controller
   config.include Warden::Test::Helpers
   config.include Rails.application.routes.url_helpers
+  config.include ControllerMacros, :type => :controller
   config.include RequestMacros,type: :request
 
   config.before(:suite) do
@@ -40,9 +41,9 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    Capybara.current_driver = :poltergeist
+    Capybara.current_driver = :poltergeist # :selenium
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
+    # DatabaseCleaner.start
   end
 
   config.before(:each, :js => true) do

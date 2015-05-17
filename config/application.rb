@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require "net/http"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -21,7 +22,9 @@ module AmuraBuzz
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     # config.i18n.fallbacks = true
-    # config.i18n.default_locale = "en"
+    # config.i18n.default_locale = "en-IN"
+
+    config.active_record.observers = :relationship_observer, :rs_evaluation_observer, :tweet_observer
 
     config.active_record.raise_in_transactional_callbacks = true
         
@@ -37,6 +40,5 @@ module AmuraBuzz
     end
   end
 end
-
 
 require 'sse'

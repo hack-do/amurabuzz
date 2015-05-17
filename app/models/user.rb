@@ -1,8 +1,8 @@
-# encoding: utf-8
+require 'open-uri'
+
 class User < ActiveRecord::Base
   include PublicActivity::Common
-  #tracked
-  acts_as_paranoid
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :async, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
   has_many :tweets,:dependent => :destroy
   has_many :evaluations, class_name: "RsEvaluation", as: :source
@@ -14,17 +14,16 @@ class User < ActiveRecord::Base
   has_many :followers, :through => :reverse_relationships, :source => :follower
 
   has_attached_file :avatar ,:default_url => "amura.png"
-  validates_presence_of :user_name
+  validates :user_name,presence: true, uniqueness: true
   validates :bio,length:{ maximum: 160}
-  validates :user_name, uniqueness: true
-  validates :name, uniqueness: true
-  validates :name, uniqueness: true
+  # validates :name, presence: true
 
   validates :dob,date: {after: Proc.new {Time.now - 100.years},
                         before: Proc.new {Time.now} } ,allow_blank: true
 
   validates_attachment :avatar,:content_type => { :content_type => ["image/jpeg", "image/jpg", "image/png"] },:size => {:in => 0..500.kilobytes}
 
+  default_scope -> { where(active: true)}
   def self.search(search=nil)
     if search.present?
       where("name LIKE ? OR user_name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%") #.where.not(id: current_user.id)
@@ -41,22 +40,20 @@ class User < ActiveRecord::Base
     if self.id.to_i != followed_id.to_i
       if !self.following?(followed_id)
         relationships.create!(:followed_id => followed_id)
-        self.create_activity :follow, owner: self, recipient: User.find(followed_id)
-        FollowMailer.delay(run_at: 1.minute.from_now).new_follower(User.find(followed_id.to_s).email,self)
-        return true
       end
+    else
+      false      
     end
-    false
   end
 
   def unfollow(unfollowed_id)
     if self.id != unfollowed_id
       if self.following?(unfollowed_id)
-        relationships.find_by_followed_id(unfollowed_id).really_destroy!
-        return true
+        relationships.find_by_followed_id(unfollowed_id).destroy
       end
+    else
+      false      
     end
-    false
   end
 
   def timeline_tweets
@@ -65,10 +62,9 @@ class User < ActiveRecord::Base
 
   def voted_for?(tweet)
    evaluations.where(target_type: tweet.class,target_id: tweet.id,value: "1.0").present?
- end
+  end
 
   def self.from_omniauth(auth)
-    require 'open-uri'
     where(auth.slice(:provider, :uid)).first_or_create! do |user|
       user.email = auth.info.email
       pass = Devise.friendly_token[0,20]
@@ -88,6 +84,11 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def friends
+    friend_ids = self.follower_ids & self.following_ids
+    friend_ids.map{|id| User.find id}
   end
 
  # def to_param

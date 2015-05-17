@@ -1,3 +1,4 @@
-<%= render '/tweets/tweet',tweet: @tweet %>
+<%= render '/tweets/show',tweet: @tweet %>
+<%= render '/partials/likes_modal' %>
 
 <%= link_to 'Back', user_path(@tweet.user_id) %>

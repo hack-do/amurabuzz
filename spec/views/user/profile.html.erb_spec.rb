@@ -3,15 +3,13 @@ require 'rails_helper'
 describe "devise/session/new.html.erb", :type => :view,js: true do
 
   before :each do
-    @user = FactoryGirl.build(:user)
+    @user = FactoryGirl.create(:user)
     @request.env["devise.mapping"] = Devise.mappings[@user]
-    @user.confirmed_at = Time.now
-    @user.save
-    login_as @user,:scope => :user
     @urls = Rails.application.routes.url_helpers
-    visit @urls.profile_user_path('me')
-  end
 
+    login_as @user,:scope => :user
+    visit @urls.profile_user_path
+  end
 
   it "shows user credentials correctly" do
     within('.panel') do
@@ -22,10 +20,9 @@ describe "devise/session/new.html.erb", :type => :view,js: true do
   end
 
   it "routes to edit profile page on clicking Edit" do
-      within('.panel') do
-        click_on 'Edit'
-      end
+    within('.panel') do
+      click_on 'Edit'
+    end
     expect(current_path).to eq(edit_user_registration_path)
   end
-
 end
