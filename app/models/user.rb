@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
   validates_presence_of :user_name
   validates :bio,length:{ maximum: 160}
   validates :user_name, uniqueness: true
-  validates :name, uniqueness: true
-  validates :name, uniqueness: true
+  # validates :name, uniqueness: true
 
   validates :dob,date: {after: Proc.new {Time.now - 100.years},
                         before: Proc.new {Time.now} } ,allow_blank: true
