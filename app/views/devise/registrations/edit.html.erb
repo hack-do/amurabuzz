@@ -1,19 +1,19 @@
 <div class='container-fluid'>
     <div class="row-fluid">
-        <div class = 'col-md-10 col-md-offset-1'>  
+        <div class='col-md-10 col-md-offset-2'>  
             <h2>Edit Profile</h2>
 
             <!-- Nav tabs -->
             <ul id="activity_tabs" class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#f_act" role="tab" data-toggle="tab">Basic</a></li>
-                <li><a href="#profile_picture" role="tab" data-toggle="tab">Profile Picture</a></li>
-                <li><a href="#password" role="tab" data-toggle="tab">Change Password</a></li>
-                <li><a href="#advanced" role="tab" data-toggle="tab">Advanced</a></li>
+                <li class="active"><a href="#edit_profile_panel" role="tab" data-toggle="tab">Basic</a></li>
+                <li><a href="#edit_profile_picture_panel" role="tab" data-toggle="tab">Profile Picture</a></li>
+                <li><a href="#change_password_panel" role="tab" data-toggle="tab">Change Password</a></li>
+                <li><a href="#delete_account_panel" role="tab" data-toggle="tab">Advanced</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content noti-wrap mt20">
-                <div class="tab-pane fade in active noti" id="f_act">
+                <div class="tab-pane fade in active noti" id="edit_profile_panel">
                     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
                         <%= devise_error_messages! %>
 
@@ -55,7 +55,7 @@
                         </div>
                     <% end %>
                 </div>
-                <div class="tab-pane fade noti" id="profile_picture">
+                <div class="tab-pane fade noti" id="edit_profile_picture_panel">
                     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
                         <%= profile_pic_tag current_user.avatar.url,"image-thumbnail img-lg" %> 
                         <div class="form-group">
@@ -71,7 +71,7 @@
                         </div>
                     <% end %>
                 </div>
-                <div class="tab-pane fade noti" id="password">
+                <div class="tab-pane fade noti" id="change_password_panel">
                     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
                          <div class="form-group">
                             <%= f.label :current_password, class: 'col-sm-5 col-md-pull-3 control-label' %> 
@@ -98,7 +98,7 @@
                         </div>
                     <% end %>
                 </div>
-                <div class="tab-pane fade noti" id="advanced">
+                <div class="tab-pane fade noti" id="delete_account_panel">
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
                             <p class="text-danger">Not happy with Amurabuzz ?</p>
@@ -110,5 +110,3 @@
         </div>
     </div>
 </div>
-
-

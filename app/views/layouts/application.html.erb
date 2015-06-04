@@ -23,7 +23,7 @@
         </div>
 
         <% if user_signed_in? %>
-            <%= render "partials/chat_app",{current_user: current_user} %>
+            <%= render "partials/chat_app" %>
             <%= render "partials/tweet_modal" %>
             <%= subscribe_to "/chats/#{current_user.id}" %>
         <% end %>

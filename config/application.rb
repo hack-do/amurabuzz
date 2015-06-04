@@ -24,7 +24,7 @@ module AmuraBuzz
     # config.i18n.fallbacks = true
     # config.i18n.default_locale = "en-IN"
 
-    config.active_record.observers = :relationship_observer, :rs_evaluation_observer, :tweet_observer
+    config.active_record.observers = :relationship_observer, :rs_evaluation_observer, :tweet_observer, :user_observer
 
     config.active_record.raise_in_transactional_callbacks = true
         
@@ -40,5 +40,3 @@ module AmuraBuzz
     end
   end
 end
-
-require 'sse'

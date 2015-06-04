@@ -12,11 +12,9 @@
     bottom: 0;
     right: 0;	
 }
+
 .chatbox .user-name{
 	font-weight: bold;
-}
-.chatbox .panel{
-	margin-bottom: 0px
 }
 .chatbox .panel-heading{
 	padding: 3px 15px;

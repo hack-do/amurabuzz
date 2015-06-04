@@ -13,6 +13,9 @@ class TweetsController < ApplicationController
     end
   end
 
+  def search
+  end
+  
   def show
     respond_to do |format|
       format.html {}

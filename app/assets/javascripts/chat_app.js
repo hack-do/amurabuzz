@@ -1,6 +1,29 @@
 var Chat = {active_chats: []};
 
 Chat.init = function(){
+	$.ajax({
+			url: '/users/'+current_user.id+'/chats/init',
+			type: 'GET',
+			dataType: "json",
+			success: function(friends,status,errors){
+			    var html = "";
+			    _.each(friends,function(f){
+			        html += '<li class="list-group-item chat-friend">\
+			            <a class="btn btn-link btn-sm start_chat" href="#" data-user-id="'+ f.id+'">'+f.name+'</a>\
+			        </li>';
+			    });
+			    $("#friends_list").html(html);
+			    Chat.init_events();
+			    $("#chat-app").removeClass("hidden");
+			},
+			error: function(data,status,errors){
+				console.log(errors);
+			}
+	});			
+
+}
+Chat.init_events = function(){
+
 	PrivatePub.subscribe("/chats/"+current_user.id, function(data, channel) {
 	  // console.log(data);
 	  if(data.user_id == current_user.id){
@@ -55,7 +78,8 @@ Chat.init = function(){
 
 Chat.open = function(recipient_id,recipient_name){
     if(_.include(Chat.active_chats,recipient_id)){
-    	Chat.maximize($("#chatbox"+recipient_id));
+	    var $chatbox = $("#chatbox"+recipient_id)
+    	Chat.maximize($chatbox);
     }else if(Chat.active_chats.length <= 2){
 	    var html = "<div class='col-md-4 pull-right chatbox' id='chatbox"+recipient_id+"' data-state='open' data-recipient-id="+recipient_id+">\
 			<div class='panel panel-default'>\
@@ -81,6 +105,10 @@ Chat.open = function(recipient_id,recipient_name){
 	    </div>";
 
 	    $("#chat-area").append(html);
+	    
+	    var $chatbox = $("#chatbox"+recipient_id)
+	    $chatbox.css('margin-top', $chatbox.parent().height()-$chatbox.height())
+
 	    Chat.active_chats.push(recipient_id);
     }
 }
@@ -125,14 +153,17 @@ Chat.attach_message = function($chatbox,data){
 	                </li>\
 	            </ul>";
 	$chatbox.find(".panel-body").append(html);
+	$('.chatbox').each(function() {
+	    $(this).css('margin-top', $(this).parent().height()-$(this).height())
+	});
 }
 Chat.send_message = function($chatbox){
 	if($chatbox.length == 1){
 		var recipient_id = $chatbox.data("recipient-id");		
 		if(!Amura.blank(recipient_id)){
 			$.ajax({
-				url: '/chats',
-				data: {message: $(".message-input").val(),recipient_id: recipient_id},
+				url: '/users/'+current_user.id+'/chats',
+				data: {message: $chatbox.find(".message-input").val(),recipient_id: recipient_id},
 				type: 'POST',
 				dataType: "json",
 				success: function(data,status,errors){

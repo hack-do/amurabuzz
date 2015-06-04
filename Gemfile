@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem "rubycritic", :require => false
+
 gem 'rails'
 gem 'rails-observers'
 

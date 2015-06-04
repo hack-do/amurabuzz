@@ -69,26 +69,6 @@ RSpec.configure do |config|
   #     RSpec.describe UsersController, :type => :controller do
   #       # ...
   #     end
-config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
-
   #
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
