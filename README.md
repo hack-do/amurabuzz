@@ -29,7 +29,11 @@ to start server  http://localhost:3000 :
 ```
 $ bundle install
 $ rake jobs work
-$ bundle exec rails server
+$ bundle exec rails server # (doesnt print server logs properly)
+$ puma -t 8:32 -w 3 --preload # (better logs)
+$ rackup private_pub.ru -s puma -E production
+
+
 ```
 
 ### Gems used ###

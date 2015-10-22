@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       @users = User.search(params[:search])
   end
 
-  def show  
+  def show
     @tweets = @user.timeline_tweets.page(params[:page]).per(10)
     respond_to do |format|
       format.html { render 'tweets/_index' }
@@ -16,6 +16,13 @@ class UsersController < ApplicationController
   end
 
   def profile
+  end
+
+  def friends
+    @friends = current_user.friends
+    respond_to do |format|
+       format.json { render json: @friends }
+    end
   end
 
   def followers
@@ -49,7 +56,7 @@ class UsersController < ApplicationController
   end
 
   private
-   
+
   def user_params
     params.require(:user).permit(:avatar_file_name , :avatar_content_type , :avatar_file_size, :avatar_updated_at,:avatar) if params[:user].present?
   end

@@ -1,5 +1,8 @@
 AmuraBuzz::Application.routes.draw do
 
+  get '/chat' => 'chats#chat'
+  get '/chats' => 'chats#index'
+
   devise_for :users,:controllers => {
     registrations: 'users/registrations',
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -10,20 +13,20 @@ AmuraBuzz::Application.routes.draw do
 
   resources :users, :defaults => { :id => 'me',:user_id => 'me' } do
     resources :chats,only:[:create] do
-      get :init,on: :collection
     end
     resources :activities,:only => [:index]
     resources :tweets do
       resources :rs_evaluations,:only => [:index,:create]
       get :stream
     end
-    member do 
+    member do
       get 'relate/:followed_id' => "users#relate", :as => 'relate'
       get :profile
+      get :friends
       get :followers
       get :following
     end
   end
-  
+
   root 'users#show'
 end

@@ -1,20 +1,18 @@
 require 'faker'
 
-u = User.new(name: 'Vineet Ahirkar', email: "vineet@amuratech.com", user_name: "vinzee", password: "amura123", :password_confirmation => "amura123")
-u.skip_confirmation!
-u.save
-u = User.new(name: 'Sayali Pendharkar',  email: "sayali@amuratech.com", user_name: "say", password: "amura123", :password_confirmation => "amura123")
-u.skip_confirmation!
-u.save
-u = User.new(name: 'Shaunak Pagnis', email: "shaunak@amuratech.com", user_name: "shaun", password: "amura123", :password_confirmation => "amura123")
-u.skip_confirmation!
-u.save
-u = User.new(name: 'Tanmay Patil', email: "tanmay@amuratech.com", user_name: "tan", password: "amura123", :password_confirmation => "amura123")
-u.skip_confirmation!
-u.save
-u = User.new(name: 'Vrushali Waykole',  email: "vrushali@amuratech.com", user_name: "vru", password: "amura123", :password_confirmation => "amura123")
-u.skip_confirmation!
-u.save
+
+user_params = [
+	{name: 'Vineet Ahirkar', email: "vineet@amuratech.com", user_name: "vinzee", password: "amura123", :password_confirmation => "amura123"},
+	{name: 'Sayali Pendharkar',  email: "sayali@amuratech.com", user_name: "say", password: "amura123", :password_confirmation => "amura123"},
+	{name: 'Shaunak Pagnis', email: "shaunak@amuratech.com", user_name: "shaun", password: "amura123", :password_confirmation => "amura123"},
+	{name: 'Tanmay Patil', email: "tanmay@amuratech.com", user_name: "tan", password: "amura123", :password_confirmation => "amura123"},
+	{name: 'Vrushali Waykole',  email: "vrushali@amuratech.com", user_name: "vru", password: "amura123", :password_confirmation => "amura123"}
+]
+
+user_params.each do |params|
+	u = User.create!(params)
+	u.skip_confirmation!
+end
 
 User.all.each do |user|
 	User.all.each do |user1|
@@ -29,6 +27,6 @@ end
 
 User.all.each do |u|
 	20.times do |i|
-		Tweet.create!(content: Faker::Lorem.characters(160),user_id: u.id)
+		Tweet.create!(content: Faker::Lorem.sentence(rand(1..4)),user_id: u.id)
 	end
 end

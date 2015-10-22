@@ -1,86 +1,107 @@
-var Chat = {active_chats: []};
+var ChatApp = {
+	active_chats: [],
+	friends_list_container: "friends-list-container",
+	friends_list: "friends-list",
+	chat_app_container: "chat-app-container",
+	chat_app: "chat-app",
+	chatbox_prefix: "chatbox",
+	provider: "WebSocket",
+	provider: "PrivatePub"
+};
 
-Chat.init = function(){
+ChatApp.init = function(){
+	var provider_working = false;
+	if(ChatApp.provider == "WebSocket"){
+		provider_working = !!window.WebSocket;
+	}else{
+		provider_working = !!window.PrivatePub;
+	}
+
+	if(provider_working){
+		ChatApp.init_friends();
+		ChatApp.init_events();
+
+		$("#"+ChatApp.chat_app_container).removeClass("hidden");
+	}else{
+		Amura.global_error_handler("Update your browzer !");
+	}
+}
+
+ChatApp.destroy = function(){
+	$("#"+ChatApp.chat_app_container).remove();
+	$("#"+ChatApp.friends_list_container).remove();
+}
+ChatApp.disable = function(){
+	$("#"+ChatApp.chat_app_container).addClass("hidden");
+	$("#"+ChatApp.friends_list_container).addClass("hidden");
+}
+ChatApp.init_friends = function(){
 	$.ajax({
-			url: '/users/'+current_user.id+'/chats/init',
+			url: '/users/'+current_user.id+'/friends',
 			type: 'GET',
 			dataType: "json",
 			success: function(friends,status,errors){
 			    var html = "";
 			    _.each(friends,function(f){
 			        html += '<li class="list-group-item chat-friend">\
-			            <a class="btn btn-link btn-sm start_chat" href="#" data-user-id="'+ f.id+'">'+f.name+'</a>\
+			            <a class="btn btn-link btn-sm start_chat" href="#" data-user-id="'+ f.id+'">'+f.user_name+'</a>\
 			        </li>';
 			    });
-			    $("#friends_list").html(html);
-			    Chat.init_events();
-			    $("#chat-app").removeClass("hidden");
+			    $("#"+ChatApp.friends_list).html(html);
+			    $("#"+ChatApp.friends_list_container).removeClass("hidden");
 			},
 			error: function(data,status,errors){
-				console.log(errors);
 			}
-	});			
-
+	});
 }
-Chat.init_events = function(){
+ChatApp.init_events = function(){
 
-	PrivatePub.subscribe("/chats/"+current_user.id, function(data, channel) {
-	  // console.log(data);
-	  if(data.user_id == current_user.id){
-	  	data.user_name = 'me';
-	  }	
-      if(_.include(Chat.active_chats,data.recipient_id)){
-	  	Chat.maximize($("#chatbox"+data.recipient_id));
-	  }else{
-	  	Chat.open(data.recipient_id,data.recipient_name);
-	  }
-  	  Chat.attach_message($("#chatbox"+data.recipient_id),data);
+	ChatApp[ChatApp.provider].init_events();
+
+	$("#"+ChatApp.friends_list).on("click",".start_chat",function(e){
+		e.preventDefault();
+		ChatApp.open($(this).data('user-id'),$(this).text().trim());
 	});
 
-	$(".start_chat").click(function(e){
-        e.preventDefault();
-		Chat.open($(this).data('user-id'),$(this).text().trim());		
-	});
-
-	$('#chat-area').on('input','.message-input',function(e){
-		var $chatbox = $(this).closest('.chatbox');
+	$('#'+ChatApp.chat_app).on('input','.message-input',function(e){
+		var $chatbox = $(this).closest('.'+ ChatApp.chatbox_prefix);
 	 	var msg_len = $(this).val().length;
 	 	if(msg_len > 0){
  			$chatbox.find('.send-message').removeAttr('disabled');
 	 	}else{
-	 		$chatbox.find('.send-message').attr('disabled','disabled');	
+	 		$chatbox.find('.send-message').attr('disabled','disabled');
 	 	}
  	});
 
-	$('#chat-area').on('click','.toggle-chat',function(e){
+	$('#'+ChatApp.chat_app).on('click','.toggle-chat',function(e){
 		e.preventDefault();
-		Chat.toggle($(this).closest('.chatbox'));
+		ChatApp.toggle($(this).closest('.'+ ChatApp.chatbox_prefix));
 	});
 
-	$('#chat-area').on('click','.close-chat',function(e){
+	$('#'+ChatApp.chat_app).on('click','.close-chat',function(e){
 		e.preventDefault();
-		Chat.close($(this).closest('.chatbox'));
+		ChatApp.close($(this).closest('.'+ ChatApp.chatbox_prefix));
 	});
 
-	$('#chat-area').on('keydown','.message-input',function(e){
+	$('#'+ChatApp.chat_app).on('keydown','.message-input',function(e){
 		if (e.keyCode==13){
-	        e.preventDefault();
-			var $chatbox = $(this).closest('.chatbox');
-	        $chatbox.find('.send-message').trigger('click');
-	    }
+      e.preventDefault();
+			var $chatbox = $(this).closest('.'+ ChatApp.chatbox_prefix);
+      $chatbox.find('.send-message').trigger('click');
+    }
 	});
 
-	$('#chat-area').on('click','.send-message',function(e){
+	$('#'+ChatApp.chat_app).on('click','.send-message',function(e){
 		e.preventDefault();
-		Chat.send_message($(this).closest('.chatbox'));
-	});	
+		ChatApp.send_message($(this).closest('.'+ ChatApp.chatbox_prefix));
+	});
 }
 
-Chat.open = function(recipient_id,recipient_name){
-    if(_.include(Chat.active_chats,recipient_id)){
-	    var $chatbox = $("#chatbox"+recipient_id)
-    	Chat.maximize($chatbox);
-    }else if(Chat.active_chats.length <= 2){
+ChatApp.open = function(recipient_id,recipient_name){
+    if(_.include(ChatApp.active_chats,recipient_id)){
+	    var $chatbox = $("#" + ChatApp.chatbox_prefix+recipient_id)
+    	ChatApp.maximize($chatbox);
+    }else if(ChatApp.active_chats.length <= 2){
 	    var html = "<div class='col-md-4 pull-right chatbox' id='chatbox"+recipient_id+"' data-state='open' data-recipient-id="+recipient_id+">\
 			<div class='panel panel-default'>\
 		        <div class='panel-heading clearfix'>\
@@ -104,28 +125,28 @@ Chat.open = function(recipient_id,recipient_name){
 	        </div>\
 	    </div>";
 
-	    $("#chat-area").append(html);
-	    
-	    var $chatbox = $("#chatbox"+recipient_id)
+	    $("#"+ChatApp.chat_app).append(html);
+
+	    var $chatbox = $("#" + ChatApp.chatbox_prefix+recipient_id)
 	    $chatbox.css('margin-top', $chatbox.parent().height()-$chatbox.height())
 
-	    Chat.active_chats.push(recipient_id);
+	    ChatApp.active_chats.push(recipient_id);
     }
 }
-Chat.close = function($chatbox){
+ChatApp.close = function($chatbox){
 	var recipient_id = $chatbox.data("recipient-id");
-	Chat.active_chats.splice(Chat.active_chats.indexOf(recipient_id));
+	ChatApp.active_chats.splice(ChatApp.active_chats.indexOf(recipient_id));
 	$chatbox.remove();
 }
-Chat.minimize = function($chatbox){
+ChatApp.minimize = function($chatbox){
 	if($chatbox.length == 1){
 		if($chatbox.data("state") == "closed"){
-			$chatbox.transition({ y: ($('.chatbox').height() - 40) });
+			$chatbox.transition({ y: ($('.'+ ChatApp.chatbox_prefix).height() - 40) });
 			$chatbox.data('state','open');
 		}
 	}
 }
-Chat.maximize = function($chatbox){
+ChatApp.maximize = function($chatbox){
 	if($chatbox.length == 1){
 		if($chatbox.data("state") == "closed"){
 			$chatbox.transition({ y: 0 });
@@ -134,47 +155,130 @@ Chat.maximize = function($chatbox){
 		}
 	}
 }
-Chat.toggle = function($chatbox){
+ChatApp.toggle = function($chatbox){
 	if($chatbox.length == 1){
 		if($chatbox.data('state') == 'open'){
-			$chatbox.transition({ y: ($('.chatbox').height() - 40) });
+			$chatbox.transition({ y: ($('.'+ ChatApp.chatbox_prefix).height() - 40) });
 			$chatbox.data('state','closed');
 		}else if($chatbox.data('state') == 'closed'){
-			$chatbox.transition({ y: 0 });			
+			$chatbox.transition({ y: 0 });
 			$chatbox.data('state','open');
 		}
 	}
 }
-Chat.attach_message = function($chatbox,data){
-  	var html = "<ul class='message-box list-unstyled'>\
-	                <li>\
-	                    <span><span class='user-name'>"+data.user_name+"</span>:</span>\
-	                    <span class='message'>"+data.message+"</span>\
-	                </li>\
+ChatApp.attach_message = function($chatbox,data){
+	var html = "<ul class='message-box list-unstyled'>\
+                <li>\
+                  <span><span class='user-name'>"+data.person_name+"</span>:</span>\
+                  <span class='message'>"+data.message+"</span>\
+	              </li>\
 	            </ul>";
 	$chatbox.find(".panel-body").append(html);
-	$('.chatbox').each(function() {
+	$('.'+ ChatApp.chatbox_prefix).each(function() {
 	    $(this).css('margin-top', $(this).parent().height()-$(this).height())
 	});
 }
-Chat.send_message = function($chatbox){
+ChatApp.send_message = function($chatbox){
 	if($chatbox.length == 1){
-		var recipient_id = $chatbox.data("recipient-id");		
-		if(!Amura.blank(recipient_id)){
-			$.ajax({
-				url: '/users/'+current_user.id+'/chats',
-				data: {message: $chatbox.find(".message-input").val(),recipient_id: recipient_id},
-				type: 'POST',
-				dataType: "json",
-				success: function(data,status,errors){
-					var $panelbody = $chatbox.find(".panel-body")
-					$chatbox.find('.message-input').val("").trigger("input");
-					$panelbody.scrollTop($panelbody[0].scrollHeight);
-				},
-				error: function(data,status,errors){
-					$('.message-input').addClass("has-error");
-				}
-			});			
+		var sender_id = current_user.id;
+		var sender_name = current_user.user_name;
+		var recipient_id = $chatbox.data("recipient-id");
+		var recipient_name = $chatbox.data("recipient-name");
+		var message = $chatbox.find(".message-input").val();
+		message = ChatApp.formatMessage(message);
+
+		if(_.include(["PrivatePub","WebSocket"],ChatApp.provider)){
+			ChatApp[ChatApp.provider].send_message($chatbox, sender_id, recipient_id, message);
 		}
 	}
 }
+ChatApp.on_new_message = function(data){
+  // data.room
+  // data.participants
+  // console.log("on_new_message : ", data)
+	if(data.sender_id == current_user.id){
+  	data.person_name = 'me'; // data.recipient_name;
+  	data.person_id = data.recipient_id;
+  }else{ //  if(data.recipient_id == current_user.id)
+  	data.person_id = data.sender_id;
+  	data.person_name = data.sender_name;
+  }
+  if(_.include(ChatApp.active_chats,data.person_id)){
+  	ChatApp.maximize($("#" + ChatApp.chatbox_prefix+data.person_id));
+  }else{
+  	ChatApp.open(data.person_id,data.person_name);
+  }
+  ChatApp.attach_message($("#" + ChatApp.chatbox_prefix+data.person_id),data);
+}
+
+
+ChatApp.PrivatePub = {};
+ChatApp.PrivatePub.init_events = function(){
+	PrivatePub.subscribe("/chats/"+current_user.id, function(data, channel) {
+	  // console.log(data);
+	  ChatApp.on_new_message(data);
+	});
+}
+ChatApp.PrivatePub.send_message = function($chatbox, sender_id, recipient_id, message){
+	$.ajax({
+		url: '/users/'+sender_id+'/chats',
+		data: {message: message,recipient_id: recipient_id},
+		type: 'POST',
+		dataType: "json",
+		success: function(data,status,errors){
+			var $panelbody = $chatbox.find(".panel-body")
+			$chatbox.find('.message-input').val("").trigger("input");
+			$panelbody.scrollTop($panelbody[0].scrollHeight);
+		},
+		error: function(data,status,errors){
+			$chatbox.find('.message-input').addClass("has-error");
+		}
+	});
+}
+
+ChatApp.WebSocket = {};
+ChatApp.WebSocket.init_events = function(){
+  var data = {};
+  data.user_id = current_user.id;
+  data = $.param(data);
+	ChatApp.WebSocket.socket = new WebSocket("ws://" + window.location.host + "/chat?"+ data);
+
+  ChatApp.WebSocket.socket.onopen = function(event) {
+  };
+  ChatApp.WebSocket.socket.onerror = function(event) {
+  	ChatApp.disable("");
+  	Amura.global_error_handler("");
+  };
+  ChatApp.WebSocket.socket.onclose = function(event) {
+    var code = event.code;
+    var reason = event.reason;
+    var wasClean = event.wasClean;
+    console.log("onclose : ", code, reason, wasClean)
+  };
+  ChatApp.WebSocket.socket.onmessage = function(e) {
+    if (e.data.length) {
+      var data = JSON.parse(e.data);
+      ChatApp.on_new_message(data);
+    }
+  };
+}
+ChatApp.WebSocket.send_message = function($chatbox, sender_id, recipient_id, message){
+  var data = {sender_id: sender_id,recipient_id: recipient_id, message: message};
+
+  var packet = JSON.stringify(data, null, 2);
+  ChatApp.WebSocket.socket.send(packet);
+
+	var $panelbody = $chatbox.find(".panel-body")
+	$chatbox.find('.message-input').val("").trigger("input");
+	$panelbody.scrollTop($panelbody[0].scrollHeight);
+}
+ChatApp.formatMessage = function(message){
+  return Autolinker.link(message);
+}
+
+
+$(document).on('page:change', function() {
+	if(!_.isEmpty(window.current_user)){
+		ChatApp.init();
+	}
+});

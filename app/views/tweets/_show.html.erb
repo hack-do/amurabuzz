@@ -28,7 +28,7 @@
 
     <div class="panel-body">
         <div class="tweet-content">
-            <%= emojify tweet.content %>
+            <%= Twemoji.parse(tweet.content) %>
         </div>
 
         <div class="likes mt10">

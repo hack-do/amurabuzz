@@ -1,0 +1,9 @@
+var tweets = "";
+// tweets = "<%#= j render('/tweets/index',tweet: @tweets) %>";
+<% @tweets.each do |tweet| %>
+  tweets += "<%= j render('/tweets/show',tweet: tweet) %>"
+<% end %>
+
+$(".tweets-container").append(tweets);
+$(".pagination").replaceWith("<%= j paginate(@tweets,:theme => 'twitter-bootstrap-3', :pagination_class => 'pagination-small pagination-centered') %>")
+console.log("tweets loaded");

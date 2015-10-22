@@ -1,16 +1,16 @@
-#chat-app{
-    position: fixed;
-    right: 0;
+#friends-list-container{
+  position: fixed;
+  right: 0;
 	width: 300px;
 	height: 100%;
 }
-#chat-app .chat-friend{
+#friends-list .chat-friend{
 	padding: 0px;
 }
-#chat-area-container{
+#chat-app-container{
     position: fixed;
     bottom: 0;
-    right: 0;	
+    right: 0;
 }
 
 .chatbox .user-name{
@@ -27,7 +27,7 @@
     resize: none;
 }
 .message-box{
-	word-wrap:break-word;	
+	word-wrap:break-word;
 }
 .chat-actions a{
 	padding: 6px;

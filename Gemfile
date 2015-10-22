@@ -5,12 +5,19 @@ gem "rubycritic", :require => false
 gem 'rails'
 gem 'rails-observers'
 
+gem 'redis'
 gem 'private_pub'
-gem 'thin'
+# gem 'thin'
 gem "twemoji"
 
+gem 'puma'
+gem 'tubesock'
+gem 'link_thumbnailer'
+
+gem 'capistrano', '< 3'
+
 gem 'ejs'
-gem 'mysql2'
+gem 'mysql2', '0.3.18'
 gem 'omniauth-facebook'
 gem 'open_uri_redirections'
 gem 'public_activity'
@@ -44,18 +51,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development, :test do
-	gem 'awesome_print'
-	gem 'colorize'
-	gem 'web-console', '~> 2.0'
-	gem 'byebug'
-	gem 'spring'
-end
-
 group :development do
 	gem 'brakeman', :require => false
 	gem 'railroady'
-	gem 'quiet_assets'
+	# gem 'quiet_assets'
 	gem 'pry-rails'
 	gem 'guard-cucumber'
 	gem 'guard-rspec'
@@ -68,11 +67,19 @@ group :test do
 	gem 'faker'
 	gem 'capybara'
 	gem 'launchy'
-	gem 'database_cleaner'
 	gem 'poltergeist'
-    gem 'phantomjs', :require => 'phantomjs/poltergeist'
-    gem 'selenium-webdriver'
-    gem 'factory_girl_rails'
-    gem 'rspec-rails', '~> 3.0.0'
-    gem "codeclimate-test-reporter", require: nil
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
+  gem 'selenium-webdriver'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.0.0'
+  gem "codeclimate-test-reporter", require: nil
+end
+
+group :development, :test do
+	gem 'database_cleaner'
+	gem 'awesome_print'
+	gem 'colorize'
+	gem 'web-console', '~> 2.0'
+	gem 'byebug'
+	gem 'spring'
 end

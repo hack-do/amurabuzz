@@ -1,31 +1,33 @@
 class TweetsController < ApplicationController
   include ActionController::Live
+  helper :emoji
 
   before_action :check_login
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
-  def index  
+  def index
     @tweets = current_user.timeline_tweets.page(params[:page]).per(10)
-    
+
     respond_to do |format|
       format.html {}
       format.json { render json: @tweets }
+      format.js
     end
   end
 
   def search
   end
-  
+
   def show
     respond_to do |format|
       format.html {}
       format.json { render json: @tweet }
-    end  
+    end
   end
 
   def create
     @tweet = current_user.tweets.new(tweet_params)
-    
+
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to user_path, notice: 'Tweet was successfully created.' }
@@ -54,7 +56,7 @@ class TweetsController < ApplicationController
       if @tweet.user == current_user
         @tweet.active == false
         @tweet.save
-  
+
         format.html { redirect_to user_path(current_user), notice: 'Tweet successfully deleted.' }
         format.json { render json: @tweet }
       else
@@ -84,7 +86,7 @@ class TweetsController < ApplicationController
   #       response.stream.write "hello world\n"
   #       sleep 1
   #     }
-  # end  
+  # end
 
   private
     def set_tweet

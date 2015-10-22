@@ -119,7 +119,7 @@ Amura.global_error_handler = function(errors){
 	if(Amura.exists(errors)){
 		if(Amura.blank(errors) || typeof errors == "string"){
 			if(Amura.blank(errors)){
-				noty({text:"There was some issue with the system. Please contact sell.do support", type:"error"}); // TODO: Finalize this message
+				noty({text:"There was some issue with the system. Our support team will look after it ASAP.", type:"error"}); // TODO: Finalize this message
 			}else{
 				noty({text:errors, type:"error"});
 			}

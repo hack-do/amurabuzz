@@ -1,13 +1,15 @@
 <% if @tweets.present? %>
   <div class="tweets-container">
-    <div class="text-center">
-      <%= paginate @tweets,:theme => 'twitter-bootstrap-3',
-          :pagination_class => "pagination-small pagination-centered"%>
-    </div>
-
     <% @tweets.each do |tweet| %>
         <%= render '/tweets/show',tweet: tweet %>
     <% end %>
+  </div>
+
+  <div class="text-center">
+    <p class="loading_text text-success"></p>
+    <div class="hidden">
+      <%= paginate @tweets,:theme => 'twitter-bootstrap-3', :pagination_class => "pagination-small pagination-centered"%>
+    </div>
   </div>
 
   <%= render '/partials/likes_modal' %>

@@ -1,0 +1,27 @@
+<div id="chat-window" class="well"></div>
+	<form role="form" class="chat">
+	  <div class="form-group">
+	    <label for="msg-text">Type your message:</label>
+	    <input id="msg-text" type="text" class="form-control" placeholder="Type message and hit Enter" autofocus>
+	  </div>
+	</form>
+
+	<small><a href="http://www.emoji-cheat-sheet.com/" target="_blank">Emoji CheatSheet</a></small>
+
+	<div id="emoji-list">
+		<% @twemoji_list.each do |k,v| %>
+			<h4><%= k %></h4>
+			<% v.each_with_index do |twemoji,i| %>
+					<span class="emoji_wrapper">
+						<%= twemoji.html_safe %>&nbsp;<%= @twemoji_names[k][i] %>&nbsp;,
+					</span>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<%= javascript_tag do %>
+	$(function() {
+	  ChatApp.Init(<%= raw current_user.to_json %>);
+	});
+<% end %>

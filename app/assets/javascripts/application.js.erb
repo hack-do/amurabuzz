@@ -7,17 +7,13 @@
 //= require jquery.noty
 //= require select2
 //= require jquery.transit.min
+//= require Autolinker.min
+//= require modernizr-custom
 
 //= require amura
 //= require init_backbone.js
 //= require chat_app
 //= require tweet
-
-$(document).on('page:change', function() {
-	if(!_.isEmpty(current_user)){	
-		Chat.init();
-	}
-});
 
 // $(document).on('page:fetch', function() {
 // });
