@@ -33,30 +33,44 @@ class ChatsController < ApplicationController
           @@redis.subscribe "chat-#{params[:user_id]}" do |on|
             puts "Subscribe to Redis channel"
             on.message do |channel, message|
-              puts "Message to be sent #{message}"
+              puts "message sent #{message}"
               tubesock.send_data message
             end
           end
         end
 
         tubesock.onmessage do |params|
-          puts "onmessage #{params}"
           @@redis = Redis.new
           # pub the message when we get one
           # note: this echoes through the sub above
           params = JSON.parse(params)
 
-          sender_name = @@redis.hmget("users",params["sender_id"]) rescue User.where(id: params["sender_id"]).first.user_name
-          recipient_name = @@redis.hmget("users",params["recipient_id"]) rescue User.where(id: params["recipient_id"]).first.user_name
+          sender_name = @@redis.hget("users",params["sender_id"])
+          if sender_name.blank?
+            sender = User.where(id: params["sender_id"]).first
+            if sender.present?
+              sender_name = sender.user_name
+              @@redis.hset("users", sender.id.to_s, sender.user_name)
+            end
+          end
+
+          recipient_name = @@redis.hget("users",params["recipient_id"])
+          if recipient_name.blank?
+            recipient = User.where(id: params["recipient_id"]).first
+            if recipient.present?
+              recipient_name = recipient.user_name
+              @@redis.hset("users", recipient.id.to_s, recipient.user_name)
+            end
+          end
 
           if recipient_name.present? && sender_name.present?
-            params['sender_name'] = sender_name
-            params['recipient_name'] = recipient_name
+            params["sender_name"] = sender_name
+            params["recipient_name"] = recipient_name
 
             # use emojify here
             params["message"] = Twemoji.parse(params["message"])
 
-            puts "onmessage final #{params}"
+            puts "message received #{params}"
 
             @@redis.publish "chat-#{params['sender_id']}", params.to_json
             @@redis.publish "chat-#{params['recipient_id']}", params.to_json
