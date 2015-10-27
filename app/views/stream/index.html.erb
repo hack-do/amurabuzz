@@ -1,0 +1,11 @@
+<h1>Server Sent Events</h1>
+
+<div id="event-stream"></div>
+
+<script>
+	var es = new EventSource(window.location.origin + "/stream/init");
+	es.onmessage = function(e){
+		console.log("onmessage : ", e.data);
+		$("#event-stream").prepend("<p>" + e.data + "</p>")
+	}
+</script>

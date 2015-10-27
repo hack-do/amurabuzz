@@ -1,5 +1,8 @@
 AmuraBuzz::Application.routes.draw do
 
+  get 'stream/index'
+  get 'stream/init'
+
   get '/chat' => 'chats#chat'
   get '/chats' => 'chats#index'
 
