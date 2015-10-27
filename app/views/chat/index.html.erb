@@ -1,0 +1,21 @@
+<%= javascript_include_tag "public_chat" %>
+
+<div id="chat-window" class="well"></div>
+
+<form role="form" class="chat">
+  <div class="form-group">
+    <label for="msg-text">Type your message:</label>
+    <input id="msg-text" type="text" class="form-control" placeholder="Type message and hit Enter" autofocus>
+  </div>
+</form>
+
+
+<a href="http://www.emoji-cheat-sheet.com/" target="_blank">Emoji Cheatsheet</a>
+
+<div id="emoji-list">
+	<% @twemoji_list.split("|").each do |twemoji| %>
+		<span class="emoji_wrapper">
+			<%= twemoji.html_safe %>
+		</span>
+	<% end %>
+</div>

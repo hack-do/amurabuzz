@@ -1,9 +1,5 @@
 <% if user_signed_in? %>
-	<% if @user.present? %>
-		<% user = @user %>
-	<% else %>
-		<% user = current_user %>
-	<% end %>
+	<% user = @user.present? ? @user : current_user %>
 	<div class="border-shadow">
 		<div class="container-fluid">
 		 	<div class="row-fluid">
@@ -18,7 +14,7 @@
 						<small>@<%= user.user_name %></small>
 					</div>
 
-					<% if user != @current_user %>
+					<% if user != current_user %>
 						<div class="mt10">
 							<% if current_user.following?(user) %>
 								<%= link_to "Unfollow",relate_user_path(user,type: 'unfollow'),class: "btn btn-xs btn-warning",id: user.id.to_s + "uf" %>
@@ -61,7 +57,7 @@
 			            </h3>
 			            <p>Tweets</p>
 		             <% end %>
-		       	</div>           
+						</div>
 		    </div>
 		</div>
 	</div>

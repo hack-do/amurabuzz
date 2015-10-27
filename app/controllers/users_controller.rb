@@ -19,9 +19,18 @@ class UsersController < ApplicationController
   end
 
   def friends
-    @friends = current_user.friends
+    friends = current_user.friends.as_json
+    friend_ids = friends.map{|f| f["id"]}
+
+    @redis = Redis.new
+    online_friends = @redis.hmget("users",friend_ids)
+    puts "online_friends #{online_friends}"
+    friends.each_with_index do |friend, i|
+      friend["online"] = online_friends[i].present? ? true : false
+    end
+
     respond_to do |format|
-       format.json { render json: @friends }
+       format.json { render json: JSON.parse(friends.to_json) }
     end
   end
 

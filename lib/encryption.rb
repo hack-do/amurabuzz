@@ -1,25 +1,31 @@
+# -----STEPS-----
+# load "#{Rails.root}/lib/encryption.rb"
+# e = Encryption.new
+# plain = "vineet"
+# encrypted = e.encrypt(plain)
+# plain = e.decrypt(encrypted)
+
 class Encryption
-	def aes128_cbc_decrypt(key, data, iv)
-		data = "Very, very confidential data"
-		cipher = OpenSSL::Cipher::AES.new(128, :CBC)
-		cipher.encrypt
-		cipher.random_key = "vineet"
-		cipher.random_iv = "vineet"
-		# key = cipher.random_key
-		# iv = cipher.random_iv
+	def initialize
+		@cipher = OpenSSL::Cipher::AES.new(128, :CBC)
+	end
 
-		encrypted = cipher.update(data) + cipher.final
+	def encrypt(plain)
+		@cipher.encrypt
+		# @key = @cipher.random_key
+		# @iv = @cipher.random_iv
+		@cipher.key = @key = "amurabuzz"
+		@cipher.iv = @iv = Date.today.to_s*5
 
-		# --------------------
+		@cipher.update(plain) + @cipher.final
+	end
 
-		decipher = OpenSSL::Cipher::AES.new(128, :CBC)
-		decipher.decrypt
-		decipher.key = key
-		decipher.iv = iv
+	def decrypt(encrypted)
+		@cipher = OpenSSL::Cipher::AES.new(128, :CBC)
+		@cipher.decrypt
+		@cipher.key = @key
+		@cipher.iv = @iv
 
-		plain = decipher.update(encrypted) + decipher.final
-
-		puts data == plain
-		#=> true	end
+		@cipher.update(encrypted) + @cipher.final
 	end
 end

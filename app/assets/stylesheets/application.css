@@ -74,3 +74,29 @@ body {
 /*#sidebar{
   position: fixed;
 }*/
+
+
+
+.header {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+#chat-window {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-x: auto;
+}
+
+.footer {
+  padding-top: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-size: small;
+}
+
+#emoji-list .emoji_wrapper{
+  cursor: crosshair;
+}

@@ -6,7 +6,7 @@ var ChatApp = {
 	chat_app: "chat-app",
 	chatbox_prefix: "chatbox",
 	provider: "WebSocket",
-	provider: "PrivatePub"
+	// provider: "PrivatePub"
 };
 
 ChatApp.init = function(){
@@ -43,9 +43,8 @@ ChatApp.init_friends = function(){
 			success: function(friends,status,errors){
 			    var html = "";
 			    _.each(friends,function(f){
-			        html += '<li class="list-group-item chat-friend">\
-			            <a class="btn btn-link btn-sm start_chat" href="#" data-user-id="'+ f.id+'">'+f.user_name+'</a>\
-			        </li>';
+			        var label = f.online == true ? "success" : "default";
+			        html += '<li class="list-group-item btn btn-default start_chat" data-user-id="'+ f.id+'"><span class="label label-'+label+'">'+f.user_name+'</span></li>';
 			    });
 			    $("#"+ChatApp.friends_list).html(html);
 			    $("#"+ChatApp.friends_list_container).removeClass("hidden");
@@ -220,8 +219,12 @@ ChatApp.PrivatePub.init_events = function(){
 	});
 }
 ChatApp.PrivatePub.send_message = function($chatbox, sender_id, recipient_id, message){
+	// var c = PrivatePub.fayeClient
+	// c.publish('/chat', {message: 'Hi'}, {attempts: 3});
+
+	// send message via PrivatePub
 	$.ajax({
-		url: '/users/'+sender_id+'/chats',
+		url: '/users/'+sender_id+'/chats/send_message',
 		data: {message: message,recipient_id: recipient_id},
 		type: 'POST',
 		dataType: "json",
@@ -234,6 +237,9 @@ ChatApp.PrivatePub.send_message = function($chatbox, sender_id, recipient_id, me
 			$chatbox.find('.message-input').addClass("has-error");
 		}
 	});
+
+
+
 }
 
 ChatApp.WebSocket = {};

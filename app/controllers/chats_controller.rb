@@ -21,9 +21,9 @@ class ChatsController < ApplicationController
     if params[:user_id].present?
       hijack do |tubesock|
         # Listen on its own thread
-        puts "hijack start"
+        puts "hijack started"
         redis_thread = Thread.new do
-          puts "\n\n\n\n\n new thread #{current_user.inspect} \n\n\n\n\n"
+          puts "\n\n new thread created \n\n"
 
           @@redis = Redis.new
           @@redis.hset("users", current_user.id.to_s, current_user.user_name)
@@ -31,9 +31,9 @@ class ChatsController < ApplicationController
           # Needs its own redis connection to pub
           # and sub at the same time
           @@redis.subscribe "chat-#{params[:user_id]}" do |on|
-            puts "Redis subscribe to channel"
+            puts "Subscribe to Redis channel"
             on.message do |channel, message|
-              puts "message to be sent #{message}"
+              puts "Message to be sent #{message}"
               tubesock.send_data message
             end
           end
@@ -47,7 +47,7 @@ class ChatsController < ApplicationController
           params = JSON.parse(params)
 
           sender_name = @@redis.hmget("users",params["sender_id"]) rescue User.where(id: params["sender_id"]).first.user_name
-          recipient_name = @@redis.hmget("users",params["sender_id"]) rescue User.where(id: params["recipient_id"]).first.user_name
+          recipient_name = @@redis.hmget("users",params["recipient_id"]) rescue User.where(id: params["recipient_id"]).first.user_name
 
           if recipient_name.present? && sender_name.present?
             params['sender_name'] = sender_name
@@ -67,6 +67,10 @@ class ChatsController < ApplicationController
 
         tubesock.onclose do
           puts "onclose"
+
+          @@redis = Redis.new
+          @@redis.hdel("users",current_user.id.to_s)
+
           # stop listening when client leaves
           redis_thread.kill
         end
@@ -74,7 +78,7 @@ class ChatsController < ApplicationController
     end
   end
 
-  def create
+  def send_message
     errors = []
     if params[:message].present?
       message = Twemoji.parse(params[:message])
@@ -90,7 +94,7 @@ class ChatsController < ApplicationController
 
     respond_to do |format|
 		  if errors.blank?
-        publish_message(recipient,message)
+        publish_message(current_user, recipient,message)
         format.html { redirect_to :back }
         format.json { render json: {message: 'yay'} }
       else
@@ -102,8 +106,25 @@ class ChatsController < ApplicationController
 
   private
 
-  def publish_message(recipient,message)
-    PrivatePub.publish_to "/chats/#{recipient.id}", sender_id: current_user.id,sender_name: current_user.user_name,recipient_id: recipient.id,recipient_name: recipient.name, message: message
-    PrivatePub.publish_to "/chats/#{current_user.id}", sender_id: current_user.id, sender_name: current_user.user_name,recipient_id: recipient.id,recipient_name: recipient.name, message: message
+  def publish_message(sender, recipient, message)
+    channels = [get_private_channel(recipient.id.to_s), get_private_channel(sender.id.to_s)]
+
+    channels.each do |channel|
+      PrivatePub.publish_to(channel,
+        sender_id: sender.id,
+        sender_name: sender.user_name,
+        recipient_id: recipient.id,
+        recipient_name: recipient.name,
+        message: message
+      )
+    end
+  end
+
+  def get_private_channel(user_id)
+    "/chats/#{user_id}"
+  end
+
+  def get_public_channel
+    "/chats/public"
   end
 end
