@@ -81,12 +81,14 @@ ActiveRecord::Schema.define(version: 20151203090536) do
     t.string   "image_type",        limit: 255
     t.integer  "imageable_id",      limit: 4
     t.string   "imageable_type",    limit: 255
+    t.integer  "tweet_id",          limit: 4
     t.boolean  "active",                        default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "images", ["imageable_id"], name: "index_images_on_imageable_id", using: :btree
+  add_index "images", ["tweet_id"], name: "index_images_on_tweet_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id", limit: 4

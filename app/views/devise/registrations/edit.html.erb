@@ -57,13 +57,11 @@
                 </div> <!-- tab-pane -->
 
                 <div class="tab-pane fade noti" id="profile_picture">
-                  <% if current_user.profile_picture(false).present? %>
-                    <%= profile_pic_tag current_user.profile_picture(false).file.url, "image-thumbnail img-xl current_profile_picture" %>
-                  <% end %>
+                  <%= profile_pic_tag current_user.profile_picture.file.url, "image-thumbnail img-xl   current_profile_picture" %>
                   <div class="form-group mt20">
                     <div class="col-sm-offset-2 col-sm-5">
                       <span class="btn btn-success btn-sm fileinput-button">
-                        <i class="glyphicon glyphicon-plus"></i>
+                        <i class="fa fa-plus"></i>
                         <span>Change Profile Picture</span>
                         <input id="profile_picture_upload" type="file" name="attachment[]" data-url="/users/me/images"\>
                       </span>

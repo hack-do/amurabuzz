@@ -1,18 +1,90 @@
-<% @folders.each do |folder, images| %>
-	<h4><i class="fa fa-folder-open-o"></i> <%= folder %></h4>
+<div class="row form-group mt20">
+  <div class="col-md-3">
+    <span class="btn btn-primary fileinput-button">
+      <i class="fa fa-plus"></i>
+      <span>Add Pictures</span>
+      <input class="picture-upload" type="file" name="attachment[]" data-url="/users/me/images"\>
+    </span>
+  </div>
+  <div class="upload-details hidden">
+    <div class="col-md-3 text-center">
+      <span class="fileinput-files text-sm pull-left"></span>&nbsp;
+    </div>
+    <div class="col-md-4 text-center">
+      <%= select_tag 'folder', options_for_select(@folders.collect{ |k,v| [k, k] }), prompt: 'Select Folder', class: 'form-control input-sm' %>
+      <span>OR</span>
+      <input placeholder='Create new folder' id="new_folder" class="form-control input-sm"\>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-success confirm-upload">Upload</button>
+    </div>
+  </div>
+  <div class="progress asset-loading hidden">
+    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+  </div>
+</div>
 
-	<div class="row">
-		<div class="col-md-8 col-md-offset-1">
-			<div class="galleria">
-				<% images.each do |image| %>
-					<%= image_tag image.file.url, class: 'img-thumbnail img-md', data: {title: "#{image.file_file_name}", description: "#{image.file_file_name}", link: "#{user_image_path('me', image)}"} %>
-				<% end %>
-			</div>
-		</div>
-	</div>
+<% @folders.each do |folder, images| %>
+	<div class="folder mt10" data-name="<%= folder.downcase.gsub(" ","_") %>">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <h4><i class="fa fa-folder-open-o"></i> <%= folder %></h4>
+        <div class="galleria">
+          <% images.each do |image| %>
+            <%= image_tag image.file.url, class: 'img-thumbnail img-md', data: {title: "#{image.file_file_name}", description: "#{image.file_file_name}", link: "#{user_image_path('me', image)}"} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 
 <%= javascript_tag do %>
 	Galleria.run('.galleria');
+
+  Amura.init_file_uploader($(".picture-upload"), {
+    data_type: 'json',
+    type: 'POST',
+    dropzone: $(".post-tweet-form"),
+    on_add: function (e, data) {
+      console.log("on_add : ", data);
+
+      if(data.files[0].type.match(/jpg|png|jpeg/i)){
+        var html = "<span>"+data.files[0].name+"</span>";
+        $(".fileinput-files").html(html);
+        $(".upload-details").removeClass("hidden");
+        $(".confirm-upload").click(function(e){
+          var folder_name = $("#new_folder").val() || $("#folder").val();
+          data.formData = {
+            folder: folder_name,
+            image_type: 'upload'
+          }
+          console.log(data.formData);
+          data.submit();
+        });
+      }else{
+        $(".media-upload").empty();
+        Amura.global_error_handler("Invalid file type '"+data.files[0].type+"', allowed file types are 'jpg, png, jpeg'. ");
+        return false;
+      }
+
+    },
+
+    on_start: function(e, data){
+      console.log("on_start : ", data);
+    },
+    on_progress: function(e, data){
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $(".asset-loading").find(".progress-bar").css("width", progress + "%");
+    },
+    on_success: function(e, data){
+      console.log("on_success ; ", data.result);
+      $(".upload-details").addClass("hidden");
+      window.location.reload();
+    },
+    on_error: function(errors){
+      Amura.global_error_handler(errors);
+    }
+  });
 <% end %>

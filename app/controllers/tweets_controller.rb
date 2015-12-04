@@ -66,21 +66,6 @@ class TweetsController < ApplicationController
     end
   end
 
-  def add_picture
-    @picture = @tweet.pictures.build
-    @picture.folder = params[:folder]
-    @picture.image_type = params[:image_type]
-    @picture.file = params[:attachment].first
-
-    respond_to do |format|
-      if @picture.save
-        format.json { render :json => @picture, status: :created }
-      else
-        format.json { render :json => {:errors => @picture.errors.full_messages} }
-      end
-    end
-  end
-
   private
 
   def set_tweet

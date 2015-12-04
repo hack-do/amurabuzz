@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
-  has_many :pictures, class_name: "Image", as: :imageable, dependent: :destroy
+  has_many :images, as: :imageable, dependent: :destroy
 
   default_scope -> { where(active: true) }
 
@@ -61,10 +61,10 @@ class User < ActiveRecord::Base
   validates :dob, date: {after: Proc.new {Time.now - 100.years},
                         before: Proc.new {Time.now} } ,allow_blank: true
 
-  def profile_picture(show_default = true)
-    profile_picture = self.pictures.where(image_type: "profile_picture").first
-    if profile_picture.blank? && show_default == true
-      profile_picture = self.pictures.build(image_type: "profile_picture") # , file: File.open("#{Rails.root}/app/assets/images/amura.png","r")
+  def profile_picture
+    profile_picture = self.images.where(image_type: "profile_picture").first
+    if profile_picture.blank?
+      profile_picture = self.images.build(image_type: "profile_picture")
     end
 
     profile_picture

@@ -302,13 +302,14 @@ Amura.init_file_uploader = function($input, options){
     add: options.on_add
   });
 
+  $input.bind('fileuploadsubmit', options.on_submit);
   $input.bind('fileuploadadd', options.on_start);
   $input.bind('fileuploadprogress', options.on_progress);
   $input.bind('fileuploaddone', function(e, data){
-    if(data.result.errors != undefined && data.result.errors != null){
-      options.on_error(data.result.errors);
-    }else{
+    if(Amura.blank(data.result.errors)){
       options.on_success(e, data);
+    }else{
+      options.on_error(data.result.errors);
     }
   });
 

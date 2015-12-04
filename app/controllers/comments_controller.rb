@@ -14,15 +14,15 @@ class CommentsController < ApplicationController
 
 	def create
     respond_to do |format|
-			@vote = @tweet.comments.build(user: current_user, content: params[:comment][:content])
+			@comment = @tweet.comments.build(user: current_user, content: params[:comment][:content])
 
-			if @vote.save
+			if @comment.save
 				format.html { redirect_to :back, notice: "Comment posted successfully!" }
-				format.json { render json: @tweet }
+				format.json { render json: @comment }
 				format.js
 			else
-				format.html { redirect_to :back,alert: @vote.errors.full_messages }
-				format.json { render json: @vote.errors.full_messages, status: :unprocessable_entity }
+				format.html { redirect_to :back,alert: @comment.errors.full_messages }
+				format.json { render json: @comment.errors.full_messages, status: :unprocessable_entity }
 				format.js
 	    end
     end

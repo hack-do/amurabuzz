@@ -7,9 +7,11 @@ class CreateImages < ActiveRecord::Migration
       t.string      :folder
       t.string      :image_type
       t.references  :imageable, :polymorphic => true
+      t.references  :tweet
       t.boolean     :active, :default => true
       t.timestamps
     end
     add_index :images, :imageable_id
+    add_index :images, :tweet_id
   end
 end

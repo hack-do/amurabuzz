@@ -24,7 +24,7 @@ module AmuraBuzz
     # config.i18n.fallbacks = true
     # config.i18n.default_locale = "en-IN"
 
-    config.active_record.observers = :relationship_observer, :comment_observer, :vote_observer, :tweet_observer, :user_observer
+    config.active_record.observers = :relationship_observer, :comment_observer, :vote_observer, :tweet_observer, :user_observer, :image_observer
 
     config.active_record.raise_in_transactional_callbacks = true
 

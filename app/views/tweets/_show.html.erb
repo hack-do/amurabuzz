@@ -36,8 +36,7 @@
   <div class="panel-body">
     <div class="tweet-content">
       <p><mark><%= tweet.parsed_content %></mark></p>
-
-      <% tweet.pictures.each do |picture| %>
+      <% tweet.images.each do |picture| %>
         <%= image_tag picture.file.url(:small), class: 'img-thumbnail tweet-picture', title: picture.file_file_name, data: { title: picture.file_file_name, footer: picture.description, gallery: tweet.id, remote: picture.file.url} %>
       <% end %>
 
@@ -68,18 +67,12 @@
       <div class="clearfix"></div>
     </div>
 
-    <div class="row-fluid comments-box hidden">
-      <ul class="list-unstyled">
-        <% tweet.latest_comments.reverse_each do |c| %>
-          <li role="presentation">
-            <div>
-              <%= profile_pic_tag c.user.profile_picture.file.url(:thumb), 'img-xs' %>
-              <%= link_to "@#{c.user.name}", user_path(c.user_id), class: "btn btn-link btn-xs" %>
-              : <span class="comment-content"><%= c.content %></span>
-            </div>
-          </li>
+    <div class="comments-box hidden">
+      <div class="row-fluid">
+        <% tweet.latest_comments.reverse_each do |comment| %>
+          <%= render 'comments/show',{comment: comment} %>
         <% end %>
-      </ul>
+      </div>
       <div class="input-group">
         <textarea class='form-control input-sm comment-input' rows='1' cols='10' placeholder='Comment' maxlength='160'></textarea>
         <div class="input-group-btn">

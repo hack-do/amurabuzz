@@ -21,7 +21,7 @@ class Tweet < ActiveRecord::Base
   has_many :shares, class_name: 'Tweet', foreign_key: "origin_id", dependent: :destroy
   belongs_to :origin, class_name: 'Tweet'
 
-  has_many :pictures, class_name: "Image", as: :imageable, dependent: :destroy
+  has_many :images, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
 

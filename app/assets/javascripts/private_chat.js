@@ -43,11 +43,12 @@ ChatApp.init_friends = function(){
 			success: function(friends,status,errors){
 			    var html = "";
 			    _.each(friends, function(friend){
-			        var label = friend.online_status == true ? "success" : "default";
-			        html += '<li class="list-group-item btn btn-default start_chat" data-user-id="'+ friend.id+'">\
-			        <img class="img-xs" src="'+friend.profile_picture.thumb_file_url+'" alt="'+friend.profile_picture.file_file_name+'">\
-			        <span class="label label-'+label+'">'+friend.user_name+'</span>\
-			        </li>';
+		        // console.log(friend);
+		        var label = friend.online_status == true ? "success" : "default";
+		        html += '<li class="list-group-item btn btn-default start_chat" data-user-id="'+ friend.id+'">\
+		        <img class="img-xs" src="'+friend.profile_picture.thumb_file_url+'" alt="'+friend.profile_picture.file_file_name+'">\
+		        <span class="label label-'+label+'">'+friend.user_name+'</span>\
+		        </li>';
 			    });
 			    $("#"+ChatApp.friends_list).html(html);
 			    $("#"+ChatApp.friends_list_container).removeClass("hidden");

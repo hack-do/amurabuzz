@@ -85,18 +85,22 @@ $(document).ready(function() {
 				var html = "<span>"+data.files[0].name+"</span>";
 	      $(".fileinput-files").html(html);
 	      	$(".post-tweet-form").on("after-submit",function(e){
-	      		console.log(e)
-	      		data.url="/users/me/tweets/"+$(this).find("[name='id']").val()+"/add_picture";
+						console.log(data);
+						data.formData = {
+							folder: "Tweet Pictures",
+							image_type: "tweet_picture",
+							tweet_id: $(".post-tweet-form").find("[name='id']").val()
+						}
       			data.submit();
 	      	});
     	}else{
     		$(".media-upload").empty();
-    		$(".fileinput-files").html('');
     		Amura.global_error_handler("Invalid file type '"+data.files[0].type+"', allowed file types are 'jpg, png, jpeg'. ");
     		return false;
     	}
 
     },
+
     on_start: function(e, data){
     	console.log("on_start : ", data);
     },
@@ -119,7 +123,7 @@ $(document).ready(function() {
 
 		if(!Amura.blank(tweet_id)){
 			$("#tweet_modal .tweet-input").val(tweet_content).trigger('input');
-			$("#tweet_modal").data("tweet-id",tweet_id)
+			$("#tweet_modal").find("[name='id']").val(tweet_id);
 			$('#tweet_modal').modal("show");
 		}
 	});

@@ -164,6 +164,7 @@ body {
 
 .fileinput-files{
   font-size: 10px;
+  word-break: break-all;
 }
 
 .tweet-picture{

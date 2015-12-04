@@ -31,7 +31,6 @@ AmuraBuzz::Application.routes.draw do
     end
     resources :activities,:only => [:index]
     resources :tweets do
-      post :add_picture, on: :member
       resources :votes, only: [:index,:create]
       resources :comments, only: [:index,:create]
       resources :shares, only: [:index,:create]

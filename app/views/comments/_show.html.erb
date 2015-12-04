@@ -1,0 +1,5 @@
+<div class="comment-box" id="comment<%= comment.id %>">
+  <%= profile_pic_tag comment.user.profile_picture.file.url(:thumb), 'img-xs' %>
+  <%= link_to "@#{comment.user.name}", user_path(comment.user_id), class: "btn btn-link btn-xs" %>
+  : <span class="comment-content"><%= comment.content %></span>
+</div>

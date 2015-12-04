@@ -22,6 +22,7 @@ class Image < ActiveRecord::Base
   include PublicActivity::Common
 
   belongs_to :imageable, polymorphic: true
+  belongs_to :tweet
 
   has_attached_file :file, {
     preserve_files: "true",
@@ -38,7 +39,7 @@ class Image < ActiveRecord::Base
   serialize :tags
 
   validates :image_type, presence: true
-	validates_attachment :file, attachment_presence: true, content_type: { content_type: ["image/jpeg", "image/jpg", "image/png"] }, size: { in: 0..2.megabytes }
+	validates_attachment :file, attachment_presence: true, content_type: { content_type: ["image/jpeg", "image/jpg", "image/png"] }, size: { in: 0..5.megabytes }
 
   default_scope { where(active: true).order("updated_at DESC")}
 

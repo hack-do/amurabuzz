@@ -1,9 +1,9 @@
 <%= link_to 'All Images',user_images_path('me'), class: 'btn btn-link' %> |
-<%= link_to 'Edit',edit_user_image_path('me', @picture), class: 'btn btn-link' %>
+<%= link_to 'Edit',edit_user_image_path('me', @image), class: 'btn btn-link' %>
 
-<p>name : <%= @picture.file_file_name %></p>
-<p>size : <%= @picture.file_file_size %></p>
-<p>image_type : <%= @picture.image_type %></p>
-<p>folder : <%= @picture.folder %></p>
+<p>name : <%= @image.file_file_name %></p>
+<p>size : <%= @image.file_file_size %></p>
+<p>image_type : <%= @image.image_type %></p>
+<p>folder : <%= @image.folder %></p>
 
-<%= image_tag @picture.file.url,class: 'img-thumbnail' %>
+<%= image_tag @image.file.url,class: 'img-thumbnail' %>

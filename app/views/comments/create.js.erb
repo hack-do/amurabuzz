@@ -1,1 +1,2 @@
 $("#tweet<%= @tweet.id %>").html("<%= j render '/tweets/show',tweet: @tweet %>");
+$("#tweet<%= @tweet.id %>").find(".comments-box").removeClass("hidden");
