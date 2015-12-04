@@ -1,47 +1,91 @@
-<div class="panel panel-info tweet" data-id="<%= tweet.id %>" id="tweet<%= tweet.id %>">
-    <div class="panel-heading clearfix">
-        <span class="pull-left"><%= link_to tweet.user.email,user_path(id: tweet.user.id) %></span>
-        <div class="pull-right dropdown tweet-options">
-            <button class="btn btn-link dropdown-toggle" id="dropdownMenu<%= tweet.id%>" data-toggle="dropdown" aria-expanded="true">
-                <i class="fa fa-ellipsis-h "></i>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu<%= tweet.id%>">
-                <li role="presentation">
-                    <%= link_to '<i class="fa fa-info"></i> Details'.html_safe,user_tweet_path('me',tweet.id),title: "View",class: "show-tweet",role: "menuitem",tabindex: "-1" %>
-                </li>
-                <% if tweet.user_id == @current_user.id %>
-                    <li role="presentation">
-                        <a href="#" class="edit-tweet" title="Edit" role="menuitem" tabindex="-1">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <%= link_to '<i class="fa fa-times"></i> Delete'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },class: 'delete-tweet', title: "Delete",role: "menuitem",tabindex: "-1" %>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
-        <small class="pull-right">
-            <em><%= distance_of_time_in_words_to_now(tweet.created_at)%> ago</em>
+<div class="panel panel-info tweet-panel" data-id="<%= tweet.id %>">
+  <div class="panel-heading clearfix">
+    <span class="pull-left">
+      <%= profile_pic_tag tweet.user.profile_picture.file.url(:thumb), 'img-xs' %>
+      <%= link_to tweet.user.user_name,user_path(id: tweet.user.id) %>
+      <% if tweet.origin.present? %>
+        shared <%= link_to "#{tweet.origin.user.user_name}'s", user_path(id: tweet.origin.user.id) %>
+        <%= link_to 'post', user_tweet_path(tweet.origin.user, tweet.origin), title: "View" %>
+      <% end %>
+    </span>
+    <div class="pull-right dropdown tweet-options">
+      <button class="btn btn-xs btn-link dropdown-toggle" id="dropdownMenu<%= tweet.id%>" data-toggle="dropdown" aria-expanded="true">
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu<%= tweet.id%>">
+        <li role="presentation">
+          <%= link_to '<i class="fa fa-info"></i> Details'.html_safe,user_tweet_path('me',tweet.id),title: "View",class: "show-tweet",role: "menuitem",tabindex: "-1" %>
+        </li>
+        <% if tweet.user_id == @current_user.id %>
+          <li role="presentation">
+            <a href="#" class="edit-tweet" title="Edit" role="menuitem" tabindex="-1">
+              <i class="fa fa-pencil"></i> Edit
+            </a>
+          </li>
+          <li role="presentation">
+            <%= link_to '<i class="fa fa-times"></i> Delete'.html_safe, user_tweet_path(current_user,tweet),method: :delete, data: { confirm: "Are you sure?" },class: 'delete-tweet', title: "Delete",role: "menuitem",tabindex: "-1" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <span class="pull-right">
+      <em><%= tweet.created_time %> ago</em>
+    </span>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+    <div class="tweet-content">
+      <p><mark><%= tweet.parsed_content %></mark></p>
+
+      <% tweet.pictures.each do |picture| %>
+        <%= image_tag picture.file.url(:small), class: 'img-thumbnail tweet-picture', title: picture.file_file_name, data: { title: picture.file_file_name, footer: picture.description, gallery: tweet.id, remote: picture.file.url} %>
+      <% end %>
+
+    </div>
+
+    <div class="likes mt10">
+      <div class='pull-left'>
+        <small>
+          <div class="stats">
+            <a class="btn btn-xs btn-dull get-all-likes"><%= pluralize(tweet.likes.count,'Like') %></a>
+            <a class="btn btn-xs btn-dull get-all-comments"><%= pluralize(tweet.comments.count,'Comment') %></a>
+            <a class="btn btn-xs btn-dull get-all-shares"><%= pluralize(tweet.shares.count,'Share') %></a>
+          </div>
+
+          <div class="actions">
+            <% if current_user.voted_for?(tweet) %>
+             <a class="btn btn-link btn-sm post-vote" data-value="0"><span class="fa fa-thumbs-down"></span> Unlike</a>
+            <% else %>
+             <a class="btn btn-link btn-sm post-vote" data-value="1"><span class="fa fa-thumbs-up"></span> Like</a>
+            <% end %>
+            <a class="btn btn-link btn-sm get-comments" ><span class="fa fa-comment"></span> Comment</a>
+            <% if current_user.id != tweet.user_id %>
+              <a class="btn btn-link btn-sm post-share" ><span class="fa fa-retweet"></span> Share</a>
+            <% end %>
+          </div>
         </small>
+      </div>
+      <div class="clearfix"></div>
     </div>
 
-    <div class="panel-body">
-        <div class="tweet-content">
-            <%= Twemoji.parse(tweet.content) %>
-        </div>
-
-        <div class="likes mt10">
-            <div class='pull-left'>
-                <small>
-                    <%= link_to "#{pluralize tweet.reputation_for(:votes).to_i,'Like'}",user_tweet_rs_evaluations_path('me',tweet.id),class: "btn btn-link btn-sm",id: "#{tweet.id}likes", remote: true %>
-                     <% if current_user.voted_for?(tweet) %>
-                        <%= link_to '<span class="fa fa-thumbs-down"></span> Unlike'.html_safe, {controller: 'rs_evaluations',action: 'create' ,user_id: 'me',tweet_id: tweet.id,type: 0},method: :post, class: "btn btn-link btn-sm",remote: true %>
-                     <% else %>
-                        <%= link_to '<span class="fa fa-thumbs-up"></span> Like'.html_safe, {controller: 'rs_evaluations',action: 'create',user_id: 'me',tweet_id: tweet.id,type: 1}, method: :post, class: "btn btn-link btn-sm",remote: true %>
-                     <% end %>
-                </small>
+    <div class="row-fluid comments-box hidden">
+      <ul class="list-unstyled">
+        <% tweet.latest_comments.reverse_each do |c| %>
+          <li role="presentation">
+            <div>
+              <%= profile_pic_tag c.user.profile_picture.file.url(:thumb), 'img-xs' %>
+              <%= link_to "@#{c.user.name}", user_path(c.user_id), class: "btn btn-link btn-xs" %>
+              : <span class="comment-content"><%= c.content %></span>
             </div>
+          </li>
+        <% end %>
+      </ul>
+      <div class="input-group">
+        <textarea class='form-control input-sm comment-input' rows='1' cols='10' placeholder='Comment' maxlength='160'></textarea>
+        <div class="input-group-btn">
+          <button class="btn btn-primary btn-sm post-comment"><i class="fa fa-comment fa-1"></i></button>
         </div>
+      </div>
     </div>
+  </div> <!-- panel-body -->
 </div>

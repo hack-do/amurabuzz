@@ -1,45 +1,47 @@
 source 'https://rubygems.org'
 
-gem "rubycritic", :require => false
-
-gem 'rails'
+# CORE
+gem 'rails', '~> 4.2.0'
 gem 'rails-observers'
-
-gem 'redis'
-gem 'private_pub'
-# gem 'thin'
-gem "twemoji"
-
-gem 'puma'
-gem 'tubesock'
-gem 'link_thumbnailer'
-
-gem 'capistrano', '< 3'
-
-gem 'ejs'
 gem 'mysql2', '0.3.18'
-gem 'omniauth-facebook'
-gem 'open_uri_redirections'
+gem 'puma'
+# gem 'thin'
 gem 'public_activity'
+# gem 'capistrano' # , '< 3'
 
-gem "typus", github: "typus/typus"
-gem 'autoprefixer-rails'
+# Authentication & Authorization
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
+gem 'omniauth-facebook'
 gem 'friendly_id', '~> 5.0.0'
+
+# STREAMING
+gem 'redis'
+gem 'private_pub'
+gem 'tubesock'
+gem 'link_thumbnailer'
+
+gem 'open_uri_redirections'
+
+gem 'typus', github: 'typus/typus'
+gem 'autoprefixer-rails'
 
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem 'font-awesome-rails'
 gem 'invoker'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'paperclip','~>3.0'
-gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4'
-#gem 'acts_as_votable', '~> 0.10.0'
+gem 'paperclip','~>4.2'
 gem 'date_validator'
+gem 'cancancan', '~> 1.10'
+gem 'stackprof'
+gem 'ahoy_matey'
+gem 'activeuuid', '>= 0.5.0'
+gem 'elasticsearch'
+gem 'annotate'
 
+# ASSETS
 gem 'less-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'therubyracer', platforms: :ruby
@@ -47,11 +49,18 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
-group :doc do
-  gem 'sdoc', require: false
-end
+# gem 'polymer-rails'
+# gem 'polymer-core-rails'
+gem 'twemoji'
+gem 'font-awesome-rails'
 
 group :development do
+	gem 'rubycritic', :require => false
+	gem 'traceroute'
+	gem 'bullet'
+	gem 'rack-mini-profiler'
+	gem 'flamegraph' # add '?pp=flamegraph' to any URL to get the flamegraph
+
 	gem 'brakeman', :require => false
 	gem 'railroady'
 	# gem 'quiet_assets'
@@ -63,6 +72,8 @@ group :development do
 end
 
 group :test do
+ 	# gem 'deadweight', :require => 'deadweight/hijack/rails' # check for unused CSS
+	# gem 'colored'
 	gem 'cucumber'
 	gem 'faker'
 	gem 'capybara'
@@ -72,7 +83,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0.0'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 group :development, :test do
@@ -82,4 +93,8 @@ group :development, :test do
 	gem 'web-console', '~> 2.0'
 	gem 'byebug'
 	gem 'spring'
+end
+
+group :doc do
+  gem 'sdoc', require: false
 end

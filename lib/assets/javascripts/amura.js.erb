@@ -224,36 +224,6 @@ Amura.escape_javascript = function(javascript){
                return "";
        }
 };
-Amura.resize_iframe_height = function(iframe){
-	// find the height of the internal page
-	var $iframe_body = $($(iframe).contents()).find("body");
-	var iframe = $(iframe)[0];
-	var preview_a_section_interval_counter = 0;
-	var preview_a_section_interval = setInterval(function(){
-		preview_a_section_interval_counter += 1;
-		if($iframe_body.find("#preview_a_section").length > 0 || preview_a_section_interval_counter > 100){
-			if($iframe_body.find("#preview_a_section").length > 0){
-				var the_height,
-				yWithScroll,
-				heightYFirst,
-				extraHeight;
-				if (iframe){
-					the_height = iframe.contentWindow.document.body.scrollHeight;
-					yWithScroll = iframe.contentWindow.scrollMaxY;
-					heightYFirst = iframe.contentWindow.scrollMaxY + iframe.contentWindow.innerHeight;
-					if ((yWithScroll == 0) || (yWithScroll == the_height) || (heightYFirst == the_height)){
-						extraHeight = 0;
-					}else{
-						extraHeight = -1;
-					}
-					// change the height of the iframe
-					iframe.height = the_height + extraHeight;
-				}
-			}
-			clearInterval(preview_a_section_interval);
-		}
-	}, 100);
-};
 Amura.block_ui = function($div){
 	if($div.length == 1){
 		var str = '<div class="block_ui">';
@@ -317,4 +287,58 @@ Amura.close_to = function(r,g,b){
 	}else{
 		return "white"
 	}
-}
+};
+
+Amura.init_file_uploader = function($input, options){
+	options = options || {};
+	options.data_type = options.data_type || 'json';
+	options.type = options.type || "POST";
+
+	$input.fileupload({
+    formData: options.form_data,
+    dataType: options.data_type,
+    type: options.type,
+    dropZone: options.dropzone,
+    add: options.on_add
+  });
+
+  $input.bind('fileuploadadd', options.on_start);
+  $input.bind('fileuploadprogress', options.on_progress);
+  $input.bind('fileuploaddone', function(e, data){
+    if(data.result.errors != undefined && data.result.errors != null){
+      options.on_error(data.result.errors);
+    }else{
+      options.on_success(e, data);
+    }
+  });
+
+  if(!Amura.blank(options.dropzone)){
+	  $(document).bind('dragover', function (e) {
+	    var dropZone = options.dropzone,
+	        timeout = window.dropZoneTimeout;
+	    if (!timeout) {
+	        dropZone.addClass('in');
+	    } else {
+	        clearTimeout(timeout);
+	    }
+	    var found = false,
+	        node = e.target;
+	    do {
+	        if (node === dropZone[0]) {
+	            found = true;
+	            break;
+	        }
+	        node = node.parentNode;
+	    } while (node != null);
+	    if (found) {
+	        dropZone.addClass('hover');
+	    } else {
+	        dropZone.removeClass('hover');
+	    }
+	    window.dropZoneTimeout = setTimeout(function () {
+	        window.dropZoneTimeout = null;
+	        dropZone.removeClass('in hover');
+	    }, 100);
+		});
+  }
+};

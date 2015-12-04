@@ -13,7 +13,10 @@
       <ul class="nav navbar-nav">
       <% if user_signed_in? %>
         <li class="<%= is_active?(root_path) %> <%= is_active?(user_path) %>">
-          <%= link_to '<span class="fa fa-home"></span> Home'.html_safe,root_path,accesskey: "h" %>
+          <%= link_to '<span class="fa fa-home"></span> Home'.html_safe, root_path,accesskey: "h" %>
+        </li>
+        <li class="<%= is_active?(user_images_path) %>">
+          <%= link_to '<span class="fa fa-home"></span> Gallery'.html_safe, user_images_path,accesskey: "g" %>
         </li>
         <li>
             <a href="#" class="new-tweet-link link" data-toggle="modal" data-target="#tweet_modal" data-keyboard="true" data-backdrop="static" accesskey="m">
@@ -41,7 +44,7 @@
        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <% if user_signed_in? %>
-                <%= profile_pic_tag current_user.avatar.url, 'img-xs' %> 
+                <%= profile_pic_tag current_user.profile_picture.file.url(:thumb), 'img-xs' %>
                 <%= truncate(current_user.user_name,length: 20) %>
               <% else %>
                 Guest

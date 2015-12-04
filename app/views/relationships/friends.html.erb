@@ -1,0 +1,31 @@
+<div class="user_wrapper">
+	<div class="container-fluid border-shadow">
+		<h3>
+			<% if @followers.present? %>
+				<%= @user.user_name %>'s followers
+				<% @friends = @followers %>
+			<% elsif @following.present? %>
+				Followed by <%= @user.user_name %>
+				<% @friends = @following %>
+			<% end %>
+			<%= link_to "Make more friends",users_path, class: "btn btn-primary btn-xs pull-right" %>
+		</h3>
+		<div class="row">
+			<table id="followers_table" class="table table-stripped col-md-4">
+				<% @friends.each do |friend| %>
+					<tr>
+          	<td><%= profile_pic_tag friend.profile_picture.file.url(:thumb), 'img-sm' %></td>
+						<td><%= link_to friend.user_name, user_path(friend) %></td>
+						<td>
+							<% if current_user.following?(friend) %>
+								<%= link_to "Unfollow",unfollow_user_path(friend),class: "btn btn-xs btn-warning" %>
+							<% else %>
+								<%= link_to "Follow",follow_user_path(friend), class: "btn btn-xs btn-success" %>
+							<% end %>
+						</td>
+					</tr>
+				<% end if @friends.present? %>
+			</table>
+		</div>
+	</div>
+</div>

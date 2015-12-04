@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Amura Buzz</title>
-        <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-        <%= javascript_include_tag "private_pub" %>
-        <%= csrf_meta_tags %>
-        <%= favicon_link_tag 'amura.png' %>
-    </head>
-    <body>
-        <%= render "partials/navbar",:current_user => current_user %>
+  <head>
+    <title>Amura Buzz</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "private_pub" %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag 'amura.png' %>
+    <%= javascript_tag do %>
+      <% if user_signed_in? %>
+          window.current_user = <%= raw current_user.to_json %>;
+      <% else %>
+          window.current_user = null;
+      <% end %>
 
-        <div class="row-fluid">
-            <div class="col-md-3" id="sidebar">
-                <%= render "partials/sidebar" %>
-            </div>
-            <div class="col-md-6" id="main-body">
-                <%= yield %>
-            </div>
-            <div class="col-md-3">
-            </div>
-        </div>
+      $(document).ready(function(){
+        <% if flash[:notice].present? %>
+          Amura.global_success_handler('<%= flash[:notice] %>');
+        <% end %>
+        <% if flash[:alert].present? %>
+          Amura.global_error_handler('<%= flash[:alert] %>');
+        <% end %>
+      });
+    <% end %>
+  </head>
+  <body>
+    <%= render "partials/navbar", current_user: current_user %>
 
+    <% if user_signed_in? %>
+      <%= render "partials/chat_app" %>
+      <%= render "tweets/tweet_modal" %>
+      <%= subscribe_to "/chats/#{current_user.id}" %>
+    <% end %>
+
+    <div class="row-fluid">
+      <div class="col-md-3" id="sidebar">
         <% if user_signed_in? %>
-            <%= render "partials/chat_app" %>
-            <%= render "partials/tweet_modal" %>
-            <%= subscribe_to "/chats/#{current_user.id}" %>
+          <%= render "partials/sidebar" %>
         <% end %>
-
-        <%= javascript_tag do %>
-            <%if flash[:notice].present?%>
-                Amura.global_success_handler('<%= flash[:notice] %>');
-            <%end%>
-            <%if flash[:alert].present?%>
-                Amura.global_error_handler('<%= flash[:alert] %>');
-            <%end%>
-            <% if user_signed_in? %>
-                window.current_user = <%= raw current_user.to_json %>;
-            <% else %>
-                window.current_user = null;
-            <% end %>
-        <% end %>
-    </body>
+      </div>
+      <div class="col-md-6" id="main-body">
+          <%= yield %>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+  </body>
 </html>

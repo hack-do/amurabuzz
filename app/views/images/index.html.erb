@@ -1,0 +1,18 @@
+<% @folders.each do |folder, images| %>
+	<h4><i class="fa fa-folder-open-o"></i> <%= folder %></h4>
+
+	<div class="row">
+		<div class="col-md-8 col-md-offset-1">
+			<div class="galleria">
+				<% images.each do |image| %>
+					<%= image_tag image.file.url, class: 'img-thumbnail img-md', data: {title: "#{image.file_file_name}", description: "#{image.file_file_name}", link: "#{user_image_path('me', image)}"} %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+
+<%= javascript_tag do %>
+	Galleria.run('.galleria');
+<% end %>

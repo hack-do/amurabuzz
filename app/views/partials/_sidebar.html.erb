@@ -1,64 +1,63 @@
-<% if user_signed_in? %>
-	<% user = @user.present? ? @user : current_user %>
-	<div class="border-shadow">
-		<div class="container-fluid">
-		 	<div class="row-fluid">
-		        <div class="col-xs-5">
-		        	<div class="mt10">
-		    			<%= profile_pic_tag user.avatar.url, 'img-thumbnail img-md' %>
-	    			</div>
-				</div>
-		        <div class="col-xs-6">
-		        	<div class="mt20">
-						<b><%= link_to user.name,profile_user_path(user) %></b><br>
-						<small>@<%= user.user_name %></small>
-					</div>
-
-					<% if user != current_user %>
-						<div class="mt10">
-							<% if current_user.following?(user) %>
-								<%= link_to "Unfollow",relate_user_path(user,type: 'unfollow'),class: "btn btn-xs btn-warning",id: user.id.to_s + "uf" %>
-							<% else %>
-								<%= link_to "Follow",relate_user_path(user,type: 'follow'), class: "btn btn-xs btn-success",id: user.id.to_s + "f" %>
-							<% end %>
-						</div>
-					<% end %>
+<% user = @user.present? ? @user : current_user %>
+<div class="border-shadow">
+	<div class="container-fluid">
+	 	<div class="row-fluid">
+      <div class="col-xs-5">
+      	<div class="mt10">
+	  			<%= profile_pic_tag user.profile_picture.file.url(:medium), 'img-thumbnail img-md profile_picture' %>
+          <%= link_to(('<i class="fa fa-pencil-square-o"></i>').html_safe, edit_user_registration_path(anchor: "profile_picture")) %>
 				</div>
 			</div>
-		</div>
-		<div class="container-fluid text-center" id="sidebar-stats">
-		    <div class="row-fluid">
-		        <div class="col-xs-4">
-		            <%= link_to followers_user_path(user) do %>
-			            <h3 id="user_followers_count">
-			              <strong class="label label-success">
-			                    <%= user.followers.count%>
-				          </strong>
-			            </h3>
-			            <p>Followers</p>
-		             <% end %>
-		         </div>
-	          	<div class="col-xs-4">
-		            <%= link_to following_user_path(user) do %>
-			            <h3 id="user_following_count">
-			              <strong class="label label-success">
-			                    <%= user.following.count%>
-				          </strong>
-			            </h3>
-			            <p>Following</p>
-		             <% end %>
-	         	</div>
-		        <div class="col-xs-4">
-		            <%= link_to user_path(user) do %>
-			       	    <h3 id="user_tweets_count">
-			                <strong class = "label label-primary">
-			           		   <%= user.tweets.count%>
-			 		         </strong>
-			            </h3>
-			            <p>Tweets</p>
-		             <% end %>
-						</div>
-		    </div>
+      <div class="col-xs-6">
+      	<div class="mt20">
+					<b><%= link_to user.name,profile_user_path(user) %></b><br>
+					<small>@<%= user.user_name %></small>
+				</div>
+				<% if user != current_user %>
+          <% if @user.bio.present? %>
+            <dl class="well">
+              <dd><%= @user.bio %></dd>
+            </dl>
+          <% end %>
+          <p><%= @user.dob %></p>
+
+          <div class="mt10">
+						<% if current_user.following?(user) %>
+							<%= link_to "Unfollow",unfollow_user_path(user),class: "btn btn-xs btn-warning",id: user.id.to_s + "uf" %>
+						<% else %>
+							<%= link_to "Follow",follow_user_path(user), class: "btn btn-xs btn-success",id: user.id.to_s + "f" %>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
 		</div>
 	</div>
-<% end %>
+	<div class="container-fluid text-center" id="sidebar-stats">
+    <div class="row-fluid">
+      <div class="col-xs-4">
+        <%= link_to followers_user_path(user) do %>
+          <h3 class="user_followers_count">
+            <strong class="label label-success"><%= user.followers.count%></strong>
+          </h3>
+          <p>Followers</p>
+        <% end %>
+      </div>
+      <div class="col-xs-4">
+        <%= link_to following_user_path(user) do %>
+          <h3 class="user_following_count">
+            <strong class="label label-success"><%= user.following.count%></strong>
+          </h3>
+          <p>Following</p>
+        <% end %>
+     	</div>
+      <div class="col-xs-4">
+        <%= link_to user_path(user) do %>
+     	    <h3 class="user_tweets_count">
+            <strong class = "label label-primary"><%= user.tweets.count%></strong>
+          </h3>
+          <p>Tweets</p>
+        <% end %>
+			</div>
+    </div>
+	</div>
+</div>

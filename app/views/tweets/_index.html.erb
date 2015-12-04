@@ -1,16 +1,32 @@
+<%= render '/tweets/tweet_panel' %>
+
 <% if @tweets.present? %>
   <div class="tweets-container">
     <% @tweets.each do |tweet| %>
+      <div id="tweet<%= tweet.id %>">
         <%= render '/tweets/show',tweet: tweet %>
+      </div>
     <% end %>
   </div>
 
-  <div class="text-center">
+  <div class="text-center tweets-pagination-box">
     <p class="loading_text text-success"></p>
     <div class="hidden">
       <%= paginate @tweets,:theme => 'twitter-bootstrap-3', :pagination_class => "pagination-small pagination-centered"%>
     </div>
   </div>
 
-  <%= render '/partials/likes_modal' %>
+  <%= render '/partials/utility_modal' %>
+
+  <%= javascript_tag do %>
+    $(document).ready(function(){
+      $('.tweet-picture').click(function(){
+        $(this).ekkoLightbox({
+          gallery: $(this).data("gallery")
+        });
+      });
+    });
+  <% end %>
 <% end %>
+
+

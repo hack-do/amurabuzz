@@ -1,4 +1,18 @@
-<%= render '/tweets/show',tweet: @tweet %>
-<%= render '/partials/likes_modal' %>
+<div id="tweet<%= @tweet.id %>">
+	<%= render '/tweets/show',tweet: @tweet %>
+</div>
+
+<%= render '/partials/utility_modal' %>
 
 <%= link_to 'Back', user_path(@tweet.user_id) %>
+
+
+<%= javascript_tag do %>
+  $(document).ready(function(){
+    $('.tweet-picture').click(function(){
+      $(this).ekkoLightbox({
+        gallery: $(this).data("gallery")
+      });
+    });
+  });
+<% end %>

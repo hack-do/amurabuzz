@@ -1,0 +1,17 @@
+<div class="container-fluid">
+   <div class="row-fluid" >
+    <div class="col-md-8 col-md-offset-2">
+      <table class="table table-hover table-condensed table-bordered center">
+				<% @shares.each do |share|%>
+					<tr>
+						<td>
+					    <%= profile_pic_tag share.user.profile_picture.file.url, 'img-xs' %>
+							<%= link_to share.user.user_name,user_path(share.user.id) %>
+						</td>
+					</tr>
+				<% end %>
+      </table>
+    </div>
+   </div>
+</div>
+

@@ -1,6 +1,0 @@
-followed 
-<% if activity.recipient.id == @current_user.id %>
-	You
-<% else %>
-	<%= link_to activity.recipient.user_name,user_path(activity.trackable.id) %>
-<% end %>

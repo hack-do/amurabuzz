@@ -1,10 +1,13 @@
 /*
  *= require_self
- *= require font-awesome
- *= require defaults
- *= require font-awesome
  *= require bootstrap-less/bootstrap
+ *= require jquery-fileupload/jquery.fileupload
+ *= require jquery-fileupload/jquery.fileupload-ui
+ *= require ekko-lightbox/ekko-lightbox
+ *= require font-awesome
  *= require chat_app
+ *= require defaults
+ *= require gallery/galleria.classic
  */
 
 html {
@@ -15,16 +18,28 @@ body {
   overflow-x: hidden;
   /*margin-bottom: 60px;*/
 }
-#sidebar-stats{
+#sidebar-stats a{
   text-decoration: none !important;
 }
-.tweet .panel-body{
-  /*word-wrap:break-all;*/
+.tweet-panel{
+  font-size: 12px;
+}
+.tweet-panel .tweet-content{
+  font-size: 13px;
+}
+.tweet-panel .panel-heading{
+  padding: 5px 10px;
+}
+.tweet-panel .panel-body{
+  padding: 10px 10px;
   word-wrap:break-word;
 }
 
-.tweet_options .dropdown-toggle{
+.tweet-options .dropdown-toggle{
   padding: 0px 5px !important;
+}
+.tweet-options .dropdown-menu{
+  font-size: 12px;
 }
 .img-xs{
   max-height: 20px;
@@ -76,7 +91,6 @@ body {
 }*/
 
 
-
 .header {
   padding-bottom: 10px;
   margin-bottom: 20px;
@@ -99,4 +113,59 @@ body {
 
 #emoji-list .emoji_wrapper{
   cursor: crosshair;
+}
+
+.btn-dull{
+  color: #87A1B5;
+}
+
+.actions a{
+  text-decoration: none !important;
+}
+
+.profile_picture:hover:before {
+  background:url(http://i40.tinypic.com/i3s4dc.png) no-repeat center center;
+  content:"";
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  left: 0;
+}
+
+.galleria{
+  width: 600px;
+  height: 400px;
+  background: #4693BD;
+}
+
+#PresetFilters a {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: background-color .3s ease-out;
+  -moz-transition: background-color .3s ease-out;
+  transition: background-color .3s ease-out;
+  background-color: #368ad2;
+  display: block;
+  float: left;
+  text-align: center;
+  padding: 8px 10px;
+  color: #f8f8f2;
+  margin: 5px;
+  border: none;
+  font-size: 13px;
+  width: 120px;
+  cursor: pointer;
+}
+
+#PresetFilters a.Active {
+  background-color: #e69751;
+}
+
+.fileinput-files{
+  font-size: 10px;
+}
+
+.tweet-picture{
+  cursor: pointer;
 }

@@ -1,0 +1,57 @@
+<%= link_to 'All Images',user_images_path('me'), class: 'btn btn-link' %>
+
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="form-group">
+			<%= image_tag @picture.file.url, {class: 'img-thumbnail', id:'canvas',width: '750px',height: '400px'} %>
+		</div>
+
+		<div class="form-group">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center">
+					<strong>Preset Filters</strong>
+				</div>
+				<div class="panel-body wrap_word" role="tabpanel">
+					<%= render :partial => 'partials/caman_preset_filters' %>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group mt20">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center">
+					<strong>Default Filters</strong>
+				</div>
+				<div class="panel-body wrap_word" role="tabpanel">
+					<div class="form-group">
+						<%= render :partial => 'partials/caman_default_filters' %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<%= javascript_tag do %>
+	$(document).ready(function(){
+		var c = Caman('#canvas');
+
+		Caman.Event.listen("processStart", function (job) {
+		  console.log("Start:", job.name);
+		});
+
+		Caman.Event.listen(c, "processComplete", function (job) {
+		  console.log("Finished:", job.name);
+		});
+
+		$('.filter_range').change(function(){
+			var val = $(this).val();
+			var filter_name = $(this).data('filter');
+			$(this).closest('.FilterSetting').find('.FilterValue').text(val);
+			eval("c." + filter_name + "(" + val + ")");
+			c.render();
+		});
+	});
+<% end %>

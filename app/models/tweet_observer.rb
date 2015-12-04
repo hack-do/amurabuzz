@@ -9,9 +9,7 @@ class TweetObserver < ActiveRecord::Observer
 	end
 
 	def after_destroy(tweet)
-        PublicActivity::Activity.where(recipient_type: "Tweet",recipient_id: tweet.id).each do |a|
-          a.destroy
-        end
+		tweet.activities.destroy_all
 	end
 
 end

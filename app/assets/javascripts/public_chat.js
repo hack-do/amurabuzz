@@ -25,8 +25,10 @@ PublicChatApp.Init = function(name){
     var $msg_text = $("#msg-text");
     var message = $msg_text.val();
 
-    PublicChatApp.SendMessage(message);
-    $msg_text.val(null);
+    if(!_.isEmpty(message)){
+      PublicChatApp.SendMessage(message);
+      $msg_text.val('');
+    }
   });
 
   PublicChatApp.InitEmojis();
@@ -35,10 +37,10 @@ PublicChatApp.Init = function(name){
   $(window).focus(function() { this.isActive = true; });
   $(window).blur(function() { this.isActive = false; });
 
-  // request permission on page load
-  if (Notification.permission !== "granted")
+  // request permission for notifications on page load
+  if (Notification.permission !== "granted"){
     Notification.requestPermission();
-
+  }
 }
 
 PublicChatApp.getName = function(){

@@ -1,0 +1,28 @@
+<form class="post-tweet-form">
+  <div class="panel panel-info tweet-panel">
+
+    <div class="panel-heading">
+      Post Tweet
+    </div> <!-- panel-heading -->
+
+    <div class="panel-body">
+      <input type="hidden" name="id">
+      <textarea name='tweet[content]' class='form-control tweet-input' rows='2' cols='30' placeholder='Tweet...' maxlength='160' required></textarea>
+      <div class="clearfix small text-success pull-right">
+        <span><span class="tweet-length">160</span> characters left</span>
+      </div>
+    </div> <!-- panel-body -->
+
+    <div class="panel-footer">
+      <span class="fileinput-files text-sm pull-left"></span>&nbsp;
+      <span class="btn btn-info btn-sm fileinput-button add-media">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span class="fileinput-button-name">Add Media</span>
+        <input class="media-upload" type="file" name="attachment[]" accept="image/*|video/*" \>
+      </span>
+      <input type="submit" class="btn btn-success btn-sm actions pull-right post-tweet" value="Post" disabled>
+      <div class="clearfix"></div>
+    </div> <!-- panel-footer -->
+
+  </div> <!-- panel -->
+</form>

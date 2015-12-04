@@ -1,2 +1,10 @@
-$('#create_tweet').modal('hide');
+var html = '<div id="tweet<%= @tweet.id %>">\
+	<%= j render "/tweets/show", tweet: @tweet %>\
+</div>';
+
+_.each($(".post-tweet-form"), function(form){
+	$(form).find("[name='id']").val("<%= @tweet.id %>");
+});
+$(".tweets-container").prepend(html);
+$('#tweet_modal').modal('hide');
 Amura.global_success_handler("Tweet Posted !");

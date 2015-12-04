@@ -74,16 +74,4 @@ RSpec.describe User, :type => :model do
 			@user.destroy
 			expect {User.find(@user.id)}.to raise_error ActiveRecord::RecordNotFound
 		end
-
-		# it "takes a valid profile picture" do
-		# 	# @user.avatar = Faker::Company.logo
-		# 	# expect(@user).not_to be_valid
-		# 	@user.avatar = Rack::Test::UploadedFile.new('spec/fixtures/shoes.sh','sh')#Image.new :photo => File.new(Rails.root + 'spec/fixtures/shoes.sh')
-		# 	expect(@user).not_to be_valid
-		# 	@user.avatar = Rack::Test::UploadedFile.new('spec/fixtures/amura_family.jpg','image/jpg')#Image.new :photo => File.new(Rails.root + 'spec/fixtures/shoes.sh')
-		# 	expect(@user).not_to be_valid
-
-		# 	@user.avatar = Rack::Test::UploadedFile.new('app/assets/images/amura.png','image/png')#Image.new :photo => File.new(Rails.root + 'spec/fixtures/shoes.sh')
-		# 	expect(@user).to be_valid
-		# end
 end

@@ -1,19 +1,19 @@
 <div class='container-fluid'>
     <div class="row-fluid">
-        <div class='col-md-10 col-md-offset-2'>  
+        <div class='col-md-10 col-md-offset-1'>
             <h2>Edit Profile</h2>
 
             <!-- Nav tabs -->
             <ul id="activity_tabs" class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#edit_profile_panel" role="tab" data-toggle="tab">Basic</a></li>
-                <li><a href="#edit_profile_picture_panel" role="tab" data-toggle="tab">Profile Picture</a></li>
-                <li><a href="#change_password_panel" role="tab" data-toggle="tab">Change Password</a></li>
-                <li><a href="#delete_account_panel" role="tab" data-toggle="tab">Advanced</a></li>
+              <li class="active"><a href="#basic" role="tab" data-toggle="tab">Basic</a></li>
+              <li><a href="#profile_picture" role="tab" data-toggle="tab">Profile Picture</a></li>
+              <li><a href="#password" role="tab" data-toggle="tab">Change Password</a></li>
+              <li><a href="#delete_account" role="tab" data-toggle="tab">Advanced</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content noti-wrap mt20">
-                <div class="tab-pane fade in active noti" id="edit_profile_panel">
+                <div class="tab-pane fade in active noti" id="basic">
                     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
                         <%= devise_error_messages! %>
 
@@ -54,33 +54,33 @@
                             </div>
                         </div>
                     <% end %>
-                </div>
-                <div class="tab-pane fade noti" id="edit_profile_picture_panel">
-                    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
-                        <%= profile_pic_tag current_user.avatar.url,"image-thumbnail img-lg" %> 
-                        <div class="form-group">
-                            <%= f.label :profile_pic, class: "col-sm-5 col-md-pull-3 control-label" %>
-                            <div class="col-sm-offset-2 col-sm-4 col-md-pull-5">
-                               <%= f.file_field :avatar %>    
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-6">
-                                <%= f.submit "Update", class: "btn btn-primary btn-block",:notice => "User Updated Successfully" %>
-                            </div>
-                        </div>
-                    <% end %>
-                </div>
-                <div class="tab-pane fade noti" id="change_password_panel">
+                </div> <!-- tab-pane -->
+
+                <div class="tab-pane fade noti" id="profile_picture">
+                  <% if current_user.profile_picture(false).present? %>
+                    <%= profile_pic_tag current_user.profile_picture(false).file.url, "image-thumbnail img-xl current_profile_picture" %>
+                  <% end %>
+                  <div class="form-group mt20">
+                    <div class="col-sm-offset-2 col-sm-5">
+                      <span class="btn btn-success btn-sm fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Change Profile Picture</span>
+                        <input id="profile_picture_upload" type="file" name="attachment[]" data-url="/users/me/images"\>
+                      </span>
+                    </div>
+                  </div>
+                </div> <!-- tab-pane -->
+
+                <div class="tab-pane fade noti" id="password">
                     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true , class: 'form-horizontal' }) do |f| %>
                          <div class="form-group">
-                            <%= f.label :current_password, class: 'col-sm-5 col-md-pull-3 control-label' %> 
+                            <%= f.label :current_password, class: 'col-sm-5 col-md-pull-3 control-label' %>
                             <div class="col-sm-6 col-md-pull-3">
                                 <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
                             </div>
                         </div>
                         <div class="form-group">
-                            <%= f.label :password,'New Password', class: 'col-sm-5 control-label col-md-pull-3 '  %> 
+                            <%= f.label :password,'New Password', class: 'col-sm-5 control-label col-md-pull-3 '  %>
                             <div class="col-sm-6 col-md-pull-3">
                                 <%= f.password_field :password, autocomplete: "off", class: 'form-control'  %>
                             </div>
@@ -97,16 +97,66 @@
                             </div>
                         </div>
                     <% end %>
+                </div> <!-- tab-pane -->
+
+              <div class="tab-pane fade noti" id="delete_account">
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-6">
+                    <p class="text-danger">Not happy with Amurabuzz ?</p>
+                    <%= button_to  "Delete account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
+                  </div>
                 </div>
-                <div class="tab-pane fade noti" id="delete_account_panel">
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6">
-                            <p class="text-danger">Not happy with Amurabuzz ?</p>
-                            <%= button_to  "Delete account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+              </div> <!-- tab-pane -->
+
+            </div> <!-- tab-content -->
+
+          <div class="progress asset-loading hidden">
+            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+          </div>
+
+        </div> <!-- col-md -->
+    </div> <!-- row -->
+</div> <!-- container -->
+
+
+<%= javascript_tag do %>
+    $(function(){
+      var hash = window.location.hash;
+      hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+      $('.nav-tabs a').click(function (e) {
+        $(this).tab('show');
+        var scrollmem = $('body').scrollTop();
+        window.location.hash = this.hash;
+        $('html,body').scrollTop(scrollmem);
+      });
+    });
+
+    Amura.init_file_uploader($("#profile_picture_upload"),{
+      data_type: 'json',
+      type: 'POST',
+      form_data: {
+        folder: "Profile Pictures",
+        image_type: "profile_picture"
+      },
+      on_start: function(e, data){
+        console.log("on_start ; ", data);
+        $("#uploaded_assets").removeClass("hidden");
+        var file = data.files[0];
+        $(".asset-loading").removeClass("hidden");
+      },
+      on_progress: function(e, data){
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $(".asset-loading").find(".progress-bar").css("width", progress + "%");
+      },
+      on_success: function(e, data){
+        console.log("on_success ; ", data.result);
+        $(".asset-loading").addClass("hidden");
+        Amura.global_success_handler("File uploaded successfully !");
+        $(".current_profile_picture").attr("src", data.result.file_url)
+      },
+      on_error: function(errors){
+        Amura.global_error_handler(errors);
+      }
+    });
+<% end %>

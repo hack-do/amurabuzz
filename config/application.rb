@@ -9,7 +9,7 @@ Bundler.require(:default, Rails.env)
 
 module AmuraBuzz
   class Application < Rails::Application
-        #config.action_view.sanitized_allowed_tags = "span","a"
+    #config.action_view.sanitized_allowed_tags = "span","a"
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -24,7 +24,7 @@ module AmuraBuzz
     # config.i18n.fallbacks = true
     # config.i18n.default_locale = "en-IN"
 
-    config.active_record.observers = :relationship_observer, :rs_evaluation_observer, :tweet_observer, :user_observer
+    config.active_record.observers = :relationship_observer, :comment_observer, :vote_observer, :tweet_observer, :user_observer
 
     config.active_record.raise_in_transactional_callbacks = true
 

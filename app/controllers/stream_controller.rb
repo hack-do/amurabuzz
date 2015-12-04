@@ -24,4 +24,17 @@ class StreamController < ApplicationController
 	  end
 	end
 
+  def stream
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = Stream::SSE.new(response.stream)
+
+    begin
+      puts "Creating Stream !!!!!!!!".bold.red
+      # sse.write({ :message => "My first sse !" })
+      sse.write({name: 'Test'}, event: "event_name")
+    rescue IOError
+    ensure
+      sse.close
+    end
+  end
 end
