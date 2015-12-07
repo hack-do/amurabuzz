@@ -1,11 +1,9 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def facebook
-    puts "Omniauth #{request.env["omniauth.auth"]['info']}"
+    puts "Omniauth params #{request.env["omniauth.auth"]['info']}"
     @user = User.from_omniauth(request.env["omniauth.auth"])
     #@user.save
-    puts "Omniauth user : #{@user.inspect}\n\n"
-    puts "@user.persisted? : #{@user.persisted?}\n"
 
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication # this will throw if @user is not activated
