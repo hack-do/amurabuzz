@@ -7,7 +7,7 @@ addons:
   code-climate:
      repo-token: 3c8e54c8e5da85c1712a36df9c4e2158e0835d8f77ee08302927cf9ce0f95e3b
 before_install:
-  - mysql -e "create database IF NOT EXISTS test;" -uroot
+  - mysql -e "create database IF NOT EXISTS test;" -u root -p root
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_script:
